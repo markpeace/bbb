@@ -23,8 +23,37 @@
   
   </head>
   <body ng-app="bbb">
-    <div class="bar bar-header bar-calm">
-      <h1 class="title">The Birley Big Bang</h1>
-    </div>
+    
+    <tabs tabs-type="tabs-icon-top bar-positive">
+      <tab title="Feed" icon-on="icon ion-ios7-chatbubble" icon-off="icon ion-ios7-chatbubble-outline">
+        <header-bar type="bar-positive" title="'News Feed'"></header-bar>
+        <content has-header="true">
+          <h2>News Feed</h2>
+        </content>
+      </tab>
+      
+      <tab title="Schedule" icon-on="icon ion-ios7-calendar" icon-off="icon ion-ios7-calendar-outline">
+        <header-bar type="bar-positive" title="'Schedule'"></header-bar>
+        <content has-header="true">
+          <h2>Schedule</h2>
+        </content>
+      </tab>
+      
+      <tab title="Badges" icon-on="icon ion-ios7-star" icon-off="icon ion-ios7-star-outline">
+        <header-bar type="bar-positive" title="'Badges'"></header-bar>
+        <content has-header="true">
+          <h2>Badges</h2>
+        </content>
+      </tab>
+
+      <tab title="Leaderboard" icon-on="icon ion-ios7-people" icon-off="icon ion-ios7-people-outline">
+        <header-bar type="bar-positive" title="'Leaderboard'"></header-bar>
+        <content has-header="true">
+          <h2>Leaderboard</h2>
+        </content>
+      </tab>
+    
+    </tabs>
+        
   </body>
 </html>
