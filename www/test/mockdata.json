@@ -1,7 +1,0 @@
-[
-{ "id":1, "title":"Alice in Wonderland", "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit." },
-{ "id":2, "title":"King Kong", "description":"This is the only one that actually works." },
-{ "id":3, "title":"The Magic Faraway Tree", "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit." },
-{ "id":4, "title":"The Philosophers Stone", "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit." },
-{ "id":5, "title":"A Story", "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit." }
-]
