@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
+<widget xmlns     = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.mmu.bbb"
+        version   = "1.0.0">
+
+    <name>The Big Birley Bang</name>
+
+    <description>
+      An App to Support Induction 2014
+    </description>
+
+    <author href="http://www.mmu.ac.uk/ioe" email="m.peace@mmu.ac.uk">
+        Mark Peace
+    </author>
+
+    <content src="index.html" />
+    <access origin="*" />
+    <preference name="fullscreen" value="true" />
+    <preference name="webviewbounce" value="false" />
+    <preference name="UIWebViewBounce" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
+  
+  <access origin="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js" />
+  <access origin="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular-route.min.js" />
+  <access origin="http://code.ionicframework.com/0.9.24/js/ionic.bundle.min.js" />
+  <access origin="http://www.parsecdn.com/js/parse-1.2.16.min.js" />
+  
+</widget>
