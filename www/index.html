@@ -21,14 +21,13 @@
   </head>
   
   <body ng-app='xyxxy'>
-    <nav-bar type="bar bar-header bar-energized" 
-             animation="nav-title-slide-ios7"
-             left-buttons="leftButtons"
-             >      
-      
-    </nav-bar>
+    <div class="bar bar-header bar-energized">
+      <button class="button button-clear icon ion-gear-a "></button>
+      <h1 class="title">bar-light</h1>
+      <button class="button button-clear icon ion-location "></button>
+    </div>
     
-    <nav-view></nav-view> <!-- Routing Template -->
+    <ui-view></ui-view> <!-- Routing Template -->
   </body>
 </html>
 
