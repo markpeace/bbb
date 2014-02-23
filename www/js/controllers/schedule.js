@@ -1,12 +1,10 @@
-xyxxy.controller('Schedule', function($scope) {
-  $scope.leftButtons = [
-    { 
-      type: 'button-positive',
-      content: '<i class="icon ion-navicon"></i>',
-      tap: function(e) {
-      }
+xyxxy.controller('Schedule', function($scope, ParseService) { 
+  var Event = Parse.Object.extend("events");
+  var query = new Parse.Query(Event);
+  query.find({
+    success: function(results) {
+      $scope.events=results;
+      $scope.$apply();
     }
-  ]
-  
-  
+  });
 });
