@@ -1,5 +1,12 @@
 <view title="'Schedule'">
-  <content has-header="true" has-tabs="true" padding="true">
+  
+  <div class="bar bar-subheader bar-energized">
+    <button class="button button-clear icon ion-ios7-arrow-thin-left"></button>
+    <h2 class="title">10th September</h2>
+    <button class="button button-clear icon ion-ios7-arrow-thin-right"></button>
+  </div>
+  
+  <content has-header="true" has-subheader="true" has-tabs="true" padding="true">
     <div class="list card" ng-repeat="event in events">
       
       <div class="item item-divider">
@@ -10,6 +17,6 @@
       <div class="item item-body">
         <p>{{ event.get("Description") }}</p>
       </div>
-           
+      
     </div>
   </view>
