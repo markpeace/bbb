@@ -23,6 +23,7 @@
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
   
+  
   <access origin="//code.ionicframework.com/0.9.26/css/ionic.min.css" />  
   <access origin="//ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js" />
   <access origin="//angular-ui.github.io/ui-router/release/angular-ui-router.min.js" />
