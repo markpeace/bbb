@@ -14,10 +14,17 @@ bbb.controller('Schedule', function($scope, ParseService) {
       $scope.dates=[];
       t=""
       for (r in results) {
-        if (formatDate(results[r].get("Date"))!=t) { $scope.dates.push(formatDate(results[r].get("Date"))) }
+        if (formatDate(results[r].get("Date"))!=t) { $scope.dates.push(results[r].get("Date")) }
         t=formatDate(results[r].get("Date"))
       }
+      
+      $scope.selectedDate=0;
       $scope.$apply();
     }
   });
+  
+  $scope.changeDate=function(increment) {
+    $scope.selectedDate=$scope.selectedDate+increment;
+  }
+  
 });

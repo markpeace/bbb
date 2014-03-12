@@ -1,14 +1,14 @@
 <ion-view title="'Schedule'">
   
   <div class="bar bar-energized bar-subheader">
-    <button class="button button-icon icon ion-arrow-left-c"></button>
-    <h2 class="title">10th September</h2>
-    <button class="button button-icon icon ion-arrow-right-c"></button>
+    <button class="button button-icon icon ion-arrow-left-c" ng-click="changeDate(-1)" ng-show="selectedDate>0"></button>
+    <h2 class="title">{{ dates[selectedDate] | date : 'fullDate' }}</h2>
+    <button class="button button-icon icon ion-arrow-right-c" ng-click="changeDate(1)" ng-show="selectedDate+1<dates.length"></button>
   </div>
   
   <ion-content has-header="true" has-subheader="true" padding="false">
     <ion-list>
-      <ion-item ng-repeat="event in events" can-swipe="true" option-buttons="{text:'edit', type:'button'}">
+      <ion-item ng-repeat="event in events | filter: (dates[selectedDate] | date:'yyyy-MM-dd')" can-swipe="true" option-buttons="{text:'edit', type:'button'}">
         <h2>{{event.get("Title")}}</h2>
         <p>{{event.get("Description")}}</p>
       </ion-item>
