@@ -1,0 +1,12 @@
+.splash-screen {
+  background-color:#f0b840; 
+  position: absolute; 
+  top: 0px; left:0px; bottom:0px; right:0px; 
+  text-align:center;
+}
+
+.logo {
+  position: absolute;
+  top:30%;
+  width:100%;
+}
