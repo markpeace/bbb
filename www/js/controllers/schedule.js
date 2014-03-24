@@ -1,7 +1,7 @@
 bbb.controller('Schedule', function($scope, ParseService) { 
-  var Event = Parse.Object.extend("events");
+  var Event = Parse.Object.extend("Events");
   var query = new Parse.Query(Event);
-  query.ascending("Date");
+  query.ascending("time");
   query.find({
     success: function(results) {
       
@@ -14,8 +14,8 @@ bbb.controller('Schedule', function($scope, ParseService) {
       $scope.dates=[];
       t=""
       for (r in results) {
-        if (formatDate(results[r].get("Date"))!=t) { $scope.dates.push(results[r].get("Date")) }
-        t=formatDate(results[r].get("Date"))
+        if (formatDate(results[r].get("time"))!=t) { $scope.dates.push(results[r].get("time")) }
+        t=formatDate(results[r].get("time"))
       }
       
       $scope.selectedDate=0;

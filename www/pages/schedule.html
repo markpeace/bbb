@@ -9,8 +9,8 @@
   <ion-content has-header="true" has-subheader="true" padding="false">
     <ion-list>
       <ion-item ng-repeat="event in events | filter: (dates[selectedDate] | date:'yyyy-MM-dd')" can-swipe="true" option-buttons="[{text:'mark'}]">
-        <h2>{{event.get("Title")}}</h2>
-        <p>{{event.get("Description")}}</p>
+        <h2>{{event.get("title")}}</h2>
+        <p>{{event.get("description")}}</p>
       </ion-item>
     </ion-list>
   </ion-content>
