@@ -1,5 +1,4 @@
 .splash-screen {
-  background-color:#f0b840; 
   position: absolute; 
   top: 0px; left:0px; bottom:0px; right:0px; 
   text-align:center;
@@ -23,11 +22,13 @@
   text-align:center;
 }
 
-.animated-background {
+.animated-background {  
   background: transparent url(http://a.rgbimg.com/cache1nUr5K/users/w/we/weirdvis/300/mlEgXcw.jpg); 
-  background-size: 500% 500%;
+  background-size: 1000px 1000px;
   background-position: 50%, 50%; 
-  background-color: rgb(255,0,0); opacity: .2;
+  background-color: rgb(240,184,64); opacity: .2;
+  background-color:#f0b840; 
+  
   //-webkit-animation: rotating-function 10s linear infinite;  
   position: absolute; 
   top: 0px; left:0px; bottom:0px; right:0px; 
