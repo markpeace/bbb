@@ -2,9 +2,9 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
   
   $stateProvider
   
-  .state('splash', {
-    url: "/splash",    
-    templateUrl: "pages/user/splash.html"          
+  .state('login', {
+    url: "/login",    
+    templateUrl: "pages/user/login.html"          
   })
   
   .state('tabs', {
@@ -22,6 +22,6 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
     }
   });
     
-  $urlRouterProvider.otherwise("/splash");
+  $urlRouterProvider.otherwise("/login");
   
 })
