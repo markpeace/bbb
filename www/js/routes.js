@@ -3,7 +3,7 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
   
   .state('splash', {
-    url: "/user/splash",
+    url: "/splash",    
     templateUrl: "pages/user/splash.html"          
   })
   
@@ -21,8 +21,7 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
       }
     }
   });
-  
-  
-  $urlRouterProvider.otherwise("/user/splash");
+    
+  $urlRouterProvider.otherwise("/splash");
   
 })
