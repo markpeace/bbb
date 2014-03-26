@@ -4,32 +4,32 @@
   text-align:center;
 }
 
-.logo {
+.splash-logo {
   position: absolute;
   top:20%;
   width:100%;
 }
 
-.player-count {
+.splash-player-count {
   position: absolute;
   top:30%;
   width:100%;
 }
 
-.login-panel {
+.splash-login-panel {
   position: absolute; 
   top: 50%; left:0px; bottom:0px; right:0px; 
   text-align:center;
 }
 
-.animated-background {  
+.splash-animated-background {  
   background: transparent url(http://a.rgbimg.com/cache1nUr5K/users/w/we/weirdvis/300/mlEgXcw.jpg); 
   background-size: 1000px 1000px;
   background-position: 50%, 50%; 
   background-color: rgb(240,184,64); opacity: .2;
   background-color:#f0b840; 
   
-  //-webkit-animation: rotating-function 10s linear infinite;  
+  -webkit-animation: rotating-function 10s linear infinite;  
   position: absolute; 
   top: 0px; left:0px; bottom:0px; right:0px; 
   text-align:center;
