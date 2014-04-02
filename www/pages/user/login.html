@@ -7,12 +7,12 @@
   </div>
   <div class="splash-login-panel">
     <label class="item item-input">
-      <input type="text" placeholder="MMU Email Address" class="computer-font small-font" style="text-align:center !important;">
+      <input type="text" placeholder="MMU Email Address" ng-model="loginUser.username" class="computer-font small-font" style="text-align:center !important;">
     </label>
     <label class="item item-input">
-      <input type="password" placeholder="Password" class="computer-font small-font" style="text-align:center !important;">
+      <input type="password" placeholder="Password" ng-model="loginUser.password" class="computer-font small-font" style="text-align:center !important;">
     </label>
-    <button class="button button-full button-dark computer-font small-font">
+    <button class="button button-full button-dark computer-font small-font" ng-click="signIn()">
       Login
     </button>
     <a ui-sref="register" class="computer-font small-font">Or Click Here to Register</a>

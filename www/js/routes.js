@@ -4,7 +4,8 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
   
   .state('login', {
     url: "/login",    
-    templateUrl: "pages/user/login.html"          
+    templateUrl: "pages/user/login.html", 
+    controller: "Login" 
   })
   .state('register', {
     url: "/register",    
