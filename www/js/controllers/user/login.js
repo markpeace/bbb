@@ -12,6 +12,13 @@ bbb.controller('Login', function($scope, $ionicLoading, ParseService, $state) {
       success: function(user) {
         $scope.currentUser = user;
         $scope.$apply(); // Notify AngularJS to sync currentUser
+        
+        if (!user.emailVerified) {
+          alert ("You need to confirm your email address before you can fully use the app - please check your mmu account");
+          user.set("email", user.get("email"))
+          user.save()
+        }
+        
         $state.go('tabs.schedule')
         $scope.loading.hide();
       },

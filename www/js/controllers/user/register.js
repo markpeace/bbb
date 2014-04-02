@@ -75,7 +75,7 @@ bbb.controller('Register', function($scope, $ionicModal,  $ionicLoading, ParseSe
       success: function(user) {        
         $scope.currentUser = user;
         $scope.$apply(); // Notify AngularJS to sync currentUser
-        alert('You can now access the Birley Big Bang app (but you will also need to verify your email)')
+        alert('You can now access the Birley Big Bang app, but you will also need to verify your email to use it fully')
         $state.go('tabs.schedule')
         $scope.loading.hide();
       },
