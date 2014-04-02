@@ -9,3 +9,11 @@
 .medium-font {
   font-size: .8em !important;
 }
+
+.valid {
+  color: black;
+}
+
+.invalid {
+  color: red;
+}
