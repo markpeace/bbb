@@ -6,6 +6,11 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
     url: "/login",    
     templateUrl: "pages/user/login.html"          
   })
+  .state('register', {
+    url: "/register",    
+    templateUrl: "pages/user/register.html",    
+    controller: "Register"
+  })
   
   .state('tabs', {
     url: "/tab",
@@ -21,7 +26,7 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
       }
     }
   });
-    
+  
   $urlRouterProvider.otherwise("/login");
   
 })

@@ -1,20 +1,27 @@
 <ion-view>
-  <div class="splash-screen" style="  background-color:#f0b840; "></div>
+  <div class="splash-screen" style="background-color:#f0b840; "></div>
   <img class="splash-animated-background" src="http://a.rgbimg.com/cache1nUr5K/users/w/we/weirdvis/300/mlEgXcw.jpg" />
   <div class="splash-screen">
     <div class="splash-logo computer-font">The Birley Big Bang</div>
-    <div class="splash-player-count computer-font">- 304 Players -</div>
+    <div class="splash-player-count computer-font">- Play Along - </div>
   </div>
   <div class="splash-login-panel">
     <label class="item item-input">
       <input type="text" placeholder="MMU Email Address" class="computer-font small-font" style="text-align:center !important;">
     </label>
+    <div class="button-bar">
+      <button class="button button-light computer-font medium-font" style="color:#A8A8A8;" ng-click="modal.show()">{{programmeLabel}}</a>      
+    </div> 
     <label class="item item-input">
       <input type="password" placeholder="Password" class="computer-font small-font" style="text-align:center !important;">
     </label>
+    <label class="item item-input">
+      <input type="password" placeholder="Confirm Password" class="computer-font small-font" style="text-align:center !important;">
+    </label>
     <button class="button button-full button-dark computer-font small-font">
-      Login
+      Register
     </button>
-    <a ui-sref="register" class="computer-font small-font">Or Click Here to Register</a>
+    <a ui-sref="tabs.schedule" class="computer-font small-font">Or Click Here to Register</a>
   </div>
 </ion-view>
+
