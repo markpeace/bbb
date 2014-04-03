@@ -1,5 +1,5 @@
-bbb.controller('Login', function($scope, $ionicLoading, ParseService, $rootScope, $state) { 
-    
+bbb.controller('Login', function($scope, $ionicLoading, ParseService, $rootScope, $state, $location) { 
+  
   $scope.loginUser = { username: '', password: ''}
   
   $scope.signIn = function () {
@@ -10,17 +10,13 @@ bbb.controller('Login', function($scope, $ionicLoading, ParseService, $rootScope
     
     Parse.User.logIn($scope.loginUser.username, $scope.loginUser.password, {
       success: function(user) {
+        
         $rootScope.currentUser = user;
-        $scope.$apply(); // Notify AngularJS to sync currentUser
-        
-        if (!user.emailVerified) {
-          alert ("You need to confirm your email address before you can fully use the app - please check your mmu account");
-          user.set("email", user.get("email"))
-          user.save()
-        }
-        
-        window.location.assign("#/tabs/schedule")
+
         $scope.loading.hide();
+        //$location.path('/tabs/schedule').replace();
+        
+        $state.go("tabs.schedule");
       },
       error: function(user, error) {
         $scope.loading.hide();

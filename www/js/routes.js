@@ -16,13 +16,14 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
   .state('tabs', {
     url: "/tab",
     abstract: true,
-    templateUrl: "pages/tabs.html"
+    controller: 'Tab',
+    templateUrl: "pages/tabs/tabs.html"
   })
   .state('tabs.schedule', {
     url: "/schedule",
     views: {
       'schedule-tab': {
-        templateUrl: "pages/schedule.html",
+        templateUrl: "pages/tabs/schedule.html",
         controller: 'Schedule'          
       }
     }

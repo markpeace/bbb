@@ -1,4 +1,4 @@
-bbb.controller('Register', function($scope, $ionicModal,  $ionicLoading, ParseService, $state) { 
+bbb.controller('Register', function($scope, $ionicModal,  $ionicLoading, ParseService, $state, $rootScope) { 
   
   $scope.programmes=[];
   
