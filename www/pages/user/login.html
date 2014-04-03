@@ -1,11 +1,29 @@
 <ion-view>
+  <ion-content>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <div class="list splash-login-panel">
+    <label class="item item-input">
+      <input type="text" placeholder="MMU Email Address" ng-model="loginUser.username" class="computer-font small-font" style="text-align:center !important;">
+    </label>
+    <label class="item item-input">
+      <input type="password" placeholder="Password" ng-model="loginUser.password" class="computer-font small-font" style="text-align:center !important;">
+    </label>
+    <button class="button button-full button-dark computer-font small-font" ng-click="signIn()">
+      Login
+    </button>
+    <a ui-sref="register" class="computer-font small-font">Or Click Here to Register</a>
+  </div>
+  </ion-content>
+</ion-view>
+
+<!--<ion-view>
   <div class="splash-screen" style="  background-color:#f0b840; "></div>
   <img class="splash-animated-background" src="http://a.rgbimg.com/cache1nUr5K/users/w/we/weirdvis/300/mlEgXcw.jpg" />
   <div class="splash-screen">
     <div class="splash-logo computer-font">The Birley Big Bang</div>
     <div class="splash-player-count computer-font">- 304 Players -</div>
   </div>
-  <div class="splash-login-panel">
+  <div class="list splash-login-panel">
     <label class="item item-input">
       <input type="text" placeholder="MMU Email Address" ng-model="loginUser.username" class="computer-font small-font" style="text-align:center !important;">
     </label>
@@ -18,3 +36,5 @@
     <a ui-sref="register" class="computer-font small-font">Or Click Here to Register</a>
   </div>
 </ion-view>
+
+-->
