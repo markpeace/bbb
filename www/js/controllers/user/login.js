@@ -1,5 +1,5 @@
-bbb.controller('Login', function($scope, $ionicLoading, ParseService, $state) { 
-  
+bbb.controller('Login', function($scope, $ionicLoading, ParseService, $rootScope, $state) { 
+    
   $scope.loginUser = { username: '', password: ''}
   
   $scope.signIn = function () {
@@ -10,7 +10,7 @@ bbb.controller('Login', function($scope, $ionicLoading, ParseService, $state) {
     
     Parse.User.logIn($scope.loginUser.username, $scope.loginUser.password, {
       success: function(user) {
-        $scope.currentUser = user;
+        $rootScope.currentUser = user;
         $scope.$apply(); // Notify AngularJS to sync currentUser
         
         if (!user.emailVerified) {
@@ -19,7 +19,7 @@ bbb.controller('Login', function($scope, $ionicLoading, ParseService, $state) {
           user.save()
         }
         
-        $state.go('tabs.schedule')
+        window.location.assign("#/tabs/schedule")
         $scope.loading.hide();
       },
       error: function(user, error) {
