@@ -1,5 +1,5 @@
 var bbb = angular.module('bbb', ['ionic'])
-.run(function($rootScope, ParseService, $location) {
+.run(function($rootScope, ParseService, $location, $state) {
   
   //$rootScope.currentUser = Parse.User.current();
   
@@ -9,9 +9,10 @@ var bbb = angular.module('bbb', ['ionic'])
   query.equalTo("email", "m.peace@mmu.ac.uk");
 
   query.find({
-    success: function(user) {      
+    success: function(user) {           
       $rootScope.currentUser=user[0]
-      return $location.path('/login');
+      //$state.go("tabs.schedule");      
+      $location.path('/tabs/schedule').replace();
     }
   });
   
