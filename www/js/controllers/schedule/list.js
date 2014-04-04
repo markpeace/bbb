@@ -1,4 +1,7 @@
-bbb.controller('Schedule', function($scope, ParseService) { 
+bbb.controller('Schedule', function($scope, ParseService, $rootScope) { 
+  
+  $scope.securityLevel=$rootScope.currentUser.get('securityLevel');
+  
   var Event = Parse.Object.extend("Events");
   var query = new Parse.Query(Event);
   query.ascending("time");
