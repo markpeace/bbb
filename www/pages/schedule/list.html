@@ -8,10 +8,12 @@
   
   <ion-content has-header="true" has-subheader="true" padding="false">    
     <ion-list>
-      <ion-item ng-show="securityLevel<2">
-        <h2>Create</h2>
-        <p>A New Event</p>
+      
+      <ion-item ng-show="securityLevel<2" ui-sref="AddEvent">  
+        <h2>Create An Event</h2>
+        <p>Click Here to Add Another Event</p>
       </ion-item>
+      
       <ion-item ng-repeat="event in events | filter: (dates[selectedDate] | date:'yyyy-MM-dd')" can-swipe="true" option-buttons="[{text:'mark'}]">
         <h2>{{event.get("title")}}</h2>
         <p>{{event.get("description")}}</p>
