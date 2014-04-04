@@ -1,4 +1,14 @@
 bbb.controller('Login', function($scope, $ionicLoading, ParseService, $rootScope, $state, $location) { 
+  $scope.userCount = "45"
+  var User = Parse.Object.extend("User");
+  var query = new Parse.Query(User);
+  query.count({
+    success: function(count) {      
+      $scope.userCount = count    
+      $scope.$apply();      
+    }
+  });
+  
   
   $scope.loginUser = { username: '', password: ''}
   
@@ -12,7 +22,7 @@ bbb.controller('Login', function($scope, $ionicLoading, ParseService, $rootScope
       success: function(user) {
         
         $rootScope.currentUser = user;
-
+        
         $scope.loading.hide();
         //$location.path('/tabs/schedule').replace();
         
