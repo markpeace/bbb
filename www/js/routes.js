@@ -24,7 +24,7 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
     views: {
       'schedule-tab': {
         templateUrl: "pages/schedule/list.html",
-        controller: 'Schedule'          
+        controller: 'ListEvents'          
       }
     }
   })
