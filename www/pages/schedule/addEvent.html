@@ -1,0 +1,27 @@
+<div class="bar bar-header bar-energized">
+  <ion-nav-back-button class="button-icon icon ion-ios7-close-empty"></ion-nav-back-button>
+  <div class="title">Add An Event</div>
+  <button class="button button-icon icon ion-ios7-checkmark-empty" ng-click="saveEvent()"></button>
+</div>
+
+<ion-content has-header="true">
+  <list>
+    <label class="item item-input">
+      <input type="text" placeholder="Name">
+    </label>
+
+    <label class="item item-input">
+      <input type="text" placeholder="Time and Day" ng-model="newEvent.time">
+    </label>
+
+    <div class="button-bar">
+      <button class="button button-light" style="color:#A8A8A8;" ng-click="tutorlistModal.show()">{{tutorLabel}}</button>      
+    </div> 
+    <div class="button-bar">
+      <button class="button button-light" style="color:#A8A8A8;" ng-click="locationModal.show()">{{locationLabel}}</button>      
+    </div> 
+    <label class="item item-input">
+      <textarea placeholder="Description"></textarea>
+    </label>
+  </list>
+</ion-content>

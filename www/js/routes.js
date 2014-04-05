@@ -27,6 +27,11 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
         controller: 'Schedule'          
       }
     }
+  })
+  .state('addEvent', {
+    url: "/pages/schedule/add.html",    
+    templateUrl: "pages/schedule/addEvent.html",    
+    controller: "AddEvent"
   });
   
   $urlRouterProvider.otherwise("/tab/schedule");
