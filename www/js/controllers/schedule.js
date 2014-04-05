@@ -33,7 +33,7 @@ bbb.controller('Schedule', function($scope, ParseService, $rootScope) {
 });
 
 
-bbb.controller('AddEvent', function($scope, $ionicModal, ParseService) { 
+bbb.controller('AddEvent', function($scope, $ionicModal,  $state, $ionicLoading, ParseService) { 
   
   $scope.tutorLabel = "Host"
   $scope.locationLabel = "Location"
@@ -89,8 +89,23 @@ bbb.controller('AddEvent', function($scope, $ionicModal, ParseService) {
   })   
   
   $scope.saveEvent = function () {
-    var event = new Parse.Object.extend("Event"); 
-    event.save($scope.newEvent, {})
+    
+    $scope.saving = $ionicLoading.show({
+      content: 'Saving',
+    });
+    
+    var event = new (Parse.Object.extend("Event")); 
+    event.save($scope.newEvent, {
+      success: function() {
+        $scope.saving.hide();
+        $state.go("tabs.schedule");
+      },
+      error: function(event, error) {
+        $scope.saving.hide();
+        alert("Error: " + error.message);
+      }
+      
+    })
 
   }
   
