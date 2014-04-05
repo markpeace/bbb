@@ -2,9 +2,9 @@ bbb.controller('ListEvents', function($scope, ParseService, $rootScope) {
   
   $scope.securityLevel=$rootScope.currentUser.get('securityLevel');
   
-  var Event = Parse.Object.extend("Events");
+  var Event = Parse.Object.extend("Event");
   var query = new Parse.Query(Event);
-  query.ascending("time");
+  query.ascending("time").include("series").include("host");
   query.find({
     success: function(results) {
       

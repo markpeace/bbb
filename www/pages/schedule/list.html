@@ -14,9 +14,9 @@
         <p>Click Here to Add Another Event</p>
       </ion-item>
       
-      <ion-item ng-repeat="event in events | filter: (dates[selectedDate] | date:'yyyy-MM-dd')" can-swipe="true" option-buttons="[{text:'mark'}]">
-        <h2>{{event.get("title")}}</h2>
-        <p>{{event.get("description")}}</p>
+      <ion-item ng-repeat="event in events | filter: (dates[selectedDate] | date:'yyyy-MM-dd')" can-swipe="true" option-buttons="[{text:'mark'}]" href="#/schedule/view/{{  event.id }}">
+        <p>{{ event.get("series").get('label') }} with {{ event.get("host").get('forename') }} {{ event.get("host").get('surname') }} </p>
+        <h2>{{ event.get("title") }}</h2>
       </ion-item>      
     </ion-list>
   </ion-content>
