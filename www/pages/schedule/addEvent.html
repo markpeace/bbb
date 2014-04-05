@@ -5,14 +5,24 @@
 </div>
 
 <ion-content has-header="true">
+  {{timeholder.date}}
   <list>
     <label class="item item-input">
-      <input type="text" placeholder="Name">
+      <input type="text" placeholder="Title" ng-model="newEvent.title">
     </label>
 
     <label class="item item-input">
-      <input type="text" placeholder="Time and Day" ng-model="newEvent.time">
-    </label>
+      <input type="text" placeholder="Subtitle" ng-model="newEvent.subtitle">
+    </label>    
+    
+    <label class="item item-input">
+      <select ng-model="timeholder.date">
+        <option ng-repeat="date in availableDates" ng-value="date.toString().substring(0,16)">{{ date.toString().substring(0,16); }}</option>
+      </select> @ 
+      <select ng-model="timeholder.time">
+        <option ng-repeat="time in availableTimes">{{ time.toString().substring(16,21); }}</option>
+      </select>
+    </label>    
 
     <div class="button-bar">
       <button class="button button-light" style="color:#A8A8A8;" ng-click="tutorlistModal.show()">{{tutorLabel}}</button>      
@@ -21,7 +31,7 @@
       <button class="button button-light" style="color:#A8A8A8;" ng-click="locationModal.show()">{{locationLabel}}</button>      
     </div> 
     <label class="item item-input">
-      <textarea placeholder="Description"></textarea>
+      <textarea placeholder="Description" ng-model="newEvent.description"></textarea>
     </label>
   </list>
 </ion-content>

@@ -3,15 +3,27 @@ bbb.controller('AddEvent', function($scope, $ionicModal,  $state, $ionicLoading,
   $scope.tutorLabel = "Host"
   $scope.locationLabel = "Location"
   
+  $scope.timeholder = { date: null, time:null }
   
   $scope.newEvent = {
     title:null,
+    subtitle:null,
     time:new Date(),
     description: null,
     location:null,
     host:null
   }
   
+  $scope.availableDates=[new Date("22 Sept 2014 10:00")]  
+  $scope.availableTimes=[$scope.availableDates[0]]  
+  
+  for (x=1; x<5; x++) {
+    $scope.availableDates.push(new Date(new Date($scope.availableDates[x-1]).getTime() + 86400000))
+  }
+  
+  for (x=1; x<21; x++) {
+    $scope.availableTimes.push(new Date(new Date($scope.availableTimes[x-1]).getTime() + 1200000))
+  }  
   
   var User = Parse.Object.extend("User");
   var query = new Parse.Query(User);
@@ -23,8 +35,8 @@ bbb.controller('AddEvent', function($scope, $ionicModal,  $state, $ionicLoading,
     }
   })
   
-  var Locations= Parse.Object.extend("locations");
-  var locquery = new Parse.Query(Locations);
+  var Location= Parse.Object.extend("Location");
+  var locquery = new Parse.Query(Location);
   
   locquery.find({
     success:function(result) {
@@ -53,6 +65,10 @@ bbb.controller('AddEvent', function($scope, $ionicModal,  $state, $ionicLoading,
     if ($scope.newEvent.location) { $scope.locationLabel = $scope.newEvent.location.get('label') } 
   })   
   
+  $scope.$watchCollection('[timeholder.date, timeholder.time]',function(){      
+    $scope.newEvent.time=new Date($scope.timeholder.date + " " + $scope.timeholder.time)
+  }) 
+  
   $scope.saveEvent = function () {
     
     $scope.saving = $ionicLoading.show({
@@ -71,7 +87,7 @@ bbb.controller('AddEvent', function($scope, $ionicModal,  $state, $ionicLoading,
       }
       
     })
-
+    
   }
   
 })
