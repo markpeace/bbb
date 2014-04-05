@@ -1,13 +1,14 @@
 bbb.controller('AddEvent', function($scope, $ionicModal,  $state, $ionicLoading, ParseService) { 
   
+  $scope.seriesLabel = "Series"
   $scope.tutorLabel = "Host"
   $scope.locationLabel = "Location"
   
   $scope.timeholder = { date: null, time:null }
   
   $scope.newEvent = {
+    series:null,
     title:null,
-    subtitle:null,
     time:new Date(),
     description: null,
     location:null,
@@ -44,6 +45,15 @@ bbb.controller('AddEvent', function($scope, $ionicModal,  $state, $ionicLoading,
     }
   })
   
+  var Series= Parse.Object.extend("Series");
+  var seriesquery = new Parse.Query(Series);
+  
+  seriesquery.find({
+    success:function(result) {
+      $scope.series=result
+    }
+  })
+  
   $ionicModal.fromTemplateUrl('pages/schedule/addEvent_tutorlist.html', function($ionicModal) {
     $scope.tutorlistModal = $ionicModal;
   }, {
@@ -58,13 +68,23 @@ bbb.controller('AddEvent', function($scope, $ionicModal,  $state, $ionicLoading,
     animation: 'slide-in-up'
   });
   
+  $ionicModal.fromTemplateUrl('pages/schedule/addEvent_series.html', function($ionicModal) {
+    $scope.seriesModal = $ionicModal;
+  }, {
+    scope: $scope,
+    animation: 'slide-in-up'
+  });
+  
+  
   $scope.$watch('newEvent.host',function(){      
     if ($scope.newEvent.host) { $scope.tutorLabel = $scope.newEvent.host.get('forename') + " " + $scope.newEvent.host.get('surname')} 
   })  
   $scope.$watch('newEvent.location',function(){      
     if ($scope.newEvent.location) { $scope.locationLabel = $scope.newEvent.location.get('label') } 
   })   
-  
+  $scope.$watch('newEvent.series',function(){      
+    if ($scope.newEvent.series) { $scope.seriesLabel = $scope.newEvent.series.get('label')} 
+  })    
   $scope.$watchCollection('[timeholder.date, timeholder.time]',function(){      
     $scope.newEvent.time=new Date($scope.timeholder.date + " " + $scope.timeholder.time)
   }) 
