@@ -2,7 +2,7 @@
   
   <div class="bar bar-energized bar-subheader">
     <button class="button button-icon icon ion-arrow-left-c" ng-click="changeDate(-1)" ng-show="selectedDate>0"></button>
-    <h2 class="title">{{ dates[selectedDate] | date : 'fullDate' }}</h2>
+    <h2 class="title">{{ dates[selectedDate] }}</h2>
     <button class="button button-icon icon ion-arrow-right-c" ng-click="changeDate(1)" ng-show="selectedDate+1<dates.length"></button>
   </div>
   
@@ -14,7 +14,7 @@
         <p>Click Here to Add Another Event</p>
       </ion-item>
       
-      <ion-item ng-repeat="event in events | filter: (dates[selectedDate] | date:'yyyy-MM-dd')" href="#" ui-sref="viewEvent({id:event.id})">
+      <ion-item ng-repeat="event in events | filter: moment(dates[selectedDate], 'dddd, D MMMM').format('MM-DD') " href="#" ui-sref="viewEvent({id:event.id})">
         <p>{{ event.get("series").get('label') }} with {{ event.get("host").get('forename') }} {{ event.get("host").get('surname') }} </p>
         <h2>{{ event.get("title") }}</h2>        
       </ion-item>      

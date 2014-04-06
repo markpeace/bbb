@@ -1,5 +1,6 @@
 bbb.controller('ListEvents', function($scope, ParseService, $rootScope) { 
   
+  $scope.moment=moment
   $scope.securityLevel=$rootScope.currentUser.get('securityLevel');
   
   var Event = Parse.Object.extend("Event");
@@ -8,20 +9,17 @@ bbb.controller('ListEvents', function($scope, ParseService, $rootScope) {
   query.find({
     success: function(results) {
       
-      function formatDate(d) {
-        dt= new Date(d);
-        return dt.getDate().toString() + "-" + dt.getMonth().toString() + "-"  + dt.getFullYear().toString()
-      }
-      
       $scope.events=results;
       $scope.dates=[];
       t=""
       for (r in results) {
-        if (formatDate(results[r].get("time"))!=t) { $scope.dates.push(results[r].get("time")) }
-        t=formatDate(results[r].get("time"))
+        proposed=moment(results[r].get("time")).format("dddd, Do MMMM")
+        if (proposed!=t) { $scope.dates.push(proposed) }
+        t=proposed
       }
       
       $scope.selectedDate=0;
+      
       $scope.$apply();
     }
   });
