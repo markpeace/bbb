@@ -1,0 +1,46 @@
+.backgrounds.animated-big-bang {  
+  
+  width:200%;
+  height:200%;
+  top:-50%;
+  margin-left:-50%;
+  position:absolute; 
+  opacity: 0.8;
+  
+  transform: translate3d(0,0,0);
+  animation: rotate-big-bang 80s linear infinite;  
+  
+  -webkit-transform: translate3d(0,0,0);
+  -webkit-animation: rotate-big-bang 80s linear infinite;  
+}
+
+.backgrounds.gradient-cover {
+  top:0px;left:0px;bottom:0px;right:0px;
+  position:absolute;
+  background: -moz-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%, rgba(255,255,255,1) 53%, rgba(255,255,255,0) 100%); /* FF3.6+ */
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(255,255,255,1)), color-stop(53%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
+  background: -webkit-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%,rgba(255,255,255,1) 53%,rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%,rgba(255,255,255,1) 53%,rgba(255,255,255,0) 100%); /* Opera 12+ */
+  background: -ms-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%,rgba(255,255,255,1) 53%,rgba(255,255,255,0) 100%); /* IE10+ */
+  background: radial-gradient(ellipse at center,  rgba(255,255,255,1) 0%,rgba(255,255,255,1) 53%,rgba(255,255,255,0) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  
+}
+
+@-webkit-keyframes rotate-big-bang {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+to {
+  -webkit-transform: rotate(360deg);
+}
+}
+
+@keyframes rotate-big-bang   {
+  from {
+    transform: rotate(0deg);
+  }
+to {
+  transform: rotate(360deg);
+}
+}

@@ -1,4 +1,6 @@
 @import url('user/splash.css');
+@import url('backgrounds.css');
+
 
 .computer-font {
   font-family: 'Press Start 2P', cursive !important;
@@ -16,4 +18,8 @@
 
 .invalid {
   color: red;
+}
+
+.bar-header, .view, .pane, .scroll-content, .scroll, .list, .item, .item-content {
+  background-color:rgba(0, 0, 0, 0) !important;
 }
