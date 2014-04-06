@@ -20,6 +20,6 @@
   color: red;
 }
 
-.bar-header, .view, .pane, .scroll-content, .scroll, .list, .item, .item-content {
+.bar, .view, .pane, .scroll-content, .scroll, .list, .item, .item-content {
   background-color:rgba(0, 0, 0, 0) !important;
 }
