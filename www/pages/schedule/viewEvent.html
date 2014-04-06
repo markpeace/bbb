@@ -9,7 +9,8 @@
     <div class="item">
       <p>{{ event.get('series').get('label') }} with {{ event.get("host").get("forename") }} {{ event.get("host").get("surname")}}  </p>
       <h2>{{ event.get('title') }}</h2>
-      <p>{{ moment(event.get('time')).format("dddd, MMMM Do @ h:mm a"); }}</p>  
+      <p>{{ moment(event.get('time')).format("dddd, MMMM Do @ h:mm a"); }}</p>
+      <p ng-show="attending">{{ event.get('location').get('label') }}</p>
     </div>
     
     <div class="item item-body">
@@ -18,7 +19,7 @@
       </p>
     </div>
     
-    <ion-toggle class="item item-footer">Indicate Your Attendence:</ion-toggle>  
+    <ion-toggle class="item item-footer" ng-model="attending">Indicate Your Attendence:</ion-toggle>  
       
     
   </div>
