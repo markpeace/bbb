@@ -26,7 +26,7 @@
 
 .bar {
   background-color:rgba(247, 200, 0, 0.8) !important;
-  border: rgba(247, 200, 0, 1) 1px solid;
+  border: none;
 }
 
 .button, .title {
