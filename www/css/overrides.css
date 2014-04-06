@@ -26,7 +26,11 @@
 
 .bar {
   background-color:rgba(247, 200, 0, 0.8) !important;
-  border: none;
+  border: rgba(247, 200, 0, 1) 1px solid;
+}
+
+.button, .title {
+  color:black !important;
 }
 
 .tabs, .tab-item {
@@ -34,6 +38,8 @@
   color:black;
   border: none;
 }
+
+
 .scroll-content {
   background-color:rgba(255, 255, 255, 0.9) !important;
 }
