@@ -38,8 +38,7 @@ bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $statePar
   var setupWatchBookingToggle = function() {
     $scope.$watch('booking.attending', function (newVal, oldVal) {
       if (newVal!=oldVal) {
-        
-        (new Parse.Query(Parse.Object.extend("Booking"))).equalTo("user", $rootScope.currentUser).find().then(function (result) {
+        $scope.event.relation("bookings").query().equalTo("user", $rootScope.currentUser).find().then(function (result) {
           for (r in result) { result[r].destroy() }
         }).then(getCountofBookings).then(function() {
           if (newVal==true) {
@@ -48,11 +47,12 @@ bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $statePar
               
               $scope.event.relation("bookings").add(result)
               $scope.event.save().then(function() {     
-                $rootScope.currentUser.relation("bookings").add(result)
-                $rootScope.currentUser.save()                      
-              })
+                var User = $rootScope.currentUser
+                User.relation("bookings").add(result)
+                User.save()
+              }).then(function() {}).then(getCountofBookings)
               
-            }).then(function() {}).then(getCountofBookings)
+            })
           }
         })
         
