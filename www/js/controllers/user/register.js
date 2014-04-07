@@ -12,8 +12,8 @@ bbb.controller('Register', function($scope, $ionicModal,  $ionicLoading, ParseSe
   }
   
   
-  var Programmes = Parse.Object.extend("Programmes");
-  var query = new Parse.Query(Programmes);
+  var Programme = Parse.Object.extend("programmes");
+  var query = new Parse.Query(Programme);
   query.ascending("label");
   query.find({
     success: function(results) {
