@@ -4,11 +4,13 @@ bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $statePar
   $scope.attending={toggle:false};
   $scope.bookings=0
   
-  var Event = Parse.Object.extend("Event");
-  var query = new Parse.Query(Event);
-  query.include("series").include("host").include("location");
-  query.get($stateParams.id, {
-    success: function(results) {
+  var getEventDetails = function () {
+    
+    var Event = Parse.Object.extend("Event");
+    var query = new Parse.Query(Event);
+    query.include("series").include("host").include("location");
+    query.get($stateParams.id, {})
+    .then(function (results) {
       $scope.event=results
       
       $scope.booking={
@@ -17,43 +19,43 @@ bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $statePar
         attending: false
       }
       
-      var booking= Parse.Object.extend("Booking");
-      var bookingQuery = new Parse.Query(booking);
-      bookingQuery.equalTo("user", $scope.booking.user).equalTo("event", $scope.booking.event)
-      
-      bookingQuery.find({
-        success:function(result) {
-          if(result.length>0) {
-            $scope.booking.attending=true
-          }
+    }).then (getUserBooking);
+  }
+  
+  var getUserBooking = function () {
+    $scope.event.relation("bookings").query().equalTo("user",$rootScope.currentUser).count().then(function(c) {
+      if (c>0) { $scope.booking.attending=true; }     
+    }).then(getCountofBookings);    
+  }
+  
+  var getCountofBookings = function () {
+    $scope.event.relation("bookings").query().count().then(function(c) {
+      $scope.bookings=c      
+      $scope.$apply();
+    })
+  }
+  
+  var setupWatchBookingToggle = function() {
+    $scope.$watch('booking.attending', function (newVal, oldVal) {
+      if (oldVal!=newVal) {
+        if(newVal==true) {
+          var newBooking=new (Parse.Object.extend("Booking"))
+          newBooking.save($scope.booking, {}).then(function(result) {
+            $scope.event.relation("bookings").add(result)
+            $scope.event.save()          
+          }).then(getCountofBookings)
+        } else {
+          (new Parse.Query(Parse.Object.extend("Booking"))).equalTo("user", $rootScope.currentUser).find().then(function (result) {
+            for (r in result) { result[r].destroy() }
+          }).then(getCountofBookings)   
         }
-      }).then(function() {
-        
-        $scope.$watch('booking.attending', function(newVal,oldVal) {
-          
-          if(!newVal==oldVal) {
-            
-            var booking= Parse.Object.extend("Booking");
-            var bookingQuery = new Parse.Query(booking);
-            bookingQuery.equalTo("user", $scope.booking.user).equalTo("event", $scope.booking.event)
-            
-            bookingQuery.find({
-              success:function(result) {
-                for (r in result) { result[r].destroy() }
-              }
-            }).then(function() {
-              if (newVal) {
-                var booking = new (Parse.Object.extend("Booking")); 
-                booking.save($scope.booking,{})       
-              }
-            })
-            
-          }
-        })
-        $scope.$apply()
-      })
-      
-    }
-  });
+      }
+    })
+    
+  }  
+  
+  getEventDetails();
+  setupWatchBookingToggle();
+  
   
 });

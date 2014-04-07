@@ -18,7 +18,8 @@
         {{ event.get('description') }}
       </p>
       <p style="text-align:right; font-size:0.6em;">
-        {{ event.get('capacity') }} Places Available
+        {{ event.get('capacity') - bookings }} Places Available
+               
       </p>
     </div>
     
