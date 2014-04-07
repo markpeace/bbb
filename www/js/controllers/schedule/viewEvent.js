@@ -45,9 +45,14 @@ bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $statePar
           if (newVal==true) {
             var newBooking=new (Parse.Object.extend("Booking"))
             newBooking.save($scope.booking, {}).then(function(result) {
+              
               $scope.event.relation("bookings").add(result)
-              $scope.event.save()          
-            }).then(getCountofBookings)
+              $scope.event.save().then(function() {     
+                $rootScope.currentUser.relation("bookings").add(result)
+                $rootScope.currentUser.save()                      
+              })
+              
+            }).then(function() {}).then(getCountofBookings)
           }
         })
         
