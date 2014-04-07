@@ -23,7 +23,7 @@
     </div>
     
     
-    <ion-toggle class="item item-footer" ng-model="booking.attending">Indicate Your Attendence:</ion-toggle>  
-    
+    <ion-toggle class="item item-footer" ng-model="booking.attending" ng-hide="(event.get('capacity') - bookings)==0 && booking.attending==false">Indicate Your Attendence:</ion-toggle>  
+    <div class="item item-footer" style="text-align:center;" ng-show="(event.get('capacity') - bookings)==0  && booking.attending==false" >This Event is Fully Booked</div>
   </div>
 </ion-content>
