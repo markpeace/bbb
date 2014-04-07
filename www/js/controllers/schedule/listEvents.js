@@ -15,7 +15,7 @@ bbb.controller('ListEvents', function($state, $scope, ParseService, $rootScope) 
   query.ascending("time").include("series").include("host");
   query.find({
     success: function(results) {
-           
+             
       $scope.events=results;
       $scope.dates=[];
             
