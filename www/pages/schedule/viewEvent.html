@@ -17,7 +17,11 @@
       <p>
         {{ event.get('description') }}
       </p>
+      <p style="text-align:right; font-size:0.6em;">
+        {{ event.get('capacity') }} Places Available
+      </p>
     </div>
+    
     
     <ion-toggle class="item item-footer" ng-model="booking.attending">Indicate Your Attendence:</ion-toggle>  
     

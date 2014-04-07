@@ -2,6 +2,7 @@ bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $statePar
   
   $scope.moment=moment
   $scope.attending={toggle:false};
+  $scope.bookings=0
   
   var Event = Parse.Object.extend("Event");
   var query = new Parse.Query(Event);
