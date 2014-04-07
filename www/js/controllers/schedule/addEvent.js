@@ -9,6 +9,7 @@ bbb.controller('AddEvent', function($scope, $ionicModal,  $state, $ionicLoading,
   $scope.newEvent = {
     series:null,
     title:null,
+    capacity: null,
     time:new Date(),
     description: null,
     location:null,
