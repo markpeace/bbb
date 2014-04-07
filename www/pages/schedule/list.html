@@ -7,7 +7,13 @@
   </div>
   
   <ion-content has-header="true" has-subheader="true" padding="false">    
- 
+    
+    <div class="button-bar">
+      <a href="#" ui-sref="tabs.schedule" class="button">All</a>   
+      <a href="#" ui-sref="tabs.schedule_booked" class="button">Booked</a>   
+    </div>
+    
+    
     <ion-list>
       
       <ion-item ng-hide="events.length>0">  

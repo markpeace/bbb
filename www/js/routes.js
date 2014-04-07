@@ -28,12 +28,21 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
       }
     }
   })
+  .state('tabs.schedule_booked', {
+    url: "/schedule/booked",
+    views: {
+      'schedule-tab': {
+        templateUrl: "pages/schedule/list.html",
+        controller: 'ListEvents'          
+      }
+    }
+  })
   .state('viewEvent', {
     url: "/schedule/view/{id}",    
     templateUrl: "pages/schedule/viewEvent.html",    
     controller: "ViewEvent"
   })
-
+  
   .state('addEvent', {
     url: "/schedule/add.html",    
     templateUrl: "pages/schedule/addEvent.html",    
@@ -60,7 +69,7 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
       } 
     }
     
-     
+    
   });
   
 })  
