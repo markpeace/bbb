@@ -26,6 +26,7 @@
 
 .bar {
   background-color:rgba(247, 200, 0, 0.8) !important;
+  padding-bottom:1px;
   border: none;
 }
 

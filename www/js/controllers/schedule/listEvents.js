@@ -43,8 +43,10 @@ bbb.controller('ListEvents', function($state, $scope, ParseService, $rootScope) 
   }
   
   if ($state.current.name=="tabs.schedule") { 
+    $scope.scheduleTabColour='rgba(247, 200, 0, 0.5)'
     getAllEvents()
   } else if($state.current.name=="tabs.schedule_booked") {
+    $scope.bookedTabColour='rgba(247, 200, 0, 0.5)'
     getBookedEvents()
   }
  
