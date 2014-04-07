@@ -1,7 +1,7 @@
 bbb.controller('ListEvents', function($state, $scope, ParseService, $rootScope) { 
   
   $scope.moment=moment
-  $scope.securityLevel=$rootScope.currentUser.get('securityLevel');
+  $scope.securityLevel=$rootScope.currentUser.get('securityLevel')
   
   $scope.changeDate=function(increment) {
     $scope.selectedDate=$scope.selectedDate+increment;
