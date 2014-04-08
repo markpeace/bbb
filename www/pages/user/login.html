@@ -1,4 +1,29 @@
-<ion-view>
+<ion-view title="Sign-In">
+        <ion-content>
+          <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+          <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+          <div class="list">
+            <label class="item item-input">
+              <span class="input-label">Username</span>
+              <input type="text" ng-model="user.username">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Password</span>
+              <input type="password" ng-model="user.password">
+            </label>
+          </div>
+          <div class="padding">
+            <button class="button button-block button-positive" ng-click="signIn(user)">
+              Sign-In
+            </button>
+            <p class="text-center">
+              <a href="#/forgot-password">Forgot password</a>
+            </p>
+          </div>
+        </ion-content>
+      </ion-view>
+
+<!--<ion-view>
   <div class="splash-screen">
     <div class="splash-logo computer-font">The Birley Big Bang</div>
     <div class="splash-player-count computer-font">- {{userCount}} Players -</div>
@@ -15,4 +40,4 @@
     </button>
     <a ui-sref="register" class="computer-font small-font">Or Click Here to Register</a>
   </div>
-</ion-view>
+</ion-view>-->
