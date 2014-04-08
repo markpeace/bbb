@@ -1,0 +1,16 @@
+.iphone {
+  background-image:url(http://www.cardswapr.com/img/iphone.png);
+  background-size: 473px 1013px;
+  width:473px; height:1013px;
+  margin-left:-236px;
+  position: absolute;
+  left:50%; 
+  pointer-events: none;
+}
+
+.app {
+  width:405px; height:710px;
+  position: absolute;
+  margin-left:-202px;
+  left:50%; top:155px;
+}
