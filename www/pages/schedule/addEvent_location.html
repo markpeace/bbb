@@ -5,7 +5,7 @@
     <button class="button button-icon icon ion-ios7-checkmark-empty" ng-click="locationModal.hide()"></button>
   </div>
 
-  <ion-content has-header="true">
+  <ion-content class="has-header">
     <ion-radio ng-model="newEvent.location" ng-value="location" ng-change="locationModal.hide()" ng-repeat="location in locations">{{ location.get('label') }} </ion-radio>
   </ion-content>
 </div>
