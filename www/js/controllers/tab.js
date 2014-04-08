@@ -9,7 +9,7 @@ bbb.controller('Tab', function($scope, ParseService, $ionicModal, $rootScope) {
   $scope.signOut = function () {
     Parse.User.logOut();
     $rootScope.currentUser=null;
-    window.location.assign("/")
+    $scope.go("login");
   }
   
 });
