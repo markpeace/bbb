@@ -1,18 +1,40 @@
-<ion-view>
-  <div class="splash-screen">
-    <div class="splash-logo computer-font">The Birley Big Bang</div>
-    <div class="splash-player-count computer-font">- {{userCount}} Players -</div>
-  </div>
-  <div class="list splash-login-panel">
-    <label class="item item-input">
-      <input type="text" placeholder="MMU Email Address" ng-model="loginUser.username" class="computer-font small-font" style="text-align:center !important;">
-    </label>
-    <label class="item item-input">
-      <input type="password" placeholder="Password" ng-model="loginUser.password" class="computer-font small-font" style="text-align:center !important;">
-    </label>
-    <button class="button button-full button-dark computer-font small-font" ng-click="signIn()">
-      Login
-    </button>
-    <a ui-sref="register" class="computer-font small-font">Or Click Here to Register</a>
-  </div>
+<ion-view title="Sign-In">
+  <ion-content>
+    <div class="list">
+      <label class="item item-input">
+        <span class="input-label">Username</span>
+        <input type="text" ng-model="user.username">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Password</span>
+        <input type="password" ng-model="user.password">
+      </label>
+    </div>
+    <div class="padding">
+      <button class="button button-block button-positive" ng-click="signIn(user)">
+        Sign-In
+      </button>
+      <p class="text-center">
+        <a href="#/forgot-password">Forgot password</a>
+      </p>
+    </div>
+  </ion-content>
 </ion-view>
+<!--<ion-view>
+<div class="splash-screen">
+<div class="splash-logo computer-font">The Birley Big Bang</div>
+<div class="splash-player-count computer-font">- {{userCount}} Players -</div>
+</div>
+<div class="list splash-login-panel">
+<label class="item item-input">
+<input type="text" placeholder="MMU Email Address" ng-model="loginUser.username" class="computer-font small-font" style="text-align:center !important;">
+</label>
+<label class="item item-input">
+<input type="password" placeholder="Password" ng-model="loginUser.password" class="computer-font small-font" style="text-align:center !important;">
+</label>
+<button class="button button-full button-dark computer-font small-font" ng-click="signIn()">
+Login
+</button>
+<a ui-sref="register" class="computer-font small-font">Or Click Here to Register</a>
+</div>
+</ion-view>-->
