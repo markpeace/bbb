@@ -1,5 +1,6 @@
-@import url('user/splash.css');
 @import url('backgrounds.css');
+@import url('user/splash.css');
+
 
 
 .computer-font {
@@ -21,24 +22,26 @@
 }
 
 .view, .pane, .scroll-content, .scroll, .list, .item, .item-content {
-  background-color:rgba(0, 0, 0, 0) !important;
+  background-color:rgba(0, 0, 0, 0);
 }
 
 .bar {
-  background-color:rgba(247, 200, 0, 0.8) !important;
+  background-color:rgba(247, 200, 0, 0.8);
   border: none;
 }
 
 .button, .title {
-  color:black !important;
+  color:black;
 }
 
 .tabs, .tab-item {
-  background-color:rgba(247, 200, 0, 0.8) !important;
+  background-color:rgba(247, 200, 0, 0.8);
   color:black;
   border: none;
 }
 
 .scroll-content, .list {
-  background-color:rgba(255, 255, 255, 0.7) !important;
+  background-color:rgba(255, 255, 255, 0.7);
 }
+
+
