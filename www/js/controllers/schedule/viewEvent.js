@@ -14,7 +14,7 @@ bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $statePar
       $scope.event=results
       
       $scope.booking={
-        user: $rootScope.currentUser,
+        user: Parse.User.current(),
         event: results,
         attending: null
       }
@@ -23,7 +23,7 @@ bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $statePar
   }
   
   var getUserBooking = function () {
-    $scope.event.relation("bookings").query().equalTo("user",$rootScope.currentUser).count().then(function(c) {
+    $scope.event.relation("bookings").query().equalTo("user",Parse.User.current()).count().then(function(c) {
       if (c>0) { $scope.booking.attending=true; }     
     }).then(getCountofBookings);    
   }
@@ -39,7 +39,7 @@ bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $statePar
     $scope.$watch('booking.attending', function (newVal, oldVal) {
       if (newVal!=oldVal) {
         console.log("changed")
-        $scope.event.relation("bookings").query().equalTo("user", $rootScope.currentUser).find().then(function (result) {
+        $scope.event.relation("bookings").query().equalTo("user", Parse.User.current()).find().then(function (result) {
           for (r in result) { result[r].destroy() }
         }).then(getCountofBookings).then(function() {
           if (newVal==true) {
