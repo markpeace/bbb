@@ -67,6 +67,13 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
       }
     }})
   
+  .state('checkin', {
+    url: "/checkIn.html",    
+    templateUrl: "pages/checkin/checkin.html",    
+    controller: "CheckIn"
+  })
+
+  
   $urlRouterProvider.otherwise("/tab/schedule");
   
 })
