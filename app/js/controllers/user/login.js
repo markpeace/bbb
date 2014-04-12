@@ -24,8 +24,7 @@ bbb.controller('Login', function($scope, $ionicLoading, ParseService, $rootScope
         $rootScope.currentUser = user;
         
         $scope.loading.hide();
-        //$location.path('/tabs/schedule').replace();
-        
+      
         $state.go("tabs.schedule");
       },
       error: function(user, error) {

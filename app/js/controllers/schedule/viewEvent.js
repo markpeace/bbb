@@ -1,8 +1,25 @@
-bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $stateParams) { 
+bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $ionicModal, $stateParams) { 
   
   $scope.moment=moment
   $scope.attending={toggle:false};
   $scope.bookings=0
+  
+  $ionicModal.fromTemplateUrl('pages/schedule/viewEvent_locationinfo.html', function($ionicModal) {
+    $scope.locationinfoModal = $ionicModal;
+  }, {
+    scope: $scope,
+    animation: 'slide-in-up'
+  });
+  
+    
+  $ionicModal.fromTemplateUrl('pages/schedule/viewEvent_personInfo.html', function($ionicModal) {
+    $scope.personinfoModal = $ionicModal;
+  }, {
+    scope: $scope,
+    animation: 'slide-in-up'
+  });
+  
+  
   
   var getEventDetails = function () {
     
@@ -14,7 +31,7 @@ bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $statePar
       $scope.event=results
       
       $scope.booking={
-        user: $rootScope.currentUser,
+        user: Parse.User.current(),
         event: results,
         attending: null
       }
@@ -23,7 +40,7 @@ bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $statePar
   }
   
   var getUserBooking = function () {
-    $scope.event.relation("bookings").query().equalTo("user",$rootScope.currentUser).count().then(function(c) {
+    $scope.event.relation("bookings").query().equalTo("user",Parse.User.current()).count().then(function(c) {
       if (c>0) { $scope.booking.attending=true; }     
     }).then(getCountofBookings);    
   }
@@ -39,7 +56,7 @@ bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $statePar
     $scope.$watch('booking.attending', function (newVal, oldVal) {
       if (newVal!=oldVal) {
         console.log("changed")
-        $scope.event.relation("bookings").query().equalTo("user", $rootScope.currentUser).find().then(function (result) {
+        $scope.event.relation("bookings").query().equalTo("user", Parse.User.current()).find().then(function (result) {
           for (r in result) { result[r].destroy() }
         }).then(getCountofBookings).then(function() {
           if (newVal==true) {

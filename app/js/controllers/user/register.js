@@ -12,12 +12,12 @@ bbb.controller('Register', function($scope, $ionicModal,  $ionicLoading, ParseSe
   }
   
   
-  var Programme = Parse.Object.extend("programmes");
+  var Programme = Parse.Object.extend("Programme");
   var query = new Parse.Query(Programme);
   query.ascending("label");
   query.find({
     success: function(results) {
-      $scope.programmes=results;      
+      $scope.programmes=results;  
     }
   });
   

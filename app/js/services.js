@@ -1,5 +1,5 @@
 bbb.service('ParseService', [function() {
-  var app_id = "kvhyxkkmVahmIxvuv1Ai2xpVWFZNg4PdEFmtUpXj";
-  var js_key = "3cN0yl8DTPOZrIlNmEmVH9LTYRxhfuGdFOOLkOfc";
+  var app_id = "j8cCeB3MyEL8xdZ4OPZTMyPtLBhYdPSzhDsHJigO";
+  var js_key = "HVa08MF2aqqbvCEUe0FvTmGvjwtYlFnUlNHViBap";
   Parse.initialize(app_id, js_key);
 }]);

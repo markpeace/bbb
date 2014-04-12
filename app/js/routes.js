@@ -47,7 +47,32 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
     url: "/schedule/add.html",    
     templateUrl: "pages/schedule/addEvent.html",    
     controller: "AddEvent"
-  });  
+  })
+  
+  .state('tabs.hunt', {
+    url: "/hunt",
+    views: {
+      'hunt-tab': {
+        templateUrl: "pages/hunt/listHuntItems.html",
+        controller: 'ListHuntItems'          
+      }
+    }})
+  
+  .state('tabs.badges', {
+    url: "/badges",
+    views: {
+      'badges-tab': {
+        templateUrl: "pages/badges/listBadges.html",
+        controller: 'ListBadges'          
+      }
+    }})
+  
+  .state('checkin', {
+    url: "/checkIn.html",    
+    templateUrl: "pages/checkin/checkin.html",    
+    controller: "CheckIn"
+  })
+
   
   $urlRouterProvider.otherwise("/tab/schedule");
   
