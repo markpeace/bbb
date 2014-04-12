@@ -1,8 +1,25 @@
-bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $stateParams) { 
+bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $ionicModal, $stateParams) { 
   
   $scope.moment=moment
   $scope.attending={toggle:false};
   $scope.bookings=0
+  
+  $ionicModal.fromTemplateUrl('pages/schedule/viewEvent_locationinfo.html', function($ionicModal) {
+    $scope.locationinfoModal = $ionicModal;
+  }, {
+    scope: $scope,
+    animation: 'slide-in-up'
+  });
+  
+    
+  $ionicModal.fromTemplateUrl('pages/schedule/viewEvent_personInfo.html', function($ionicModal) {
+    $scope.personinfoModal = $ionicModal;
+  }, {
+    scope: $scope,
+    animation: 'slide-in-up'
+  });
+  
+  
   
   var getEventDetails = function () {
     
