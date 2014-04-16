@@ -29,6 +29,7 @@
         <div class="item item-body">
             <p>
                 {{ event.get('description') }}
+                    {{securityLevel}}m
             </p>
             <p style="text-align:right; font-size:0.6em;">
                 {{ event.get('capacity') - bookings }} Places Available               
@@ -44,6 +45,11 @@
             <p>You can't book into an event until you have confirmed your email address.</p> 
             <p>Click to resend the confirmation email</p>
         </a>
+        
+        <a ui-sref="addEvent({id:event.id})" ng-show="securityLevel==1" class="item item-body" style="font-size:1em;">
+            Edit Event
+        </a>
+            
         
     </div>
 </ion-content>

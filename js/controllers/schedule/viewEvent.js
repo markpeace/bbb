@@ -5,7 +5,10 @@ bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $ionicMod
     $scope.bookings=0
 
     $scope.emailVerified=Parse.User.current().get('emailVerified')
+    $scope.securityLevel=Parse.User.current().get('securityLevel')
 
+    
+    
     $ionicModal.fromTemplateUrl('pages/schedule/viewEvent_locationinfo.html', function($ionicModal) {
         $scope.locationinfoModal = $ionicModal;
     }, {
