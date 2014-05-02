@@ -1,40 +1,58 @@
 <div class="bar bar-header bar-energized">
-  <button class="button button-icon icon ion-ios7-close-empty" ui-sref="tabs.schedule"></button>
-  <div class="title">Add An Event</div>
-  <button class="button button-icon icon ion-ios7-checkmark-empty" ng-click="saveEvent()"></button>
+        <button class="button button-icon icon ion-ios7-close-empty" ui-sref="tabs.schedule"></button>
+        <div class="title">Add An Event</div>
+        <button class="button button-icon icon ion-ios7-checkmark-empty" ng-click="saveEvent()"></button>
 </div>
 
 <ion-content class="has-header">
-  <list>
-    <div class="button-bar">
-      <button class="button button-light" ng-click="seriesModal.show()">{{seriesLabel}}</button>      
-    </div> 
-    
-    <label class="item item-input">
-      <input type="text" placeholder="Title" ng-model="newEvent.title">
-    </label>
+        <ion-list>
+                <ion-item class="item-divider item-icon-right">
+                        Details
+                        </ion-item >
 
-    <label class="item item-input">
-      <input type="text" placeholder="Maximum Participants" ng-model="newEvent.capacity">
-    </label>    
-    
-    <label class="item item-input">
-      <select ng-model="timeholder.date">
-        <option ng-repeat="date in availableDates" ng-value="date.toString().substring(0,16)">{{ date.toString().substring(0,16); }}</option>
-      </select> @ 
-      <select ng-model="timeholder.time">
-        <option ng-repeat="time in availableTimes">{{ time.toString().substring(16,21); }}</option>
-      </select>
-    </label>    
-    
-    <div class="button-bar">
-      <button class="button button-light" style="color:#A8A8A8;" ng-click="tutorlistModal.show()">{{tutorLabel}}</button>      
-    </div> 
-    <div class="button-bar">
-      <button class="button button-light" style="color:#A8A8A8;" ng-click="locationModal.show()">{{locationLabel}}</button>      
-    </div> 
-    <label class="item item-input">
-      <textarea placeholder="Description" ng-model="newEvent.description"></textarea>
-    </label>
-  </list>
-</ion-content>
+                <ion-item class="item-input item-select">
+                        <div class="input-label">
+                                Series                                 
+                        </div>
+
+
+                        <select
+                                ng-model="event.series"
+                                ng-options="s.get('label') for s in relatedData.Series"
+                                value="{{s.get('label')}}">                                                       
+                        </select>
+
+                        </ion-item>
+
+                <ion-item class="item-input">
+                        <div class="input-label">
+                                Title
+                        </div>
+                        <input type="text" ng-model="event.title">
+                        </ion-item >
+
+                <ion-item  class="item-input">
+                        <div class="input-label">
+                                Description
+                        </div>
+                        <textarea ng-model="event.description"></textarea>
+                        </ion-item >
+
+
+
+                <ion-item  class=" item-divider item-icon-right">
+                        Iterations
+                        <i class="icon ion-ios7-plus-outline" ng-click="addIteration()"></i>
+                        </ion-item >
+
+
+                <ion-item class="item"  ng-repeat="iteration in event.iterations" item="iteration" can-swipe="true">
+                        <p  Iteration </p>
+                        <ion-option-button class="button-assertive" ng-click="deleteIteration(iteration)">
+                                Delete
+                                </ion-option-button>
+                        </ion-item>                
+
+
+                </ion-list>
+        </ion-content>
