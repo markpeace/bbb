@@ -28,9 +28,9 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  ParseService
                 .then(function(result) {
 
                         series = null
-                        
+
                         angular.forEach($scope.relatedData['Series'], function (value) { if (value.id==result.get('series').id) { series=value }  })   
-                                                                        
+
                         $scope.event={  
                                 object: result,
                                 title: result.get('title'),
@@ -39,12 +39,24 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  ParseService
                                 iterations: []
                         }
 
-                        $scope.$apply();
+                        new Parse.Query(Parse.Object.extend("Iteration"))
+                        .equalTo("event", result)
+                        .find().then(function(iterations) {
+                                angular.forEach(iterations, function(iteration) {
+                                        $scope.event.iterations.push({
+                                                object:iteration,
+                                                time: iteration.get("time"),
+                                                host: iteration.get("host"),
+                                                location: iteration.get("location")         
+                                        })
+                                })
+                                $scope.$apply();        
+                        })                                                
 
 
                 }, function (result) {
-                        var GameScore = Parse.Object.extend("Event");
-                        var gameScore = new GameScore().save()
+                        var Event = Parse.Object.extend("Event");
+                        var event = new Event().save()
                         .then(function(result) {
                                 $scope.event={  
                                         object: result,
@@ -61,19 +73,56 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  ParseService
 
         getReferencedData();
 
+        $scope.addIteration = function () {
+                var Iteration = Parse.Object.extend("Iteration")
+                var iteration = new Iteration().save()
+                .then(function(result) {
+                        $scope.event.iterations.push({
+                                object:result,
+                                time: null,
+                                host: null,
+                                location: null                                
+                        })
+                        $scope.$apply();                       
+                })
+                }
+
+        $scope.deleteIteration = function (iteration) {
+
+                iteration.object.destroy()
+                angular.forEach($scope.event.iterations, function (value, key) { if (value==iteration) { 
+                        $scope.event.iterations.splice(key,1)                                 
+                }  })
+
+
+
+        }
+
 
         $scope.saveEvent = function () {
                 with ($scope.event) {                      
                         object.set('title', title)
                         object.set('description', description)
                         object.set('series', series)
+
+                        angular.forEach($scope.event.iterations, function (iteration) {
+                                iteration.object.set("event", $scope.event.object);
+                                iteration.object.save();
+
+                                object.relation("iterations").add(iteration.object);
+                        })
+
                         object.save().then(function() {
+
+                                //TRIGGER TIDY UP FUNCTION
+                                //                        NEEDS WRITING
+                                //REDIRECT
                                 $state.go("tabs.schedule")
                         });
                 }
-                        
+
         }
-        
-        
+
+
 
 })        

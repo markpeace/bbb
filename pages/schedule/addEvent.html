@@ -47,7 +47,7 @@
 
 
                 <ion-item class="item"  ng-repeat="iteration in event.iterations" item="iteration" can-swipe="true">
-                        <p  Iteration </p>
+                        <p>  {{ iteration.object.id }} </p>
                         <ion-option-button class="button-assertive" ng-click="deleteIteration(iteration)">
                                 Delete
                                 </ion-option-button>
