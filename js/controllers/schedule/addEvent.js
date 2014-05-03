@@ -40,7 +40,7 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  ParseService
                         }
 
                         new Parse.Query(Parse.Object.extend("Iteration"))
-                        .equalTo("event", result)
+                        .equalTo("event", result).include("time").include("host").include("location")
                         .find().then(function(iterations) {
                                 angular.forEach(iterations, function(iteration) {
                                         $scope.event.iterations.push({
@@ -75,16 +75,19 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  ParseService
 
         $scope.addIteration = function () {
                 var Iteration = Parse.Object.extend("Iteration")
-                var iteration = new Iteration().save()
+                var iteration = new Iteration().set("event", $scope.event.object).save()
                 .then(function(result) {
                         $scope.event.iterations.push({
                                 object:result,
+                                event: $scope.event.object,
                                 time: null,
                                 host: null,
                                 location: null                                
                         })
-                        $scope.$apply();                       
-                })
+                        $scope.event.object.relation("iterations").add(result);
+                        $scope.event.object.save();
+                        $scope.$apply();                                                       
+                })        
                 }
 
         $scope.deleteIteration = function (iteration) {
@@ -100,25 +103,34 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  ParseService
 
 
         $scope.saveEvent = function () {
-                with ($scope.event) {                      
-                        object.set('title', title)
-                        object.set('description', description)
-                        object.set('series', series)
 
-                        angular.forEach($scope.event.iterations, function (iteration) {
-                                iteration.object.set("event", $scope.event.object);
-                                iteration.object.save();
+                if($scope.event.iterations.length==0) {
+                        if (confirm("Events cannot exist without at least one iteration, delete this event?")) {
+                                $scope.event.object.destroy().then(function() {
+                                        $state.go("tabs.schedule")
+                                })
+                        }
+                        
+                } else {
 
-                                object.relation("iterations").add(iteration.object);
-                        })
 
-                        object.save().then(function() {
+                        with ($scope.event) {                      
+                                object.set('title', title)
+                                object.set('description', description)
+                                object.set('series', series)
 
-                                //TRIGGER TIDY UP FUNCTION
-                                //                        NEEDS WRITING
-                                //REDIRECT
-                                $state.go("tabs.schedule")
-                        });
+                                angular.forEach($scope.event.iterations, function (iteration) {
+                                        iteration.object.set("event", $scope.event.object);
+                                        iteration.object.save();
+
+                                        object.relation("iterations").add(iteration.object);
+                                })
+
+                                object.save().then(function() {
+                                        $state.go("tabs.schedule")
+                                });
+                        }
+
                 }
 
         }
