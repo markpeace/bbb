@@ -1,0 +1,66 @@
+<div class="modal">
+        <div class="bar bar-header bar-energized">
+                <button class="button button-icon icon ion-ios7-arrow-left" ng-click="saveEditedIteration()"></button>
+                <div class="title">Edit Iteration</div>
+        </div>
+
+        <ion-content class="has-header">
+                <ion-list>
+
+
+                        <ion-item class="item-input item-select">
+                                <div class="input-label">
+                                        Host                    
+                                </div>
+
+
+                                <select
+                                        ng-model="focalIteration.host"
+                                        ng-options="s.get('forename') + ' ' + s.get('surname') for s in relatedData.User">                                                       
+                                </select>
+
+                                </ion-item>
+
+
+                        <ion-item class="item-input item-select">
+                                <div class="input-label">
+                                        Location                              
+                                </div>
+
+
+                                <select
+                                        ng-model="focalIteration.location"
+                                        ng-options="s.get('label') for s in relatedData.Location">                                                       
+                                </select>
+
+                                </ion-item>
+
+                        <ion-item class="item-input item-select">
+                                <div class="input-label">
+                                        Date                              
+                                </div>
+
+
+                                <select
+                                        ng-model="focalIteration.date"
+                                        ng-options="d for d in relatedData.Dates">                                                       
+                                </select>
+
+                                </ion-item>     
+
+                        <ion-item class="item-input item-select">
+                                <div class="input-label">
+                                        Time                              
+                                </div>
+
+
+                                <select
+                                        ng-model="focalIteration.time"
+                                        ng-options="d for d in relatedData.Times">                                                       
+                                </select>
+
+                                </ion-item>                             
+
+                        </ion-list>
+                </ion-content>
+</div>

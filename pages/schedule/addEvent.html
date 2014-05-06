@@ -46,10 +46,10 @@
                         </ion-item >
 
 
-                <ion-item class="item"  ng-repeat="iteration in event.iterations" item="iteration" can-swipe="true">
-
-                        <h2>Time and Date</h2>
-                        <p>with Mark Peace in Location</p>        
+                <ion-item class="item"  ng-repeat="iteration in event.iterations" item="iteration" can-swipe="true" ng-click="editIteration(iteration)">                        
+                        
+                        <h2>{{ moment(iteration.get('time')).format("HH:mm") }} on {{ moment(iteration.get('time')).format("DD/MM/YY") }}</h2>
+                        <p>with {{ iteration.get('host').get('forename') }} {{ iteration.get('host').get('surname') }} in {{ iteration.get('location').get('label') }}</p>        
 
                         <ion-option-button class="button-assertive" ng-click="deleteIteration(iteration)">
                                 Delete
