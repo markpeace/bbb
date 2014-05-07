@@ -171,10 +171,10 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  $ionicModal,
                                 object.set('series', series)
 
                                 angular.forEach($scope.event.iterations, function (iteration) {
-                                        iteration.object.set("event", $scope.event.object);
-                                        iteration.object.save();
+                                        iteration.set("event", $scope.event.object);
+                                        iteration.save();
 
-                                        object.relation("iterations").add(iteration.object);
+                                        object.relation("iterations").add(iteration);
                                 })
 
                                 object.save().then(function() {
