@@ -45,7 +45,7 @@
             <p>Click to resend the confirmation email</p>
         </a>
         
-        <a ui-sref="addEvent({id:iteration.id})" ng-show="securityLevel==1" class="item item-body" style="font-size:1em;">
+        <a ui-sref="addEvent({id:iteration.get('event').id})" ng-show="securityLevel==1" class="item item-body" style="font-size:1em;">
             Edit Event
         </a>
             
