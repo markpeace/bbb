@@ -25,7 +25,7 @@
         <p>Click Here to Add Another Event</p>
       </ion-item>
       
-      <ion-item ng-repeat="iteration in iterations | filter: moment(dates[selectedDate], 'dddd, D MMMM').format('MM-DD') " href="#" ui-sref="viewEvent({id:event.id})">
+      <ion-item ng-repeat="iteration in iterations | filter: moment(dates[selectedDate], 'dddd, D MMMM').format('MM-DD') " href="#" ui-sref="viewEvent({id:iteration.id})">
         <p>{{ iteration.get("event").get("series").get("label") }} with {{ iteration.get("host").get('forename') }} {{ iteration.get("host").get('surname') }} </p>
         <h2>{{ moment(iteration.get("time")).format("HH:mm") }} : {{ iteration.get("event").get("title") }}</h2>        
       </ion-item>      
