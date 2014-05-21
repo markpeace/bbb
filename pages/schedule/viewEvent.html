@@ -36,8 +36,8 @@
         </div>
 
         <div ng-show="emailVerified">    
-            <ion-toggle class="item item-footer" ng-model="booking.attending" ng-hide="(event.get('capacity') - bookings)==0 && booking.attending==false">Indicate Your Attendence:</ion-toggle>  
-            <div class="item item-footer" style="text-align:center;" ng-show="(event.get('capacity') - bookings)==0  && booking.attending==false" >This Event is Fully Booked</div>
+            <ion-toggle class="item item-footer" ng-model="booking.attending" ng-hide="(iteration.get('capacity') - bookings)==0 && booking.attending==false">Indicate Your Attendence:</ion-toggle>  
+            <div class="item item-footer" style="text-align:center;" ng-show="(iteration.get('capacity') - bookings)==0  && booking.attending==false" >This Event is Fully Booked</div>
         </div>
         
         <a href="#" ng-click="sendEmailConfirmation()"  ng-hide="emailVerified" class="item item-body" style="font-size:1em;">

@@ -134,6 +134,7 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  $ionicModal,
                         location: loc,
                         date: moment(iteration.get('time')).format("DD/MM/YY"),
                         time: moment(iteration.get('time')).format("HH:mm"),
+                        capacity: iteration.get('capacity')
                 }                        
                 
                 $scope.editIterationModal.show();
@@ -144,7 +145,8 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  $ionicModal,
                 $scope.focalIteration.object.set('host', $scope.focalIteration.host)
                 $scope.focalIteration.object.set('location', $scope.focalIteration.location)
                 $scope.focalIteration.object.set('time', moment($scope.focalIteration.time+ " " +$scope.focalIteration.date, "HH:mm DD/MM/YY")._d)                
-                                
+                $scope.focalIteration.object.set('capacity', $scope.focalIteration.capacity)                
+                
                 $scope.focalIteration.object.save().then(function () {
                         console.log("saved")
                         $scope.editIterationModal.hide();

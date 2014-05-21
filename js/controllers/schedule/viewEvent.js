@@ -68,6 +68,7 @@ bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $ionicMod
                                 }).then(function() {
 
                                         if(newVal==true) {
+                                                                                                
                                                 var Booking = Parse.Object.extend("Booking");
                                                 booking = new Booking(); 
                                                 booking.set("user", Parse.User.current());
@@ -84,7 +85,7 @@ bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $ionicMod
 
 
                                         }     
-                                })
+                                }).then(getCountofBookings)
                         }
                 })
 

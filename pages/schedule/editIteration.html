@@ -19,7 +19,7 @@
                                         ng-options="s.get('forename') + ' ' + s.get('surname') for s in relatedData.User">                                                       
                                 </select>
 
-                                </ion-item>
+                        </ion-item>
 
 
                         <ion-item class="item-input item-select">
@@ -33,7 +33,7 @@
                                         ng-options="s.get('label') for s in relatedData.Location">                                                       
                                 </select>
 
-                                </ion-item>
+                        </ion-item>
 
                         <ion-item class="item-input item-select">
                                 <div class="input-label">
@@ -46,7 +46,7 @@
                                         ng-options="d for d in relatedData.Dates">                                                       
                                 </select>
 
-                                </ion-item>     
+                        </ion-item>     
 
                         <ion-item class="item-input item-select">
                                 <div class="input-label">
@@ -59,8 +59,14 @@
                                         ng-options="d for d in relatedData.Times">                                                       
                                 </select>
 
-                                </ion-item>                             
+                        </ion-item>                             
 
-                        </ion-list>
-                </ion-content>
+                        <ion-item class="item-input">
+                                <div class="input-label">
+                                        Capacity
+                                </div>
+                                <input type="text" ng-model="focalIteration.capacity">
+                        </ion-item >
+                </ion-list>
+        </ion-content>
 </div>
