@@ -52,47 +52,51 @@ bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $ionicMod
                 .equalTo("iteration", $scope.iteration).count().then(function(c) {
                         $scope.bookings=c      
                         $scope.$apply();
-                })
+                }).then(setupWatchBookingToggle)
         }
 
         var setupWatchBookingToggle = function() {
                 $scope.$watch('booking.attending', function (newVal, oldVal) {
                         if (newVal!=oldVal) {
 
-                                new Parse.Query(Parse.Object.extend("Booking"))
-                                .equalTo("user", Parse.User.current()).equalTo("iteration", $scope.iteration)
-                                .find(function(results) {
-                                        angular.forEach(results, function(b) {                                                 
-                                                b.destroy(); 
+
+                                if(newVal==true) {
+
+                                        $scope.bookings=$scope.bookings+1
+                                        
+                                        var Booking = Parse.Object.extend("Booking");
+                                        booking = new Booking(); 
+                                        booking.set("user", Parse.User.current());
+                                        booking.set("iteration", $scope.iteration);
+                                        saved_booking=booking.save().then(function(saved_booking) {
+                                                $scope.iteration.relation("bookings").add(saved_booking)
+                                                $scope.iteration.save()       
+
+                                                Parse.User.current().fetch().then(function(user) {
+                                                        user.relation("bookings").add(saved_booking)
+                                                        user.save()                                                  
+                                                })                                                                                    
                                         })
-                                }).then(function() {
 
-                                        if(newVal==true) {
-                                                                                                
-                                                var Booking = Parse.Object.extend("Booking");
-                                                booking = new Booking(); 
-                                                booking.set("user", Parse.User.current());
-                                                booking.set("iteration", $scope.iteration);
-                                                saved_booking=booking.save().then(function(saved_booking) {
-                                                        $scope.iteration.relation("bookings").add(saved_booking)
-                                                        $scope.iteration.save()       
 
-                                                        Parse.User.current().fetch().then(function(user) {
-                                                                user.relation("bookings").add(saved_booking)
-                                                                user.save()                                                  
-                                                        })                                                                                    
+                                } else {
+                                        $scope.bookings=$scope.bookings-1
+                                        new Parse.Query(Parse.Object.extend("Booking"))
+                                        .equalTo("user", Parse.User.current()).equalTo("iteration", $scope.iteration)
+                                        .find(function(results) {
+                                                angular.forEach(results, function(b) {                                                 
+                                                        b.destroy(); 
                                                 })
+                                        })
 
+                                }
 
-                                        }     
-                                }).then(getCountofBookings)
                         }
                 })
 
         }  
 
-        getEventDetails();
-        setupWatchBookingToggle();
+        getEventDetails();        
 
 
         $scope.sendEmailConfirmation = function () {
