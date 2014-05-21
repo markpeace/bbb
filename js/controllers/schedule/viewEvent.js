@@ -34,26 +34,22 @@ bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $ionicMod
                 query.get($stateParams.id, {})
                 .then(function (results) {
                         $scope.iteration=results
-                        $scope.$apply();                               
-
-
-                        $scope.booking={
-                                user: Parse.User.current(),
-                                event: results,
-                                attending: null
-                        }
-
-                })//.then (getUserBooking);
+                        $scope.booking = { attending: false }
+                }).then (getUserBooking);
         }
 
-        var getUserBooking = function () {
-                $scope.event.relation("bookings").query().equalTo("user",Parse.User.current()).count().then(function(c) {
-                        if (c>0) { $scope.booking.attending=true; }     
+        var getUserBooking = function () {               
+                new Parse.Query(Parse.Object.extend("Booking"))
+                .equalTo("user", Parse.User.current()).equalTo("iteration", $scope.iteration)
+                .count(function(c) {
+                        if (c>0) { $scope.booking.attending=true; }   
+                        $scope.$apply();
                 }).then(getCountofBookings);    
         }
 
         var getCountofBookings = function () {
-                $scope.event.relation("bookings").query().count().then(function(c) {
+                new Parse.Query(Parse.Object.extend("Booking"))
+                .equalTo("iteration", $scope.iteration).count().then(function(c) {
                         $scope.bookings=c      
                         $scope.$apply();
                 })
@@ -62,24 +58,33 @@ bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $ionicMod
         var setupWatchBookingToggle = function() {
                 $scope.$watch('booking.attending', function (newVal, oldVal) {
                         if (newVal!=oldVal) {
-                                console.log("changed")
-                                $scope.event.relation("bookings").query().equalTo("user", Parse.User.current()).find().then(function (result) {
-                                        for (r in result) { result[r].destroy() }
-                                }).then(getCountofBookings).then(function() {
-                                        if (newVal==true) {
-                                                var newBooking=new (Parse.Object.extend("Booking"))
-                                                newBooking.save($scope.booking, {}).then(function(result) {
 
-                                                        $scope.event.relation("bookings").add(result)
-                                                        $scope.event.save().then(function() {                 
-                                                                Parse.User.current().relation("bookings").add(result)
-                                                                Parse.User.current().save()
-                                                        }).then(function() {}).then(getCountofBookings)
+                                new Parse.Query(Parse.Object.extend("Booking"))
+                                .equalTo("user", Parse.User.current()).equalTo("iteration", $scope.iteration)
+                                .find(function(results) {
+                                        angular.forEach(results, function(b) {                                                 
+                                                b.destroy(); 
+                                        })
+                                }).then(function() {
 
+                                        if(newVal==true) {
+                                                var Booking = Parse.Object.extend("Booking");
+                                                booking = new Booking(); 
+                                                booking.set("user", Parse.User.current());
+                                                booking.set("iteration", $scope.iteration);
+                                                saved_booking=booking.save().then(function(saved_booking) {
+                                                        $scope.iteration.relation("bookings").add(saved_booking)
+                                                        $scope.iteration.save()       
+
+                                                        Parse.User.current().fetch().then(function(user) {
+                                                                user.relation("bookings").add(saved_booking)
+                                                                user.save()                                                  
+                                                        })                                                                                    
                                                 })
-                                        }
-                                })
 
+
+                                        }     
+                                })
                         }
                 })
 
