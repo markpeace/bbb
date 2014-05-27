@@ -2,7 +2,8 @@ bbb.controller('ListEvents', function($state, $scope, ParseService, $rootScope) 
 
         $scope.moment=moment
         $scope.securityLevel=$rootScope.currentUser.get('securityLevel')
-
+        $scope.iterations=[]
+        
         $scope.changeDate=function(increment) {
                 $scope.selectedDate=$scope.selectedDate+increment;
         }
@@ -19,13 +20,14 @@ bbb.controller('ListEvents', function($state, $scope, ParseService, $rootScope) 
         }
 
         var getBookedEvents = function () {
-                $scope.events=[]
-                var User=$rootScope.currentUser
-                User.relation("bookings").query().include("event").include("event.host").include("event.series").find().then(function(result) {
-                        eventIds=[]
-                        for (r in result) { $scope.events.push(result[r].get("event")) }
+                
+                $rootScope.currentUser.relation("bookings").query().include("iteration").include("iteration.event")
+                .include("iteration.host").include("iteration.event.series").find().then(function (result) {
+                        console.log(result)
+                        angular.forEach (result, function (r) { $scope.iterations.push(r.get("iteration")) })
                         findDates();
                 })
+                              
         }
 
         var findDates = function () {
