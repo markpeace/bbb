@@ -49,6 +49,12 @@
             Edit Event
         </a>
             
+        <a ui-sref="eventQRCode({id:iteration.get('event').id})" ng-show="securityLevel==1" class="item item-body" style="font-size:1em;">
+            Generate QR Code
+        </a>
+            
+        
+            
         
     </div>
 </ion-content>
