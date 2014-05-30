@@ -1,6 +1,7 @@
 bbb.controller('EventQRCode', function($scope, $state,  $stateParams,  $ionicModal, ParseService, $window) { 
 
-        $scope.width= .8 * $window.innerWidth
+        $scope.width= $window.innerWidth<$window.innerHeight ? $window.innerWidth : $window.innerHeight
+        $scope.width = $scope.width *.9
         
         var Iteration = Parse.Object.extend("Iteration");
         var query = new Parse.Query(Iteration);
