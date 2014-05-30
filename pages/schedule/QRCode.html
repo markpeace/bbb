@@ -1,12 +1,11 @@
 <ion-view>
   
-  <div class="bar  bar-subheader">
-    <button class="button button-icon icon ion-arrow-left-c" ng-click="changeDate(-1)" ng-show="selectedDate>0"></button>
-    <h2 class="title">Event QR Code</h2>
-    <button class="button button-icon icon ion-arrow-right-c" ng-click="changeDate(1)" ng-show="selectedDate+1<dates.length"></button>
+  <div class="bar  bar-header">
+    <button class="button button-icon icon ion-arrow-left-c" ui-sref="viewEvent({id:iteration.get('event').id})"></button>
+    <h2 class="title">{{ iteration.get("event").get("title") }}</h2>
   </div>
   
-  <ion-content class="has-header has-subheader">    
-      Event QR Code
+  <ion-content class="has-header">    
+      Event QR Code {{ iteration.id }}
   </ion-content>
 </ion-view>

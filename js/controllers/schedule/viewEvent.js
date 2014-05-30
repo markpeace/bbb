@@ -1,5 +1,5 @@
 bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $ionicModal, $stateParams) { 
-
+        
         $scope.moment=moment
         $scope.attending={toggle:false};
         $scope.bookings=0
