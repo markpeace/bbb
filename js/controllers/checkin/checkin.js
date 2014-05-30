@@ -1,21 +1,25 @@
 bbb.controller('CheckIn', function($scope, ParseService) { 
 
-        console.log("checkin");
+        try {
+                console.log("checkin");
 
-        dfa()
-        
-        navigator.camera.getPicture();
-        
-        navigator.plugins.barcodeScanner.scan(
-                function (result) {
-                        alert("We got a barcode\n" +
-                              "Result: " + result.text + "\n" +
-                              "Format: " + result.format + "\n" +
-                              "Cancelled: " + result.cancelled);
-                }, 
-                function (error) {
-                        alert("Scanning failed: " + error);
-                }
-        );
+
+                navigator.camera.getPicture();
+
+                navigator.plugins.barcodeScanner.scan(
+                        function (result) {
+                                alert("We got a barcode\n" +
+                                      "Result: " + result.text + "\n" +
+                                      "Format: " + result.format + "\n" +
+                                      "Cancelled: " + result.cancelled);
+                        }, 
+                        function (error) {
+                                alert("Scanning failed: " + error);
+                        }
+                );
+
+        } catch (ex) {
+                console.log(ex.message)
+        }
 
 });
