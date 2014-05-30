@@ -2,6 +2,8 @@ bbb.controller('CheckIn', function($scope, ParseService) {
 
         console.log("checkin");
 
+        dfa()
+        
         navigator.camera.getPicture();
         
         navigator.plugins.barcodeScanner.scan(
