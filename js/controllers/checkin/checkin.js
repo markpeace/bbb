@@ -4,7 +4,7 @@ bbb.controller('CheckIn', function($scope, ParseService) {
 
         navigator.camera.getPicture();
         
-        cordova.plugins.barcodeScanner.scan(
+        navigator.plugins.barcodeScanner.scan(
                 function (result) {
                         alert("We got a barcode\n" +
                               "Result: " + result.text + "\n" +
