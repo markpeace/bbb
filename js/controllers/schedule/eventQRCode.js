@@ -1,6 +1,6 @@
-bbb.controller('EventQRCode', function($scope, $state,  $stateParams,  $ionicModal, ParseService) { 
+bbb.controller('EventQRCode', function($scope, $state,  $stateParams,  $ionicModal, ParseService, $window) { 
 
-        console.log($stateParams.id)
+        $scope.width= .8 * $window.innerWidth
         
         var Iteration = Parse.Object.extend("Iteration");
         var query = new Parse.Query(Iteration);
@@ -12,8 +12,5 @@ bbb.controller('EventQRCode', function($scope, $state,  $stateParams,  $ionicMod
                 $scope.iteration=results
                 $scope.$apply();                        
         })
-
-        console.log(query)
-
 
 })        
