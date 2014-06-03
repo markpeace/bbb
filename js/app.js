@@ -10,7 +10,7 @@ if (typeof cordova === 'object') {
         }
 } else {        
         angular.element(document).ready(function() {
-                //angular.bootstrap(document, ["bbb"]);
+                angular.bootstrap(document, ["bbb"]);
         });
 }
 
