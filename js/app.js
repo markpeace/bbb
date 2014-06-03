@@ -1,8 +1,7 @@
-console.log ("hi")
-
-console.log (typeof(cordova))
 
 if (typeof cordova === 'object') {
+        console.log (typeof(cordova))
+
         try {
                 document.addEventListener("deviceready", function() {
                         angular.bootstrap(document, ["bbb"]);
