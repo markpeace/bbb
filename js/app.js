@@ -1,3 +1,5 @@
+console.log ("hi")
+
 console.log (typeof(cordova))
 
 if (typeof cordova === 'object') {
