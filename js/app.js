@@ -1,10 +1,8 @@
-
 if (typeof cordova === 'object') {
-        console.log (typeof(cordova))
-
+        
         try {
                 document.addEventListener("deviceready", function() {
-                        angular.bootstrap(document, ["bbb"]);
+                        //angular.bootstrap(document, ["bbb"]);
                         console.log("cordova intialised!")
                 }, false);
         } catch (ex) {
