@@ -1,3 +1,5 @@
+console.log (typeof cordova)
+
 if (typeof cordova === 'object') {
         try {
         document.addEventListener("deviceready", function() {
