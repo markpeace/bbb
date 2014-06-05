@@ -29,7 +29,6 @@
         <access origin="http://code.ionicframework.com/0.9.26/js/ionic.bundle.min.js" />
         <access origin="http://parse.com/downloads/javascript/parse-1.2.17.min.js" />
 
-        <!--gap:plugin name="com.phonegap.plugins.barcodescanner"/>-->
-        <gap:plugin name="BarcodeScanner"/>
+        <gap:plugin name="com.phonegap.plugins.barcodescanner"/>
 
 </widget>
