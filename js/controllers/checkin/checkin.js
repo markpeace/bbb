@@ -17,7 +17,7 @@ bbb.controller('CheckIn', function($scope, ParseService) {
                 );
 
         } catch (ex) {
-                console.log(ex)
+                console.log("error" + ex)
         }
 
 
