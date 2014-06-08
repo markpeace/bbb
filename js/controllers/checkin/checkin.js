@@ -5,22 +5,20 @@ bbb.controller('CheckIn', function($scope, ParseService, cordovaCamera) {
 
 
                 $scope.takePicture = function() {
-                        cordovaCamera.getPicture({
+                        navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+                                                                        destinationType: Camera.DestinationType.DATA_URL
+                                                                       }); 
 
-                                // See all the possible Camera options from the Camera docs:
-                                // https://github.com/apache/cordova-plugin-camera/blob/master/doc/index.md#cameraoptions
+                        function onSuccess(imageData) {
+                                var image = document.getElementById('myImage');
+                                image.src = "data:image/jpeg;base64," + imageData;
+                        }
 
-                        }).then(function(imageData) {
-
-                                // Success! Image data is here
-
-                        }, function(err) {
-
-                                // An error occured. Show a message to the user
-
-                        });
+                        function onFail(message) {
+                                alert('Failed because: ' + message);
+                        }
                 }
-                
+
                 $scope.takePicture()
 
         } catch (ex) {
