@@ -1,20 +1,27 @@
-bbb.controller('CheckIn', function($scope, ParseService) { 
+bbb.controller('CheckIn', function($scope, ParseService, cordovaCamera) { 
 
         console.log("checkin");
         try {
 
 
-                cordova.plugins.barcodeScanner.scan(
-                        function (result) {
-                                alert("We got a barcode\n" +
-                                      "Result: " + result.text + "\n" +
-                                      "Format: " + result.format + "\n" +
-                                      "Cancelled: " + result.cancelled);
-                        }, 
-                        function (error) {
-                                alert("Scanning failed: " + error);
-                        }
-                );
+                $scope.takePicture = function() {
+                        cordovaCamera.getPicture({
+
+                                // See all the possible Camera options from the Camera docs:
+                                // https://github.com/apache/cordova-plugin-camera/blob/master/doc/index.md#cameraoptions
+
+                        }).then(function(imageData) {
+
+                                // Success! Image data is here
+
+                        }, function(err) {
+
+                                // An error occured. Show a message to the user
+
+                        });
+                }
+                
+                $scope.takePicture()
 
         } catch (ex) {
                 console.log("error" + ex)
