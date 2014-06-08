@@ -3,16 +3,16 @@ bbb.controller('CheckIn', function($scope, ParseService, cordovaCamera) {
         console.log("checkin");
         try {
 
-                console.log('scanning');
-
                 var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 
                 scanner.scan( function (result) { 
 
-                        console.log(result.text)
+                        
+                        new (Parse.Query(Parse.Object.extend("Checkin")))
+                        .get(result.text, {}).then(function(result) {
+                                console.log(result)
+                        })
 
-                }, function (error) { 
-                        console.log("Scanning failed: ", error); 
                 } );
 
 
