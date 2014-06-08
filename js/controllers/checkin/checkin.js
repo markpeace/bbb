@@ -10,7 +10,7 @@ bbb.controller('CheckIn', function($scope, ParseService, cordovaCamera) {
                         console.log("scanned")
 
                         new Parse.Query(Parse.Object.extend("Checkin"))
-                        .get(result.text, {}).then(function(iteration) {
+                        .get(result.text).then(function(iteration) {
                                 console.log("processed")
                                 console.log(iteration)
                         })
