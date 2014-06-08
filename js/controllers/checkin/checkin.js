@@ -12,11 +12,11 @@ bbb.controller('CheckIn', function($scope, ParseService, cordovaCamera) {
                         new Parse.Query(Parse.Object.extend("Iteration"))
                         .get(result.text).then(function(iteration) {
                                 
-                                new (Parse.Object.extend("Checkin"))
+                                /*new (Parse.Object.extend("Checkin"))
                                 .save({
                                         user: Parse.User.current(),
                                         iteration: iteration                                       
-                                })
+                                })*/
                                 
                                 console.log("saver")
                         })
