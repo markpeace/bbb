@@ -18,11 +18,12 @@
 
         <content src="index.html" />
         <access origin="*" />
-        <preference name="fullscreen" value="false" />
-        <preference name="webviewbounce" value="false" />
-        <preference name="UIWebViewBounce" value="false" />
-        <preference name="DisallowOverscroll" value="true" />
 
+        <preference name="phonegap-version" value="3.1.0" />
+        <preference name="orientation"      value="default" />
+        <preference name="target-device"    value="universal" />
+        <preference name="fullscreen"       value="false" />
+        <preference name="webviewbounce"    value="false" />
 
         <access origin="http://code.ionicframework.com/0.9.26/css/ionic.min.css" />  
         <access origin="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js" />
