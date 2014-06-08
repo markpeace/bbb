@@ -18,6 +18,7 @@ bbb.controller('CheckIn', function($scope, ParseService, cordovaCamera) {
                                         iteration: iteration                                       
                                 })
                                 
+                                console.log("saver")
                         })
 
                 } );
