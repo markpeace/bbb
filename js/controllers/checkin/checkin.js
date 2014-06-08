@@ -9,7 +9,7 @@ bbb.controller('CheckIn', function($scope, ParseService, cordovaCamera) {
 
                 scanner.scan( function (result) { 
 
-                        console.log("scanned")
+                        console.log(result.text)
 
                 }, function (error) { 
                         console.log("Scanning failed: ", error); 
