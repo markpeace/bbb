@@ -18,9 +18,11 @@ bbb.controller('CheckIn', function($scope, ParseService, cordovaCamera) {
                                 checkin.save({
                                         user: Parse.User.current(),
                                         iteration: iteration                                       
+                                }).then(function() {
+                                        console.log("saver")                                        
                                 })
 
-                                console.log("saver")
+
                         })
 
                 } );
