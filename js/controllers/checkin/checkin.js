@@ -18,11 +18,12 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, cordovaCamera) 
                                         user: Parse.User.current(),
                                         iteration: iteration                                       
                                 }).then(function() {
-                                        $state.go("tabs.schedule")                                      
-                                })
-
+                                                                            
+                                })                                
 
                         })
+                        
+                        $state.go("tabs.schedule")  
 
                 } );
 
