@@ -4,22 +4,16 @@ bbb.controller('CheckIn', function($scope, ParseService, cordovaCamera) {
         try {
 
 
-                $scope.takePicture = function() {
-                        navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
-                                                                        destinationType: Camera.DestinationType.DATA_URL
-                                                                       }); 
-
-                        function onSuccess(imageData) {
-                                var image = document.getElementById('myImage');
-                                image.src = "data:image/jpeg;base64," + imageData;
-                        }
-
-                        function onFail(message) {
-                                alert('Failed because: ' + message);
-                        }
-                }
-
-                $scope.takePicture()
+                navigator.camera.getPicture( function( imageURI ) {
+                        alert( imageURI );
+                },
+                                            function( message ) {
+                                                    alert( message );
+                                            },
+                                            {
+                                                    quality: 50,
+                                                    destinationType: Camera.DestinationType.FILE_URI
+                                            });
 
         } catch (ex) {
                 console.log("error" + ex)
