@@ -50,6 +50,12 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
                 templateUrl: "pages/schedule/QRCode.html",    
                 controller: "EventQRCode"
         })
+        
+        .state('eventRegister', {
+                url: "/schedule/register/{id}",    
+                templateUrl: "pages/schedule/register.html",    
+                controller: "AttendenceRegister"
+        })
 
         .state('addEvent', {
                 url: "/schedule/add/",    
