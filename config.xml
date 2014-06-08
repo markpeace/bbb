@@ -22,7 +22,7 @@
         <preference name="phonegap-version" value="3.1.0" />
         <preference name="orientation"      value="default" />
         <preference name="target-device"    value="universal" />
-        <preference name="fullscreen"       value="false" />
+        <preference name="fullscreen"       value="true" />
         <preference name="webviewbounce"    value="false" />
 
         <access origin="http://code.ionicframework.com/0.9.26/css/ionic.min.css" />  
