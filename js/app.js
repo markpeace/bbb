@@ -10,7 +10,7 @@ if (typeof cordova === 'object') {
         });
 }
 
-var bbb = angular.module('bbb', ['ionic', 'monospaced.qrcode'])
+var bbb = angular.module('bbb', ['ionic', 'monospaced.qrcode', 'ng-cordova'])
 
 .run(function($rootScope, ParseService, $location, $state) {
 
