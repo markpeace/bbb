@@ -1,6 +1,5 @@
-bbb.controller('CheckIn', function($scope, ParseService, cordovaCamera) { 
-
-        console.log("checkin");
+bbb.controller('CheckIn', function($scope, $state, ParseService, cordovaCamera) { 
+        
         try {
 
                 var scanner = cordova.require("cordova/plugin/BarcodeScanner");
@@ -19,7 +18,7 @@ bbb.controller('CheckIn', function($scope, ParseService, cordovaCamera) {
                                         user: Parse.User.current(),
                                         iteration: iteration                                       
                                 }).then(function() {
-                                        console.log("saver")                                        
+                                        $state.go("tabs.schedule")                                      
                                 })
 
 
