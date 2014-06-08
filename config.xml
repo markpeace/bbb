@@ -30,7 +30,7 @@
         <access origin="http://parse.com/downloads/javascript/parse-1.2.17.min.js" />
 
         <gap:plugin name="org.apache.cordova.core.camera" />
-        <gap:plugin name="com.phonegap.plugins.barcodescanner" />
+        <gap:plugin name="com.phonegap.plugins.barcodescanner" />      
 
 
 </widget>
