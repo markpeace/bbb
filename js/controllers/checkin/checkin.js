@@ -6,32 +6,25 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, cordovaCamera) 
 
                 scanner.scan( function (result) { 
 
-                        console.log("scanned")
 
-                        new Parse.Query(Parse.Object.extend("Iteration"))
-                        .get(result.text).then(function(iteration) {
+                        dummyIteration = new Parse.Object("Iteration")
+                        dummyIteration.id = result.text
 
+                        new Parse.Query("Booking")
+                        .equalTo("iteration", dummyIteration)
+                        .equalTo("user", Parse.User.current())
 
-                                new Parse.Query(Parse.Object.extend("Checkin"))
-                                .equalTo("iteration", iteration).equalTo("user",Parse.User.current())
-                                .count().then(function(c) {
+                        .find().then(function(booking) {
+                                if (!booking.get("checkin")) {
+                                        checkin = new Parse.Object("Checkin")
+                                        checkin.save({
+                                                booking:booking,
+                                                user: Parse.User.current()
+                                        }).then(function (result) {
+                                                booking.set("checkin", result).save()
 
-                                        if(c==0) {
-
-                                                var Checkin = Parse.Object.extend("Checkin");
-                                                checkin = new Checkin(); 
-
-                                                checkin.save({
-                                                        user: Parse.User.current(),
-                                                        iteration: iteration                                       
-                                                })
-
-                                        }
-                                })
-
-
-
-
+                                        })          
+                                }
                         })
 
                         $state.go("tabs.schedule")  
