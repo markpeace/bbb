@@ -15,43 +15,37 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, cordovaCamera) 
                         .equalTo("iteration", dummyIteration)
                         .equalTo("user", Parse.User.current())
 
-                        .first().then(function(booking) {
+                        .find().then(function(booking) {
 
-                                console.log("booking search finished")
+                                booking=booking[0]
 
-                                if (booking) {
+                                console.log("found booking")
+                                console.log(booking)
+                                console.log(booking.get("checkin"))
 
-                                        console.log("found booking")
-                                        console.log(booking)
-                                        console.log(booking.get("checkin"))
+                                if (!booking.get("checkin")) {
+                                        console.log("started checkedin")
+                                        checkin = new Parse.Object("Checkin")
+                                        checkin.save({
+                                                booking:booking,
+                                                user: Parse.User.current()
+                                        }).then(function (result) {
+                                                booking.set("checkin", result).save()
+                                                console.log("finished checkedin")
 
-                                        if (booking.get("checkin")) {
-                                                console.log("checkin already found")
-                                        } else {
-                                                console.log("started checkedin")
+                                        })          
+                                }
+                        })
 
-                                                checkin = new Parse.Object("Checkin")
-                                                checkin.save({
-                                                        booking:booking,
-                                                        user: Parse.User.current()
-                                                }).then(function (result) {
-                                                        booking.set("checkin", result).save()
-                                                        console.log("finished checkedin")
+                        $state.go("tabs.schedule")  
 
-                                                })          
-
-                                        }
-                                })
-
-                                $state.go("tabs.schedule")  
-
-                        } );
+                } );
 
 
 
-                } catch (ex) {
-                        console.log("error" + ex)
-                }
+        } catch (ex) {
+                console.log("error" + ex)
+        }
 
 
-        });
+});
