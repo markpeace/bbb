@@ -5,9 +5,9 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, cordovaCamera) 
                 var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 
                 scanner.scan( function (result) { 
-        
+
                         console.log("scanned")
-                        
+
                         dummyIteration = new Parse.Object("Iteration")
                         dummyIteration.id = result.text
 
@@ -15,24 +15,29 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, cordovaCamera) 
                         .equalTo("iteration", dummyIteration)
                         .equalTo("user", Parse.User.current())
 
-                        .find().then(function(booking) {
+                        .first().then(function(booking) {
                                 
-                                console.log("found booking")
-                                console.log(booking)
-                                console.log(booking.get("checkin"))
-                                
-                                if (!booking.get("checkin")) 
-                                        console.log("started checkedin")
-{
-                                        checkin = new Parse.Object("Checkin")
-                                        checkin.save({
-                                                booking:booking,
-                                                user: Parse.User.current()
-                                        }).then(function (result) {
-                                                booking.set("checkin", result).save()
-                                                console.log("finished checkedin")
+                                console.log("booking search finished")
 
-                                        })          
+                                if (booking) {
+
+                                        console.log("found booking")
+                                        console.log(booking)
+                                        console.log(booking.get("checkin"))
+
+                                        if (!booking.get("checkin")) 
+                                                console.log("started checkedin")
+                                                {
+                                                        checkin = new Parse.Object("Checkin")
+                                                        checkin.save({
+                                                                booking:booking,
+                                                                user: Parse.User.current()
+                                                        }).then(function (result) {
+                                                                booking.set("checkin", result).save()
+                                                                console.log("finished checkedin")
+
+                                                        })          
+                                                }
                                 }
                         })
 
