@@ -18,6 +18,7 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, cordovaCamera) 
                         .find().then(function(booking) {
                                 
                                 console.log("found booking")
+                                console.log(booking)
                                 
                                 if (!booking.get("checkin")) {
                                         checkin = new Parse.Object("Checkin")
