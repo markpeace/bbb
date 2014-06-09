@@ -100,8 +100,10 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
 
 })
 
-.run(function ($rootScope, $location) {
+.run(function ($rootScope, ParseService, $location) {
 
+        if (Parse.User.current()) { Parse.User.current().fetch();  }
+        
         $rootScope.$on('$stateChangeStart', function (event, next, current) {
 
                 if($rootScope.currentUser) {
