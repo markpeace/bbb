@@ -21,14 +21,16 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, cordovaCamera) 
                                 console.log(booking)
                                 console.log(booking.get("checkin"))
                                 
-                                if (!booking.get("checkin")) {
+                                if (!booking.get("checkin")) 
+                                        console.log("started checkedin")
+{
                                         checkin = new Parse.Object("Checkin")
                                         checkin.save({
                                                 booking:booking,
                                                 user: Parse.User.current()
                                         }).then(function (result) {
                                                 booking.set("checkin", result).save()
-                                                console.log("checkedin")
+                                                console.log("finished checkedin")
 
                                         })          
                                 }
