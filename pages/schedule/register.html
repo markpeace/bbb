@@ -8,8 +8,9 @@
 
         <ion-content class="has-header">    
                 <ion-list>
-                        <ion-item ng-repeat="attendee in attendees">
-                                {{attendee.get("user").get("email")}}
+                        <ion-item class="item-icon-left" ng-repeat="booking in bookings" ng-click="toggleAttendence(booking)">
+                                {{booking.get("user").get("email")}}
+                                 <i class="icon ion-email" ng-show="booking.get('checkin')"></i>
                         </ion-item>
                 </ion-list> 
         </ion-content>
