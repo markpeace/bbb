@@ -5,8 +5,9 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, cordovaCamera) 
                 var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 
                 scanner.scan( function (result) { 
-
-
+        
+                        console.log("scanned")
+                        
                         dummyIteration = new Parse.Object("Iteration")
                         dummyIteration.id = result.text
 
@@ -15,6 +16,9 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, cordovaCamera) 
                         .equalTo("user", Parse.User.current())
 
                         .find().then(function(booking) {
+                                
+                                console.log("found booking")
+                                
                                 if (!booking.get("checkin")) {
                                         checkin = new Parse.Object("Checkin")
                                         checkin.save({
@@ -22,6 +26,7 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, cordovaCamera) 
                                                 user: Parse.User.current()
                                         }).then(function (result) {
                                                 booking.set("checkin", result).save()
+                                                console.log("checkedin")
 
                                         })          
                                 }
