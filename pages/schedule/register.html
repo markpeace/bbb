@@ -1,10 +1,16 @@
 <ion-view>
 
         <div class="bar">
-                <h2 class="title">Register</h2>
+                <button class="button button-icon icon ion-ios7-arrow-back" ui-sref="viewEvent({id:id})"></button>
+
+                <h2 class="title">Attendence Register</h2>
         </div>
 
         <ion-content class="has-header">    
-                Register 
+                <ion-list>
+                        <ion-item ng-repeat="attendee in attendees">
+                                {{attendee.get("user").get("email")}}
+                        </ion-item>
+                </ion-list> 
         </ion-content>
 </ion-view>
