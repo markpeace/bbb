@@ -10,7 +10,8 @@
                 <ion-list>
                         <ion-item class="item-icon-left" ng-repeat="booking in bookings" ng-click="toggleAttendence(booking)">
                                 {{booking.get("user").get("email")}}
-                                 <i class="icon ion-email" ng-show="booking.get('checkin')"></i>
+                                <i class="icon ion-ios7-circle-outline" ng-hide="booking.get('checkin')"></i>
+                                <i class="icon ion-ios7-checkmark-outline" ng-show="booking.get('checkin')"></i>
                         </ion-item>
                 </ion-list> 
         </ion-content>
