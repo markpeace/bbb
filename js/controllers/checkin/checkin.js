@@ -14,6 +14,7 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, cordovaCamera) 
                         new Parse.Query("Booking")
                         .equalTo("iteration", dummyIteration)
                         .equalTo("user", Parse.User.current())
+                        .include("checkin")
 
                         .find().then(function(booking) {
 
