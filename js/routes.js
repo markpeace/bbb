@@ -14,7 +14,7 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
         })
 
         //                TABS ROUTES
-
+	
         .state('tabs', {
                 url: "/tab",
                 abstract: true,
