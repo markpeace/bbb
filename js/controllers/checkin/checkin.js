@@ -22,7 +22,6 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, cordovaCamera) 
 
                                 console.log("found booking")
                                 console.log(booking)
-                                console.log(booking.get("checkin"))
 
                                 if (booking.get("checkin")) {
                                         console.log("booking already found")
