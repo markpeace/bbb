@@ -26,16 +26,7 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, cordovaCamera) 
                                 if (booking.get("checkin")) {
                                         console.log("booking already found")
                                 } else {
-                                        console.log("started checkedin")
-                                        checkin = new Parse.Object("Checkin")
-                                        checkin.save({
-                                                booking:booking,
-                                                user: Parse.User.current()
-                                        }).then(function (result) {
-                                                booking.set("checkin", result).save()
-                                                console.log("finished checkedin")
-
-                                        })          
+                                        console.log("booking not found")
                                 }
                         })
 
