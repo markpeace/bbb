@@ -88,6 +88,12 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
                 }})
 
 
+        .state('settings', {
+                url: "/settings",
+                controller: 'Settings',
+                templateUrl: "pages/settings.html"
+        })
+        
         // CHECK-IN ROUTE
 
         .state('checkin', {

@@ -6,11 +6,4 @@ bbb.controller('Tab', function($scope, ParseService, $ionicModal, $state, $rootS
     animation: 'slide-in-up'
   });  
   
-  $scope.signOut = function () {
-    Parse.User.logOut();
-    $scope.settingsModal.hide();
-    $rootScope.currentUser=null;
-    $state.go("login");
-  }
-  
 });
