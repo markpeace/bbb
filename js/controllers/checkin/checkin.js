@@ -1,6 +1,7 @@
 bbb.controller('CheckIn', function($scope, $state, ParseService, cordovaCamera) { 
 
-        try {
+
+        $scope.scan = function() {
 
                 var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 
@@ -42,14 +43,7 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, cordovaCamera) 
                         })
 
                         $state.go("tabs.schedule")  
-
-                } );
-
-
-
-        } catch (ex) {
-                console.log("error" + ex)
-        }
-
+                })
+        }()
 
 });
