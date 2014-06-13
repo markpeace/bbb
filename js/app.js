@@ -15,10 +15,11 @@ var bbb = angular.module('bbb', ['ionic', 'monospaced.qrcode', 'ng-cordova'])
 .run(function($rootScope, ParseService, $location, $state) {
 
         $rootScope.currentUser = Parse.User.current();
-
-
+        
         try {
 
+                console.log("setup listener")
+                	
                 document.addEventListener("offline", onOffline, false);
 
                 function onOffline() {
