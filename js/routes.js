@@ -122,7 +122,7 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
 
                         document.addEventListener("online", function () {
                                 $state.go(previousState)
-                        })
+                        },true)
 
                 }, false);
         }
