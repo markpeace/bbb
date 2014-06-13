@@ -2,11 +2,14 @@ bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $ionicMod
 
         console.log(navigator.connection.type)
         console.log("thats it")
+        
+        alert("yep")
 
         document.addEventListener("offline", onOffline, false);
 
         function onOffline() {
                console.log("gone offline")
+               alert("nope")
         }
 
         $scope.moment=moment
