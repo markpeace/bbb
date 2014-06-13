@@ -14,7 +14,7 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
         })
 
         //                TABS ROUTES
-	
+
         .state('tabs', {
                 url: "/tab",
                 abstract: true,
@@ -50,7 +50,7 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
                 templateUrl: "pages/schedule/QRCode.html",    
                 controller: "EventQRCode"
         })
-        
+
         .state('eventRegister', {
                 url: "/schedule/register/{id}",    
                 templateUrl: "pages/schedule/register.html",    
@@ -93,12 +93,12 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
                 controller: 'Settings',
                 templateUrl: "pages/settings.html"
         })
-        
+
         .state('isOffline', {
                 url: "/isOffline",
                 templateUrl: "pages/offlineMessage.html"
         })
-        
+
         // CHECK-IN ROUTE
 
         .state('checkin', {
@@ -113,8 +113,21 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
 
 .run(function ($rootScope, ParseService, $location) {
 
+
+        alert("yep")
+
+        document.addEventListener("offline", onOffline, false);
+
+        function onOffline() {
+                console.log("gone offline")
+                alert("nope")
+                $state.go("isOffline")
+        }
+
+
+
         if (Parse.User.current()) { Parse.User.current().fetch();  }
-        
+
         $rootScope.$on('$stateChangeStart', function (event, next, current) {
 
                 if($rootScope.currentUser) {
