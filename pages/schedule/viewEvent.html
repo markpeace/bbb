@@ -36,8 +36,23 @@
                 </div>
 
                 <div ng-show="emailVerified">    
-                        <ion-toggle class="item item-footer" ng-model="booking.attending" ng-hide="(iteration.get('capacity') - bookings)==0 && booking.attending==false">Indicate Your Attendence:</ion-toggle>  
-                        <div class="item item-footer" style="text-align:center;" ng-show="(iteration.get('capacity') - bookings)==0  && booking.attending==false" >This Event is Fully Booked</div>
+
+                        <div class="item item-footer" ng-hide='(moment().isAfter(moment(iteration.get("time")).subtract("days",2).hour("6").minute("0")) || securityLevel==1)'>
+                                <p>Check back from {{ moment(iteration.get('time')).subtract("days",2).format("Do MMMM"); }} to book yourself onto this pop-up.</p>                                                               
+                        </div>
+                        <div ng-show='(moment().isAfter(moment(iteration.get("time")).subtract("days",2).hour("6").minute("0")) || securityLevel==1)'>
+
+                                <ion-toggle class="item item-footer" ng-model="booking.attending" ng-hide="(iteration.get('capacity') - bookings)==0 && booking.attending==false">Indicate Your Attendence:</ion-toggle>  
+                                <div class="item item-footer" style="text-align:center;" ng-show="(iteration.get('capacity') - bookings)==0  && booking.attending==false" >This Event is Fully Booked</div>
+
+                        </div>
+                </div>
+
+        </div>
+        <div class="list card">
+
+                <div class="item item-divider">
+                        Tools For Event Hosts
                 </div>
 
                 <a href="#" ng-click="sendEmailConfirmation()"  ng-hide="emailVerified" class="item item-body" style="font-size:1em;">
@@ -57,11 +72,5 @@
                                 Attendence Register
                         </a>
                 </div>
-
-
-
-
-
-
         </div>
 </ion-content>
