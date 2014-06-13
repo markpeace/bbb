@@ -116,13 +116,18 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
 
         alert("yep")
 
-        document.addEventListener("offline", onOffline, false);
-
-        function onOffline() {
+        document.addEventListener("offline", function () {
                 console.log("gone offline")
-                alert($state.current.name)
+                var previousState = $state.current.name
                 $state.go("isOffline")
-        }
+                
+                document.addEventListener("online", function () {
+                        $state.go(previousState)
+                })
+                
+        }, false);
+
+
 
 
 
