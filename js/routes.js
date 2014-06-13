@@ -111,7 +111,7 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
 
 })
 
-.run(function ($rootScope, ParseService, $location) {
+.run(function ($rootScope, ParseService, $location, $state) {
 
 
         alert("yep")
@@ -120,7 +120,7 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
 
         function onOffline() {
                 console.log("gone offline")
-                alert("nope")
+                alert($state.current.name)
                 $state.go("isOffline")
         }
 
