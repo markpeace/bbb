@@ -1,6 +1,7 @@
 bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $ionicModal, $stateParams) { 
         
-        console.log("hello")
+        console.log(navigator.connection.type)
+        console.log("thats it")
         
         $scope.moment=moment
         $scope.attending={toggle:false};
