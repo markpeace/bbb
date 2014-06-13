@@ -2,6 +2,25 @@ if (typeof cordova === 'object') {
         document.addEventListener("deviceready", function() {
                 angular.bootstrap(document, ["bbb"]);
                 console.log("cordova intialised!")
+
+                try {
+
+                        console.log("setup listener")
+
+                        document.addEventListener("offline", onOffline, false);
+
+                        function onOffline() {
+                                alert($state.current.name)
+                                console.log("mark")
+                                console.log($state.current.name)
+                        }
+
+                } catch (ex) {
+                        console.log(ex)
+                }
+
+
+
         }, false);
 
 } else {        
@@ -14,23 +33,6 @@ var bbb = angular.module('bbb', ['ionic', 'monospaced.qrcode', 'ng-cordova'])
 
 .run(function($rootScope, ParseService, $location, $state) {
 
-        $rootScope.currentUser = Parse.User.current();
-        
-        try {
-
-                console.log("setup listener")
-                	
-                document.addEventListener("offline", onOffline, false);
-
-                function onOffline() {
-                        alert($state.current.name)
-                        console.log("mark")
-                        console.log($state.current.name)
-                }
-                
-        } catch (ex) {
-                console.log(ex)
-        }
-
+        $rootScope.currentUser = Parse.User.current();              
 
 });
