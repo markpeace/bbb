@@ -113,7 +113,7 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
 
 .run(function ($rootScope, ParseService, $location, $state) {
 
-        if(cordova) {
+        if(typeof cordova === 'object') {
 
                 document.addEventListener("offline", function () {
                         console.log("gone offline")
