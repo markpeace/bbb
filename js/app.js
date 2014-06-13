@@ -3,6 +3,8 @@ if (typeof cordova === 'object') {
                 angular.bootstrap(document, ["bbb"]);
                 console.log("cordova intialised!")
 
+                navigator.notification.alert("Sorry, you are offline.", function() {}, "Offline!");
+                
                 document.addEventListener("deviceready", init, false);
 
                 function init() {
