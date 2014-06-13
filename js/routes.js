@@ -113,19 +113,19 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
 
 .run(function ($rootScope, ParseService, $location, $state) {
 
+        if(cordova) {
 
-        alert("yep")
+                document.addEventListener("offline", function () {
+                        console.log("gone offline")
+                        var previousState = $state.current.name
+                        $state.go("isOffline")
 
-        document.addEventListener("offline", function () {
-                console.log("gone offline")
-                var previousState = $state.current.name
-                $state.go("isOffline")
-                
-                document.addEventListener("online", function () {
-                        $state.go(previousState)
-                })
-                
-        }, false);
+                        document.addEventListener("online", function () {
+                                $state.go(previousState)
+                        })
+
+                }, false);
+        }
 
 
 
