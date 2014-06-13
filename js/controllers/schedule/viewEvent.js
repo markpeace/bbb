@@ -1,8 +1,14 @@
 bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $ionicModal, $stateParams) { 
-        
+
         console.log(navigator.connection.type)
         console.log("thats it")
-        
+
+        document.addEventListener("offline", onOffline, false);
+
+        function onOffline() {
+               console.log("gone offline")
+        }
+
         $scope.moment=moment
         $scope.attending={toggle:false};
         $scope.bookings=0
@@ -67,7 +73,7 @@ bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $ionicMod
                                 if(newVal==true) {
 
                                         $scope.bookings=$scope.bookings+1
-                                        
+
                                         var Booking = Parse.Object.extend("Booking");
                                         booking = new Booking(); 
                                         booking.set("user", Parse.User.current());
