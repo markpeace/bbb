@@ -94,6 +94,11 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
                 templateUrl: "pages/settings.html"
         })
         
+        .state('isOffline', {
+                url: "/isOffline",
+                templateUrl: "pages/offlineMessage.html"
+        })
+        
         // CHECK-IN ROUTE
 
         .state('checkin', {

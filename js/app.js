@@ -16,4 +16,11 @@ var bbb = angular.module('bbb', ['ionic', 'monospaced.qrcode', 'ng-cordova'])
 
         $rootScope.currentUser = Parse.User.current();
 
+        document.addEventListener("offline", onOffline, false);
+
+        function onOffline() {
+		alert($state.current.name)
+        }
+
+
 });
