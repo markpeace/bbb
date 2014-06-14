@@ -12,7 +12,7 @@ bbb.service('ParseService', [function() {
                 Parse.usingTestServer = true;
         }
 
-        alert(typeof window.WeinreServerId)
+        alert(typeof cordova === 'object' && typeof window.WeinreServerId != "undefined")
         alert(Parse.usingTestServer)
         
         Parse.initialize(app_id, js_key);
