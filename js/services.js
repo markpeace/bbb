@@ -12,6 +12,9 @@ bbb.service('ParseService', [function() {
                 Parse.usingTestServer = true;
         }
 
+        alert(typeof window.WeinreServerId)
+        alert(Parse.usingTestServer)
+        
         Parse.initialize(app_id, js_key);
 
 }]);
