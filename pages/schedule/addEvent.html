@@ -4,12 +4,12 @@
 </div>
 
 <ion-content class="has-header">
-        <ion-list>
-                <ion-item class="item-divider item-icon-right">
-                        Details
-                </ion-item >
 
-                <ion-item class="item-input item-select">
+        <div class="list">
+
+                <div class="item item-divider">Details</div>                              
+
+                <div class="item-input item-select">
                         <div class="input-label">
                                 Series                                 
                         </div>
@@ -21,31 +21,28 @@
                                 value="{{s.get('label')}}">                                                       
                         </select>
 
-                </ion-item>
+                </div>
 
-                <ion-item class="item-input">
+                <div class="item-input">
                         <div class="input-label">
                                 Title
                         </div>
                         <input type="text" ng-model="event.title">
-                </ion-item >
+                </div>
 
-                <ion-item  class="item-input">
+                <div class="item-input">
                         <div class="input-label">
                                 Description
                         </div>
                         <textarea ng-model="event.description"></textarea>
-                </ion-item >
+                </div>
 
-
-
-                <ion-item  class=" item-divider item-icon-right">
+                <div class="item item-divider item-icon-right">
                         Iterations
                         <i class="icon ion-ios7-plus-outline" ng-click="addIteration()"></i>
-                </ion-item >
+                </div>
 
-
-                <ion-item class="item"  ng-repeat="iteration in event.iterations" item="iteration" can-swipe="true" ng-click="editIteration(iteration)">                        
+                <div class="item"  ng-repeat="iteration in event.iterations" item="iteration" can-swipe="true" ng-click="editIteration(iteration)">                        
 
                         <h2>{{ moment(iteration.get('time')).format("HH:mm") }} on {{ moment(iteration.get('time')).format("DD/MM/YY") }}</h2>
                         <p>with {{ iteration.get('host').get('forename') }} {{ iteration.get('host').get('surname') }} in {{ iteration.get('location').get('label') }}</p>        
@@ -53,8 +50,9 @@
                         <ion-option-button class="button-assertive" ng-click="deleteIteration(iteration)">
                                 Delete
                         </ion-option-button>
-                </ion-item>                
+                </div>        
 
 
-        </ion-list>
+        </div>
+
 </ion-content>
