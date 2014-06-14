@@ -42,6 +42,15 @@
                         <i class="icon ion-ios7-plus-outline" ng-click="addIteration()"></i>
                 </div>
 
+                <ion-list>
+                        <ion-item>
+                                I love kittens!
+                                <ion-option-button class="button-positive">Share</ion-option-button>
+                                <ion-option-button class="button-assertive">Edit</ion-option-button>
+                        </ion-item>
+                </ion-list>
+
+
                 <div class="item"  ng-repeat="iteration in event.iterations" item="iteration" can-swipe="true" ng-click="editIteration(iteration)">                        
 
                         <h2>{{ moment(iteration.get('time')).format("HH:mm") }} on {{ moment(iteration.get('time')).format("DD/MM/YY") }}</h2>
