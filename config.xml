@@ -27,6 +27,8 @@
         <preference name="fullscreen"       value="false" />
         <preference name="webviewbounce"    value="false" />
 
+        <preference name="android-minSdkVersion" value="11" />
+
         <gap:plugin name="org.apache.cordova.core.camera" />
         <gap:plugin name="com.phonegap.plugins.barcodescanner" />
 
