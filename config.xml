@@ -31,11 +31,13 @@
         <gap:plugin name="org.apache.cordova.network-information" />
 
 
-        <supports-screens android:anyDensity="true" android:resizeable="true" 
-                          android:smallScreens="true" 
-                          android:normalScreens="true" 
-                          android:largeScreens="true" 
-                          android:xlargeScreens="true" />
+        <gap:config-file platform="android" parent="/manifest">
+                <supports-screens android:anyDensity="true" android:resizeable="true" 
+                                  android:smallScreens="true" 
+                                  android:normalScreens="true" 
+                                  android:largeScreens="true" 
+                                  android:xlargeScreens="true" />
+        </gap:config-file>
 
         <platform name="ios">
                 <!-- iOS 7.0+ -->
