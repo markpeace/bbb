@@ -1,4 +1,4 @@
-bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $ionicModal, $stateParams, $state) {                    
+bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $ionicModal, $ionicLoading, $stateParams, $state) {                    
 
         $scope.moment=moment
         $scope.attending={toggle:false};
@@ -29,13 +29,18 @@ bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $ionicMod
 
         var getEventDetails = function () {
 
+                $ionicLoading.show({
+                        template: 'Loading...'
+                });
+                
+
                 var Iteration = Parse.Object.extend("Iteration");
                 var query = new Parse.Query(Iteration);
                 query.include("event").include("event.series").include("host").include("location");
                 query.get($stateParams.id, {})
                 .then(function (results) {
                         $scope.iteration=results
-                        $scope.booking = { attending: false }
+                        $scope.booking = { attending: false }                        
                 }).then (getUserBooking);
         }
 
@@ -45,6 +50,7 @@ bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $ionicMod
                 .count(function(c) {
                         if (c>0) { $scope.booking.attending=true; }   
                         $scope.$apply();
+                        $ionicLoading.hide();
                 }).then(getCountofBookings);    
         }
 
