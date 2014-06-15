@@ -37,7 +37,7 @@
 
                 <div ng-show="emailVerified">    
 
-                        <div class="item item-footer" ng-hide='(moment().isAfter(moment(iteration.get("time")).subtract("days",2).hour("6").minute("0")) || securityLevel==1)'>
+                        <div class="item item-body" ng-hide='(moment().isAfter(moment(iteration.get("time")).subtract("days",2).hour("6").minute("0")) || securityLevel==1)'>
                                 <p>Check back from {{ moment(iteration.get('time')).subtract("days",2).format("Do MMMM"); }} to book yourself onto this pop-up.</p>                                                               
                         </div>
                         <div ng-show='(moment().isAfter(moment(iteration.get("time")).subtract("days",2).hour("6").minute("0")) || securityLevel==1)'>
@@ -46,25 +46,26 @@
                                 <div class="item item-footer" style="text-align:center;" ng-show="(iteration.get('capacity') - bookings)==0  && booking.attending==false" >This Event is Fully Booked</div>
 
                         </div>
-                </div>
 
+                </div>
+                <a class="item item-body item-icon-right" href="#" ng-click="sendEmailConfirmation()"  ng-hide="emailVerified" class="item item-body" style="font-size:1em;">
+                        <p>You can't book into an event until you have confirmed your email address.</p> 
+                        <p>Click here to resend the confirmation email</p>
+                        <i class="icon ion-ios7-arrow-right"></i>
+
+                </a>
         </div>
-        <div class="list card">
+        <div class="list card" ng-show="currentUser.id === iteration.get('host').id || securityLevel==1">
 
                 <div class="item item-divider">
                         Tools For Event Hosts
                 </div>
 
-                <a href="#" ng-click="sendEmailConfirmation()"  ng-hide="emailVerified" class="item item-body" style="font-size:1em;">
-                        <p>You can't book into an event until you have confirmed your email address.</p> 
-                        <p>Click to resend the confirmation email</p>
-                </a>
-
                 <a ui-sref="editEvent({id:iteration.get('event').id})" ng-show="securityLevel==1" class="item item-body" style="font-size:1em;">
                         Edit Event
                 </a>
 
-                <div ng-show="currentUser.id === iteration.get('host').id || securityLevel==1">
+                <div >
                         <a ui-sref="eventQRCode({id:iteration.id})" class="item item-body" style="font-size:1em;">
                                 Generate QR Code
                         </a>        

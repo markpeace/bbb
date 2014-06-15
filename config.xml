@@ -27,9 +27,15 @@
 
         <gap:plugin name="org.apache.cordova.core.camera" />
         <gap:plugin name="com.phonegap.plugins.barcodescanner" />
-        
+
         <gap:plugin name="org.apache.cordova.network-information" />
 
+
+        <supports-screens android:anyDensity="true" android:resizeable="true" 
+                          android:smallScreens="true" 
+                          android:normalScreens="true" 
+                          android:largeScreens="true" 
+                          android:xlargeScreens="true" />
 
         <platform name="ios">
                 <!-- iOS 7.0+ -->
