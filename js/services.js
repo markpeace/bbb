@@ -2,7 +2,7 @@ bbb.service('ParseService', [function() {
         
         Parse.usingTestServer = true;
         if(typeof cordova === 'object' && typeof window.WeinreServerId === "undefined") { Parse.usingTestServer = false; }        
-        //if(window.location.host=="assent-teufit.codio.io") { Parse.usingTestServer=false}
+        if(window.location.host=="www.birleybigbang.com") { Parse.usingTestServer=false}
         
         if(Parse.usingTestServer == false) {
                 var app_id = "iBkDfDqzMHb2gW1ClfLTwziKkmWrAZ5MyzKmwJwl";
