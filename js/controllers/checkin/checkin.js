@@ -50,6 +50,6 @@ bbb.controller('CheckIn', function($scope, $state, ParseService) {
                 } catch (ex) {
                         console.log(ex)
                 }
-        }()
+        }
 
 });
