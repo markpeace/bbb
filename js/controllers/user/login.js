@@ -26,7 +26,6 @@ bbb.controller('Login', function($scope, $ionicLoading, ParseService, $rootScope
                                 $scope.loading.hide();
 
                                 $state.go("tabs.schedule");
-                                $scope.$broadcast('scroll.scrollTop')
 
                         },
                         error: function(user, error) {
