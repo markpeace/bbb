@@ -1,17 +1,30 @@
 @import url('backgrounds.css');
 @import url('user/splash.css');
 
+/* Serifa @font-face */
+
+@font-face {
+    font-family: 'serifabefop-lightregular';
+    src: url('http://www.ioe.mmu.ac.uk//fonts/serifabefop-light-webfont.eot');
+    src: url('http://www.ioe.mmu.ac.uk//fonts/serifabefop-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://www.ioe.mmu.ac.uk//fonts/serifabefop-light-webfont.woff') format('woff'),
+         url('http://www.ioe.mmu.ac.uk//fonts/serifabefop-light-webfont.ttf') format('truetype'),
+         url('http://www.ioe.mmu.ac.uk//fonts/serifabefop-light-webfont.svg#serifabefop-lightregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 
 
-.computer-font {
-  font-family: 'Press Start 2P', cursive !important;
+.mmu-font {
+  font-family: 'serifabefop-lightregular';
 }
 .small-font {
-  font-size: .6em !important;
+  font-size: 1em !important;
 }
 .medium-font {
-  font-size: .8em !important;
+  font-size: 1em !important;
 }
+
 
 .valid {  
   color: black;
@@ -42,6 +55,11 @@
 
 .scroll-content, .list {
   background-color:rgba(255, 255, 255, 0.7);
+  z-index:  60;
 }
+
+.mmu-logo {position: fixed; bottom: 3%; margin-left: -44px; left: 50%;z-index: 0; opacity: .7  }
+
+body {background: #ee8333;}
 
 

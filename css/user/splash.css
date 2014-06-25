@@ -8,12 +8,14 @@
   position: absolute;
   top:20%;
   width:100%;
+  font-size: 4em;
 }
 
 .splash-player-count {
   position: absolute;
   top:30%;
   width:100%;
+  font-size: 3em;
 }
 
 .splash-login-panel {
@@ -27,5 +29,16 @@
   background-color:white;
   text-align: center;  
 }
+
+@media (max-width: 500px) {
+	.splash-logo {font-size: 3.6em; line-height: 1em; top: 3%;}	
+	.splash-player-count {font-size: 2em; line-height: 1em;}
+	.mmu-logo {display: none;}
+	}
+
+
+
+
+
 
 

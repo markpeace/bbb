@@ -1,7 +1,7 @@
 <ion-view>
         <div class="splash-screen">
-                <div class="splash-logo computer-font">The Birley Big Bang</div>
-                <div class="splash-player-count computer-font">- Play Along - </div>
+                <div class="splash-logo mmu-font">The Birley Big Bang</div>
+                <div class="splash-player-count mmu-font">- Play Along - </div>
         </div>
         <div class="splash-login-panel" style="background-color:white;">
                 <label class="item item-input">      
@@ -23,10 +23,13 @@
                         <i class="icon ion-checkmark placeholder-icon" ng-show="evaluate.confirm_password()" style="color:green;"></i>
                         <i class="icon ion-close placeholder-icon" ng-hide="evaluate.confirm_password()"  style="color:red;"></i>
                 </label>
-                <button class="button button-full button-dark computer-font small-font" ng-click="signup()">
-                        Register
-                </button>
-                <a ui-sref="login" class="computer-font small-font">Cancel Registration</a>
+                
+                 <br/>
+                
+                <div class="button-bar">
+                        <a class="button button-dark mmu-font" ng-click="signup()">Register</a>
+                        <a class="button button-dark mmu-font" ui-sref="login">Cancel</a>
+                </div>
 
         </div>
 </ion-view>
