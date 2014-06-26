@@ -1,4 +1,4 @@
-bbb.controller('ListEvents', function($state, $scope, ParseService, $rootScope) { 
+bbb.controller('ListEvents', function($state, $scope, ParseService, $rootScope, EventModel) { 
 
         $scope.moment=moment
         $scope.securityLevel=$rootScope.currentUser.get('securityLevel')

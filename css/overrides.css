@@ -4,58 +4,59 @@
 /* Serifa @font-face */
 
 @font-face {
-    font-family: 'serifabefop-lightregular';
-    src: url('http://www.ioe.mmu.ac.uk//fonts/serifabefop-light-webfont.eot');
-    src: url('http://www.ioe.mmu.ac.uk//fonts/serifabefop-light-webfont.eot?#iefix') format('embedded-opentype'),
-         url('http://www.ioe.mmu.ac.uk//fonts/serifabefop-light-webfont.woff') format('woff'),
-         url('http://www.ioe.mmu.ac.uk//fonts/serifabefop-light-webfont.ttf') format('truetype'),
-         url('http://www.ioe.mmu.ac.uk//fonts/serifabefop-light-webfont.svg#serifabefop-lightregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
+        font-family: 'serifabefop-lightregular';
+        src: url('http://www.ioe.mmu.ac.uk//fonts/serifabefop-light-webfont.eot');
+        src: url('http://www.ioe.mmu.ac.uk//fonts/serifabefop-light-webfont.eot?#iefix') format('embedded-opentype'),
+                url('http://www.ioe.mmu.ac.uk//fonts/serifabefop-light-webfont.woff') format('woff'),
+                url('http://www.ioe.mmu.ac.uk//fonts/serifabefop-light-webfont.ttf') format('truetype'),
+                url('http://www.ioe.mmu.ac.uk//fonts/serifabefop-light-webfont.svg#serifabefop-lightregular') format('svg');
+        font-weight: normal;
+        font-style: normal;
 }
 
 
 .mmu-font {
-  font-family: 'serifabefop-lightregular';
+        font-family: 'serifabefop-lightregular';
 }
 .small-font {
-  font-size: 1em !important;
+        font-size: 1em !important;
 }
 .medium-font {
-  font-size: 1em !important;
+        font-size: 1em !important;
 }
 
 
 .valid {  
-  color: black;
+        color: black;
 }
 
 .invalid {
-  color: red;
+        color: red;
 }
 
 .view, .pane, .scroll-content, .scroll, .list, .item, .item-content {
-  background-color:rgba(0, 0, 0, 0);
+        background-color:rgba(0, 0, 0, 0);
 }
 
 .bar {
-  background-color:rgba(247, 200, 0, 0.8);
-  border: none;
+        background-color:rgba(247, 200, 0, 0.8);
+        border: none;
+        font: mmu-font;
 }
 
 .button, .title {
-  color:black;
+        color:black;
 }
 
 .tabs, .tab-item {
-  background-color:rgba(247, 200, 0, 0.8);
-  color:black;
-  border: none;
+        background-color:rgba(247, 200, 0, 0.8);
+        color:black;
+        border: none;
 }
 
 .scroll-content, .list {
-  background-color:rgba(255, 255, 255, 0.7);
-  z-index:  60;
+        background-color:rgba(255, 255, 255, 0.7);
+        z-index:  60;
 }
 
 .mmu-logo {position: fixed; bottom: 3%; margin-left: -44px; left: 50%;z-index: 0; opacity: .7  }
