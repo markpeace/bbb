@@ -1,34 +1,36 @@
 <ion-view>
-  
-  <div class="bar  bar-subheader">
-    <button class="button button-icon icon ion-arrow-left-c" ng-click="changeDate(-1)" ng-show="selectedDate>0"></button>
-    <h2 class="title">{{ dates[selectedDate] }}</h2>
-    <button class="button button-icon icon ion-arrow-right-c" ng-click="changeDate(1)" ng-show="selectedDate+1<dates.length"></button>
-  </div>
-  
-  <ion-content class="has-header has-subheader">    
-    
-    <div class="button-bar">
-      <a href="#" ui-sref="tabs.schedule" class="button" ng-style="{ backgroundColor: scheduleTabColour }">All</a>   
-      <a href="#" ui-sref="tabs.schedule_booked" class="button"  ng-style="{ backgroundColor: bookedTabColour }">Booked</a>   
-    </div>
 
-    
-    <ion-list>
-      
-      <ion-item ng-hide="iterations.length>0">  
-        <h2>Loading Events</h2>
-      </ion-item>
-      
-      <ion-item ng-show="securityLevel<2" ui-sref="addEvent">  
-        <h2>Create An Event</h2>
-        <p>Click Here to Add Another Event</p>
-      </ion-item>
-      
-      <ion-item ng-repeat="iteration in iterations | filter: moment(dates[selectedDate], 'dddd, D MMMM').format('MM-DD') " href="#" ui-sref="viewEvent({id:iteration.id})">
-        <p>{{ iteration.get("event").get("series").get("label") }} with {{ iteration.get("host").get('forename') }} {{ iteration.get("host").get('surname') }} </p>
-        <h2>{{ moment(iteration.get("time")).format("HH:mm") }} : {{ iteration.get("event").get("title") }}</h2>        
-      </ion-item>      
-    </ion-list>
-  </ion-content>
+        <div class="bar  bar-subheader">
+                <button class="button button-icon icon ion-arrow-left-c" ng-click="changeDate(-1)" ng-show="selectedDate>0"></button>
+                <h2 class="title">{{ data.dates[selectedDate] }}</h2>
+                <button class="button button-icon icon ion-arrow-right-c" ng-click="changeDate(1)" ng-show="selectedDate+1<data.dates.length"></button>
+        </div>
+
+        <ion-content class="has-header has-subheader">    
+
+                <div class="button-bar">
+                        <a href="#" ui-sref="tabs.schedule" class="button" ng-style="{ backgroundColor: scheduleTabColour }">All</a>   
+                        <a href="#" ui-sref="tabs.schedule_booked" class="button"  ng-style="{ backgroundColor: bookedTabColour }">Booked</a>   
+                </div>
+
+                <ion-list>
+
+                        <ion-item ng-hide="data.iterations.length>0">  
+                                <h2>Loading Events</h2>
+                        </ion-item>
+
+                        <ion-item ng-show="securityLevel<2" ui-sref="addEvent">  
+                                <h2>Create An Event</h2>
+                                <p>Click Here to Add Another Event</p>
+                        </ion-item>
+
+                        <ion-item ng-repeat="iteration in filterByDate(data.iterations)" ui-sref="viewEvent({id:iteration.id})" href="#">
+                                <p>{{ iteration.event.series.label }} with {{ iteration.host.forename }} {{ iteration.host.surname }} </p>
+                                <h2>{{ moment(iteration.time).format("HH:mm") }} : {{ iteration.event.title }}</h2>        
+                        </ion-item>
+
+                        <!--  " href="#" ui-sref="viewEvent({id:iteration.id})">-->
+
+                </ion-list>
+        </ion-content>
 </ion-view>
