@@ -32,8 +32,8 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
                         { table: "Location", constraints: [], fields: ["label", "blurb"] },
                         { table: "Event", constraints: [], fields: ["description", "series", "title"] },
                         { table: "Series", constraints: [], fields: ["label"] },
-                        { table: "Iteration", constraints: [".ascending('time')"], fields: ["capacity", "event", "location", "host", "time"] }
-                        //{ table: "Booking", constraints: [".equalTo('User', "+Parse.User().current().id+")"], fields: ["iteration"] }
+                        { table: "Iteration", constraints: [".ascending('time')"], fields: ["capacity", "event", "location", "host", "time"] },
+                        { table: "Booking", constraints: [".equalTo('user', Parse.User.current())"], fields: ["iteration"] }
                 ]
 
                 lookupIndex=0
@@ -83,10 +83,14 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
                 iterations = []
                 dates=[]
 
-                for(var objectId in cache.data.Event	) {
+                for(var objectId in cache.data.Event) {
                         cache.data.Event[objectId].series = cache.data.Series[cache.data.Event[objectId].series]
                 }            
-
+                
+                for(var objectId in cache.data.Booking) {
+                        cache.data.Iteration[cache.data.Booking[objectId].iteration].booked = true
+                }            
+                
                 for(var objectId in cache.data.Iteration	) {
                         cache.data.Iteration[objectId].event = cache.data.Event[cache.data.Iteration[objectId].event]
                         cache.data.Iteration[objectId].location = cache.data.Location[cache.data.Iteration[objectId].location]
@@ -104,7 +108,7 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
 
                 cache.data.lastUpdated=moment()._d;                
                 cache.save();
-
+                                	
                 $rootScope.$apply()
 
         }

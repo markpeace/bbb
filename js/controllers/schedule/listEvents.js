@@ -8,15 +8,33 @@ bbb.controller('ListEvents', function($state, $scope, ParseService, $rootScope, 
         $scope.data=EventModel.data();       
         $scope.selectedDate=0;
 
-        console.log($scope.data)
+        $scope.selectTab= function(tab) {
+                $scope.selectedTab=tab	
 
-        $scope.filterByDate = function(items) {
+                if ($scope.selectedTab=="ALL") { 
+                        $scope.scheduleTabColour='rgba(247, 200, 0, 0.5)'
+                        $scope.bookedTabColour='rgba(255, 255, 255, 0.5)'
+                } else if($scope.selectedTab=="BOOKED") {
+                        $scope.bookedTabColour='rgba(247, 200, 0, 0.5)'
+                        $scope.scheduleTabColour='rgba(255, 255, 255, 0.5)'
+                }
+               
+        }
+        $scope.selectTab("ALL")
+
+        $scope.filter = function(items) {
 
                 r=[]
 
 
                 angular.forEach(items, function(item) {
-                        if(moment(item.time).format("dddd, Do MMMM")==$scope.data.dates[$scope.selectedDate]) { r.push(item) }
+                        if(moment(item.time).format("dddd, Do MMMM")==$scope.data.dates[$scope.selectedDate]) { 
+                                if($scope.selectedTab=="BOOKED") {
+                                        if(item.booked) { r.push(item)}
+                                } else {
+                                        r.push(item)
+                                }
+                        }
                 })
 
                 return r;
@@ -27,12 +45,10 @@ bbb.controller('ListEvents', function($state, $scope, ParseService, $rootScope, 
         }
 
 
-        if ($state.current.name=="tabs.schedule") { 
+        if ($scope.selectedTab=="ALL") { 
                 $scope.scheduleTabColour='rgba(247, 200, 0, 0.5)'
-                //getAllEvents()
-        } else if($state.current.name=="tabs.schedule_booked") {
+        } else if($scope.selectedTab=="BOOKED") {
                 $scope.bookedTabColour='rgba(247, 200, 0, 0.5)'
-                //getBookedEvents()
         }
 
 

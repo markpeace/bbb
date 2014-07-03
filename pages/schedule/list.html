@@ -9,8 +9,8 @@
         <ion-content class="has-header has-subheader">    
 
                 <div class="button-bar">
-                        <a href="#" ui-sref="tabs.schedule" class="button" ng-style="{ backgroundColor: scheduleTabColour }">All</a>   
-                        <a href="#" ui-sref="tabs.schedule_booked" class="button"  ng-style="{ backgroundColor: bookedTabColour }">Booked</a>   
+                        <a class="button" ng-style="{ backgroundColor: scheduleTabColour }" ng-click="selectTab('ALL')">All</a>   
+                        <a class="button"  ng-style="{ backgroundColor: bookedTabColour }"  ng-click="selectTab('BOOKED')">Booked</a>   
                 </div>
 
                 <ion-list>
@@ -24,7 +24,7 @@
                                 <p>Click Here to Add Another Event</p>
                         </ion-item>
 
-                        <ion-item ng-repeat="iteration in filterByDate(data.iterations)" ui-sref="viewEvent({id:iteration.id})" href="#">
+                        <ion-item ng-repeat="iteration in filter(data.iterations)" ui-sref="viewEvent({id:iteration.id})" href="#">
                                 <p>{{ iteration.event.series.label }} with {{ iteration.host.forename }} {{ iteration.host.surname }} </p>
                                 <h2>{{ moment(iteration.time).format("HH:mm") }} : {{ iteration.event.title }}</h2>        
                         </ion-item>
