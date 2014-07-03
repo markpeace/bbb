@@ -49,9 +49,11 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
                         query.find().then(function(results) {
                                 angular.forEach(results, function(result) {
                                         newItem = {}
-                                        angular.forEach(lookupItem.fields, function (field) {
-                                                newItem[field] = result.get(field)      
-                                                if (newItem[field].id) { newItem[field]=newItem[field].id }
+                                        angular.forEach(lookupItem.fields, function (field) {                                                
+                                                newItem[field] = result.get(field)    
+                                                if (newItem[field]) {                                                        
+                                                        if (newItem[field].id) { newItem[field]=newItem[field].id }
+                                                }
                                         })
                                         cache.data[lookupItem.table][result.id]=newItem
                                         cache.data[lookupItem.table][result.id].id=result.id
@@ -86,15 +88,21 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
                 for(var objectId in cache.data.Event) {
                         cache.data.Event[objectId].series = cache.data.Series[cache.data.Event[objectId].series]
                 }            
-                
+
                 for(var objectId in cache.data.Booking) {
                         cache.data.Iteration[cache.data.Booking[objectId].iteration].booked = true
                 }            
-                
-                for(var objectId in cache.data.Iteration	) {
+
+                for(var objectId in cache.data.Iteration) {
                         cache.data.Iteration[objectId].event = cache.data.Event[cache.data.Iteration[objectId].event]
                         cache.data.Iteration[objectId].location = cache.data.Location[cache.data.Iteration[objectId].location]
                         cache.data.Iteration[objectId].host = cache.data.User[cache.data.Iteration[objectId].host]
+
+                        if (cache.data.Iteration[objectId].host.id==Parse.User.current().id) {
+                                cache.data.Iteration[objectId].booked=true;
+                                cache.data.Iteration[objectId].isHost=true;
+                        }
+
                         iterations.push(cache.data.Iteration[objectId])
 
                         if (moment(cache.data.Iteration[objectId].time).format("dddd, Do MMMM")!=dates[dates.length-1]) {
@@ -108,7 +116,7 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
 
                 cache.data.lastUpdated=moment()._d;                
                 cache.save();
-                                	
+
                 $rootScope.$apply()
 
         }
