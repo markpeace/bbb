@@ -1,15 +1,16 @@
-bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $ionicModal, $ionicLoading, $stateParams, $state) {                    
+bbb.controller('ViewEvent', function($scope, ParseService, EventModel, $ionicModal, $ionicLoading, $stateParams, $state) {                    
 
-        $scope.moment=moment
-        $scope.attending={toggle:false};
-        $scope.bookings=0
-
-        $scope.emailVerified=Parse.User.current().get('emailVerified')
-        $scope.securityLevel=Parse.User.current().get('securityLevel')
-
+        $scope.moment=moment;
+        
         $scope.currentUser=Parse.User.current()
-
-
+        $scope.securityLevel=Parse.User.current().get('securityLevel')
+        $scope.emailVerified=Parse.User.current().get('emailVerified')
+        
+        angular.forEach(EventModel.data().iterations, function(iteration) {
+                if (iteration.id==$stateParams.id) { $scope.iteration=iteration }
+        })
+                
+        
         $ionicModal.fromTemplateUrl('pages/schedule/viewEvent_locationinfo.html', function($ionicModal) {
                 $scope.locationinfoModal = $ionicModal;
         }, {
@@ -24,6 +25,25 @@ bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $ionicMod
                 scope: $scope,
                 animation: 'slide-in-up'
         });
+        
+        $scope.sendEmailConfirmation = function () {
+                Parse.User.current().set("email", Parse.User.current().get("email"))
+                Parse.User.current().save()
+                alert("A confirmation email has been resent")
+        }
+        
+        
+        /*
+        $scope.moment=moment
+        $scope.attending={toggle:false};
+        $scope.bookings=0
+
+        
+
+        $scope.currentUser=Parse.User.current()
+
+
+        
 
 
 
@@ -106,10 +126,7 @@ bbb.controller('ViewEvent', function($scope, ParseService, $rootScope, $ionicMod
         getEventDetails();        
 
 
-        $scope.sendEmailConfirmation = function () {
-                Parse.User.current().set("email", Parse.User.current().get("email"))
-                Parse.User.current().save()
-                alert("A confirmation email has been resent")
-        }
+        
+        */
 
 });

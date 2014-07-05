@@ -103,7 +103,12 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
                 dates=[]
 
                 for(var objectId in cache.data.Event) {
-                        cache.data.Event[objectId].series = cache.data.Series[cache.data.Event[objectId].series]
+                        if (cache.data.Event[objectId].series.id) {
+                                cache.data.Event[objectId].series = cache.data.Series[cache.data.Event[objectId].series.id]
+                        } else {
+                                cache.data.Event[objectId].series = cache.data.Series[cache.data.Event[objectId].series]
+                        }
+
                 }            
 
                 for(var objectId in cache.data.Booking) {
@@ -132,7 +137,8 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
                 cache.data.iterations=iterations;
                 cache.data.dates=dates
 
-                cache.data.lastUpdated.Iteration=moment()._d;                
+                cache.data.lastUpdated.Iteration=moment()._d;      
+                console.log(cache.data)
                 cache.save();
 
                 $rootScope.$apply()

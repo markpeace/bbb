@@ -1,10 +1,10 @@
 <div class="modal">
   <div class="bar bar-header">
     <button class="button button-icon icon ion-ios7-arrow-back" ng-click="personinfoModal.hide()"></button>
-    <div class="title">{{ iteration.get("host").get("forename") }} {{ iteration.get("host").get("surname") }}</div>
+    <div class="title">{{ iteration.host.surname }} {{ iteration.host.forename }}</div>
   </div>
   
   <ion-content class="has-header padding">
-    <p> {{ iteration.get("host").get("blurb") }} </p>
+    <p> {{ iteration.host.blurb }} </p>
   </ion-content>
 </div>

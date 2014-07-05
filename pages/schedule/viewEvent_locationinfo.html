@@ -1,10 +1,10 @@
 <div class="modal">
   <div class="bar bar-header">
     <button class="button button-icon icon ion-ios7-arrow-back" ng-click="locationinfoModal.hide()"></button>
-    <div class="title">{{ iteration.get("location").get("label") }}</div>
+    <div class="title">{{ iteration.location.label }}</div>
   </div>
   
   <ion-content class="has-header padding">
-    <p> {{ iteration.get("location").get("blurb") }} </p>
+    <p> {{ iteration.location.blurb }} </p>
   </ion-content>
 </div>
