@@ -1,8 +1,8 @@
 bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, $rootScope) {                      
 
-        if(localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
+        if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
                 localStorage.setItem(Parse.User.current().id, JSON.stringify({
-                        lastUpdated:moment().subtract('years',1)._d,
+                        lastUpdated: {Iteration: moment().subtract('years',1)._d},
                         iterations: [],
                         dates:[]
                 })) 
@@ -13,14 +13,14 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
                 dc: this,
                 data: JSON.parse(localStorage.getItem(Parse.User.current().id)),
                 save: function () { localStorage.setItem(Parse.User.current().id, JSON.stringify(cache.data)); console.log("Saved Local Data Cache") }
-        }       
-
-        if(Parse.User.current().get('securityLevel')<2 || moment(new Date(cache.data.lastUpdated)) < moment().subtract('hours', 2) ) {                
+        }
+                        
+        if(Parse.User.current().get('securityLevel')<2 || moment(new Date(cache.data.lastUpdated.Iteration)) < moment().subtract('hours', 2) ) {  
                 (new Parse.Query("Iteration"))
                 .descending("updatedAt")
                 .limit(1)
                 .find().then(function(r) {        
-                        if(new Date(cache.data.lastUpdated) < new Date(r[0].updatedAt)) { updateData(); }
+                        if(new Date(cache.data.lastUpdated.Iteration) < new Date(r[0].updatedAt)) { updateData(); }
                 })
         }
 
@@ -59,6 +59,8 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
                                         cache.data[lookupItem.table][result.id].id=result.id
                                 })
 
+                                cache.data.lastUpdated[lookupItem.table] = moment()._d;
+                                
                                 console.log("updated " + lookupItem.table)
 
                                 lookupIndex++
@@ -114,9 +116,11 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
                 cache.data.iterations=iterations;
                 cache.data.dates=dates
 
-                cache.data.lastUpdated=moment()._d;                
+                cache.data.lastUpdated.Iteration=moment()._d;                
                 cache.save();
 
+                console.log(cache.data)
+                
                 $rootScope.$apply()
 
         }
