@@ -15,7 +15,9 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
                 save: function () { localStorage.setItem(Parse.User.current().id, JSON.stringify(cache.data)); console.log("Saved Local Data Cache") }
         }
 
-        if(Parse.User.current().get('securityLevel')<2 || moment(new Date(cache.data.lastUpdated.Iteration)) < moment().subtract('hours', 2) ) {  
+        if(Parse.User.current().get('securityLevel')<2 
+           || moment(new Date(cache.data.lastUpdated.Iteration)) < moment().subtract('hours', 2) 
+           || !(cache.data.User && cache.data.Location && cache.data.Event && cache.data.Series && cache.data.Iteration && cache.data.Booking)) {  
                 (new Parse.Query("Iteration"))
                 .descending("updatedAt")
                 .limit(1)
@@ -80,7 +82,7 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
                                 cache.data.lastUpdated[lookupItem.table] = moment()._d;
 
                                 console.log("updated " + lookupItem.table)
-				
+
                                 checkTable()
 
                         })
@@ -109,7 +111,7 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
                 }            
 
                 for(var objectId in cache.data.Iteration) {
-                                                
+
                         cache.data.Iteration[objectId].event = cache.data.Event[cache.data.Iteration[objectId].event]
                         cache.data.Iteration[objectId].location = cache.data.Location[cache.data.Iteration[objectId].location]
                         cache.data.Iteration[objectId].host = cache.data.User[cache.data.Iteration[objectId].host]
@@ -132,7 +134,7 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
 
                 cache.data.lastUpdated.Iteration=moment()._d;                
                 cache.save();
-                
+
                 $rootScope.$apply()
 
         }
