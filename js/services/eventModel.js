@@ -14,7 +14,7 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
                 data: JSON.parse(localStorage.getItem(Parse.User.current().id)),
                 save: function () { localStorage.setItem(Parse.User.current().id, JSON.stringify(cache.data)); console.log("Saved Local Data Cache") }
         }
-                        
+
         if(Parse.User.current().get('securityLevel')<2 || moment(new Date(cache.data.lastUpdated.Iteration)) < moment().subtract('hours', 2) ) {  
                 (new Parse.Query("Iteration"))
                 .descending("updatedAt")
@@ -35,14 +35,32 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
                         { table: "Iteration", constraints: [".ascending('time')"], fields: ["capacity", "event", "location", "host", "time"] },
                         { table: "Booking", constraints: [".equalTo('user', Parse.User.current())"], fields: ["iteration"] }
                 ]
+                lookupIndex=-1
 
-                lookupIndex=0
+                var checkTable = function () {
 
-                var performLookup = function () {
+                        if (lookupIndex==toLookUp.length-1) { return weaveData();}
 
+                        lookupIndex++
                         lookupItem = toLookUp[lookupIndex]
 
-                        cache.data[lookupItem.table] = []
+                        query = new Parse.Query(lookupItem.table)
+                        angular.forEach(lookupItem.constraints, function (constraint) { eval("query" + constraint) })                        
+                        query.descending("updatedAt").limit(1).find().then(function(r) {
+                                if (r.length==0 || new Date(cache.data.lastUpdated[lookupItem.table]) > new Date(r[0].updatedAt)) { 
+                                        return checkTable(); 
+                                } else {
+                                        refreshData(lookupItem)
+                                }
+
+                        })
+
+
+
+                }
+
+                var refreshData = function(lookupItem) {
+                        cache.data[lookupItem.table] = {}
 
                         query = new Parse.Query(lookupItem.table)
                         angular.forEach(lookupItem.constraints, function (constraint) { eval("query" + constraint) })
@@ -60,21 +78,16 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
                                 })
 
                                 cache.data.lastUpdated[lookupItem.table] = moment()._d;
-                                
-                                console.log("updated " + lookupItem.table)
 
-                                lookupIndex++
-                                if (lookupIndex<toLookUp.length) { 
-                                        performLookup()
-                                } else {
-                                        weaveData();
-                                }
+                                console.log("updated " + lookupItem.table)
+				
+                                checkTable()
 
                         })
 
                 }
 
-                performLookup()
+                checkTable()
 
 
         }
@@ -96,6 +109,7 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
                 }            
 
                 for(var objectId in cache.data.Iteration) {
+                                                
                         cache.data.Iteration[objectId].event = cache.data.Event[cache.data.Iteration[objectId].event]
                         cache.data.Iteration[objectId].location = cache.data.Location[cache.data.Iteration[objectId].location]
                         cache.data.Iteration[objectId].host = cache.data.User[cache.data.Iteration[objectId].host]
@@ -118,8 +132,6 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
 
                 cache.data.lastUpdated.Iteration=moment()._d;                
                 cache.save();
-
-                console.log(cache.data)
                 
                 $rootScope.$apply()
 
