@@ -23,32 +23,7 @@ bbb.controller('ViewEvent', function($scope, ParseService, EventModel, $ionicMod
 
 
         $scope.$watch("iteration.booked", function(n,o) {
-
-                if ($scope.iteration.host.id == Parse.User.current().id) {
-                        if(n!=true) {
-                                alert("You cannot unbook yourself from this event, because you are the host")
-                                $scope.iteration.booked=true
-                                return
-                        }
-                        return;
-                }
-
-
-                if (n && n!=o) {
-                        (new (Parse.Object.extend("Booking")))	
-                        .save({user:Parse.User.current(), iteration:dummyIteration})   
-                        EventModel.save();                
-                } else if(!n && n!=o) {                        
-
-                        (new Parse.Query("Booking"))
-                        .equalTo("user", Parse.User.current())
-                        .equalTo("iteration", dummyIteration)
-                        .find().then(function(r){
-                                angular.forEach(r,function(r) {r.destroy()})
-                        })
-                        EventModel.save();                
-                }
-
+		if (n!=o) { EventModel.toggleBooking($scope.iteration) }
         })
 
         $ionicModal.fromTemplateUrl('pages/schedule/viewEvent_locationinfo.html', function($ionicModal) {

@@ -147,7 +147,33 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
 
         return {
                 data: function() { return cache.data },
-                save: function() { return cache.save() }
+                toggleBooking: function (iteration) {
+
+                        if (iteration.host.id == Parse.User.current().id) {
+                                if(iteration.booked!=true) {
+                                        alert("You cannot unbook yourself from this event, because you are the host")
+                                        iteration.booked=true
+                                }
+                                return;
+                        }
+
+                        dummyIteration = (new (Parse.Object.extend("Booking"))).set("objectId", iteration.id)                        
+                        
+                        if (iteration.booked) {
+                                (new (Parse.Object.extend("Booking")))	
+                                .save({user:Parse.User.current(), iteration:dummyIteration})   
+                                cache.save();                
+                        } else if(!iteration.booked) {                        
+                                (new Parse.Query("Booking"))
+                                .equalTo("user", Parse.User.current())
+                                .equalTo("iteration", dummyIteration)
+                                .find().then(function(r){
+                                        angular.forEach(r,function(r) {r.destroy()})
+                                })
+                                cache.save();                
+                        }
+
+                }
         }
 
 
