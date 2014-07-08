@@ -146,7 +146,8 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
         }
 
         return {
-                data: function() { return cache.data }
+                data: function() { return cache.data },
+                save: function() { return cache.save() }
         }
 
 
