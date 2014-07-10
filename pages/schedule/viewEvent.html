@@ -31,7 +31,7 @@
                                 {{ iteration.event.description }}
                         </p>
                         <p style="text-align:right; font-size:0.6em;">
-                                {{ iteration.capacity - bookings }} Places Available               
+                                {{ iteration.capacity - iteration.bookings }} Places Available               
                         </p>
                 </div>
 
@@ -42,8 +42,8 @@
                         </div>
                         <div ng-show='(moment().isAfter(moment(iteration.time).subtract("days",2).hour("6").minute("0")) || securityLevel==1)'>
 
-                                <ion-toggle class="item item-footer" ng-model="iteration.booked" ng-hide="(iteration.capacity - bookings)==0 && booking.attending==false">Indicate Your Attendence:</ion-toggle>  
-                                <div class="item item-footer" style="text-align:center;" ng-show="(iteration.capacity - bookings)==0  && booking.attending==false" >This Event is Fully Booked</div>
+                                <ion-toggle class="item item-footer" ng-model="iteration.booked" ng-hide="(iteration.capacity - iteration.bookings)==0 && booking.attending==false">Indicate Your Attendence:</ion-toggle>  
+                                <div class="item item-footer" style="text-align:center;" ng-show="(iteration.capacity - iteration.bookings)==0  && booking.attending==false" >This Event is Fully Booked</div>
 
                         </div>
 

@@ -149,6 +149,10 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
                 data: function() { return cache.data },
                 toggleBooking: function (iteration) {
 
+                        angular.forEach(cache.data.iterations, function(i, index) {
+                                if (iteration.id==i.id) { iterationIndex=index }
+                        })
+
                         if (iteration.host.id == Parse.User.current().id) {
                                 if(iteration.booked!=true) {
                                         alert("You cannot unbook yourself from this event, because you are the host")
@@ -158,20 +162,29 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
                         }
 
                         dummyIteration = (new (Parse.Object.extend("Booking"))).set("objectId", iteration.id)                        
-                        
+
                         if (iteration.booked) {
+                                cache.data.iterations[iterationIndex].booked=true;
                                 (new (Parse.Object.extend("Booking")))	
                                 .save({user:Parse.User.current(), iteration:dummyIteration})   
-                                cache.save();                
+                                iteration.bookings++;
+                                cache.save();        
+                                $rootScope.$apply();        
                         } else if(!iteration.booked) {                        
+                                cache.data.iterations[iterationIndex].booked=false;                                
                                 (new Parse.Query("Booking"))
                                 .equalTo("user", Parse.User.current())
                                 .equalTo("iteration", dummyIteration)
                                 .find().then(function(r){
-                                        angular.forEach(r,function(r) {r.destroy()})
+                                        angular.forEach(r,function(r) {
+                                        	r.destroy(); 
+                                        	iteration.bookings--;
+                                        	$rootScope.$apply();
+                                        	})
                                 })
+
                                 cache.save();                
-                        }
+                        }                        
 
                 }
         }

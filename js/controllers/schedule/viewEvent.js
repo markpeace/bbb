@@ -16,14 +16,13 @@ bbb.controller('ViewEvent', function($scope, ParseService, EventModel, $ionicMod
                 (new Parse.Query("Booking"))
                 .equalTo("iteration", dummyIteration)
                 .count().then(function(r) {
-                        //console.log(r)
+                        $scope.iteration.bookings=r
                 })
-        }
-        getCountOfBookings();
+        }();
 
 
         $scope.$watch("iteration.booked", function(n,o) {
-		if (n!=o) { EventModel.toggleBooking($scope.iteration) }
+		if (n!=o) { EventModel.toggleBooking($scope.iteration); }
         })
 
         $ionicModal.fromTemplateUrl('pages/schedule/viewEvent_locationinfo.html', function($ionicModal) {
