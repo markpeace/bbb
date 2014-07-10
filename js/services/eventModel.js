@@ -1,5 +1,7 @@
 bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, $rootScope) {                      
 
+alert("EventModel")
+
         if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
                 localStorage.setItem(Parse.User.current().id, JSON.stringify({
                         lastUpdated: {Iteration: moment().subtract('years',1)._d},
@@ -35,6 +37,7 @@ bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, 
                         { table: "Event", constraints: [], fields: ["description", "series", "title"] },
                         { table: "Series", constraints: [], fields: ["label"] },
                         { table: "Iteration", constraints: [".ascending('time')"], fields: ["capacity", "event", "location", "host", "time"] },
+                        { table: "Booking", constraints: [".equalTo('user', Parse.User.current())"], fields: ["iteration"] },
                         { table: "Booking", constraints: [".equalTo('user', Parse.User.current())"], fields: ["iteration"] }
                 ]
                 lookupIndex=-1
