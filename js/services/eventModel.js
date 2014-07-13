@@ -1,6 +1,4 @@
-bbb.factory('EventModel', ["ParseService", "$rootScope", function(ParseService, $rootScope) {                      
-
-alert("EventModel")
+bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope", function(ParseService, $ionicLoading, $rootScope) {                      
 
         if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
                 localStorage.setItem(Parse.User.current().id, JSON.stringify({
@@ -31,6 +29,10 @@ alert("EventModel")
 
         var updateData = function () {                
 
+                $ionicLoading.show({
+                        template: 'Updating...'
+                });
+
                 toLookUp = [
                         { table: "User", constraints: [".lessThan('securityLevel', 3)"], fields: ["forename", "surname", "blurb"] },
                         { table: "Location", constraints: [], fields: ["label", "blurb"] },
@@ -43,11 +45,18 @@ alert("EventModel")
                 lookupIndex=-1
 
                 var checkTable = function () {
-
+                        
+                        $ionicLoading.hide();
+                        
                         if (lookupIndex==toLookUp.length-1) { return weaveData();}
 
                         lookupIndex++
                         lookupItem = toLookUp[lookupIndex]
+                        
+                        
+                        $ionicLoading.show({
+                                template: 'Updating ' + lookupItem.table
+                        });                        
 
                         query = new Parse.Query(lookupItem.table)
                         angular.forEach(lookupItem.constraints, function (constraint) { eval("query" + constraint) })                        
@@ -144,6 +153,8 @@ alert("EventModel")
                 console.log(cache.data)
                 cache.save();
 
+                $ionicLoading.hide();
+
                 $rootScope.$apply()
 
         }
@@ -180,10 +191,10 @@ alert("EventModel")
                                 .equalTo("iteration", dummyIteration)
                                 .find().then(function(r){
                                         angular.forEach(r,function(r) {
-                                        	r.destroy(); 
-                                        	iteration.bookings--;
-                                        	$rootScope.$apply();
-                                        	})
+                                                r.destroy(); 
+                                                iteration.bookings--;
+                                                $rootScope.$apply();
+                                        })
                                 })
 
                                 cache.save();                
