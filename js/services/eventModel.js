@@ -45,15 +45,15 @@ bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope", functio
                 lookupIndex=-1
 
                 var checkTable = function () {
-                        
+
                         $ionicLoading.hide();
-                        
+
                         if (lookupIndex==toLookUp.length-1) { return weaveData();}
 
                         lookupIndex++
                         lookupItem = toLookUp[lookupIndex]
-                        
-                        
+
+
                         $ionicLoading.show({
                                 template: 'Updating ' + lookupItem.table
                         });                        
@@ -175,7 +175,8 @@ bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope", functio
                                 return;
                         }
 
-                        dummyIteration = (new (Parse.Object.extend("Booking"))).set("objectId", iteration.id)                        
+                        dummyIteration = (new (Parse.Object.extend("Booking")))
+                        dummyIteration.id = iteration.id                        
 
                         if (iteration.booked) {
                                 cache.data.iterations[iterationIndex].booked=true;
