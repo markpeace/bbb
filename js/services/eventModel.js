@@ -1,6 +1,6 @@
 bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope", function(ParseService, $ionicLoading, $rootScope) {                      
 
-        if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
+        if(localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
                 localStorage.setItem(Parse.User.current().id, JSON.stringify({
                         lastUpdated: {Iteration: moment().subtract('years',1)._d},
                         iterations: [],
