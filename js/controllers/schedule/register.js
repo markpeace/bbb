@@ -33,7 +33,7 @@ bbb.controller('AttendenceRegister', function($scope, ParseService, $stateParams
                         checkin = new Parse.Object("Checkin")
                         checkin.save({
                                 booking:booking,
-                                user: Parse.User.current()
+                                user: booking.get("user")
                         }).then(function (result) {
                                 booking.set("checkin", result).save().then(function() {
                                         $scope.$apply()

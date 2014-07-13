@@ -1,6 +1,6 @@
 bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope", function(ParseService, $ionicLoading, $rootScope) {                      
 
-        if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
+        if(localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
                 localStorage.setItem(Parse.User.current().id, JSON.stringify({
                         lastUpdated: {Iteration: moment().subtract('years',1)._d},
                         iterations: [],
@@ -40,7 +40,7 @@ bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope", functio
                         { table: "Series", constraints: [], fields: ["label"] },
                         { table: "Iteration", constraints: [".ascending('time')"], fields: ["capacity", "event", "location", "host", "time"] },
                         { table: "Booking", constraints: [".equalTo('user', Parse.User.current())"], fields: ["iteration"] },
-                        { table: "Booking", constraints: [".equalTo('user', Parse.User.current())"], fields: ["iteration"] }
+                        { table: "Checkin", constraints: [".equalTo('user', Parse.User.current())"], fields: ["booking"] }
                 ]
                 lookupIndex=-1
 
@@ -125,6 +125,7 @@ bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope", functio
 
                 for(var objectId in cache.data.Booking) {
                         cache.data.Iteration[cache.data.Booking[objectId].iteration].booked = true
+                        cache.data.Booking[objectId].iteration = cache.data.Iteration[cache.data.Booking[objectId].iteration]
                 }            
 
                 for(var objectId in cache.data.Iteration) {
@@ -145,7 +146,10 @@ bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope", functio
                         }
                 }
 
-
+                for(var objectId in cache.data.Checkin) {
+                        cache.data.Checkin[objectId].booking = cache.data.Booking[cache.data.Checkin[objectId].booking]
+                }
+                
                 cache.data.iterations=iterations;
                 cache.data.dates=dates
 
