@@ -17,6 +17,7 @@ bbb.controller('ViewEvent', function($scope, ParseService, EventModel, $ionicMod
                 .equalTo("iteration", dummyIteration)
                 .count().then(function(r) {
                         $scope.iteration.bookings=r
+                        $scope.$apply()
                 })
         }();
 
