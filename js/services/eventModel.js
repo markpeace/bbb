@@ -1,6 +1,6 @@
-bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope", function(ParseService, $ionicLoading, $rootScope) {                      
+bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope","$state", function(ParseService, $ionicLoading, $rootScope, $state) {                      
 
-        if(localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
+        if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
                 localStorage.setItem(Parse.User.current().id, JSON.stringify({
                         lastUpdated: {Iteration: moment().subtract('years',1)._d},
                         iterations: [],
@@ -36,7 +36,7 @@ bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope", functio
                 toLookUp = [
                         { table: "User", constraints: [".lessThan('securityLevel', 3)"], fields: ["forename", "surname", "blurb"] },
                         { table: "Location", constraints: [], fields: ["label", "blurb"] },
-                        { table: "Event", constraints: [], fields: ["description", "series", "title"] },
+                        { table: "Event", constraints: [], fields: ["description", "series", "title", "length"] },
                         { table: "Series", constraints: [], fields: ["label"] },
                         { table: "Iteration", constraints: [".ascending('time')"], fields: ["capacity", "event", "location", "host", "time"] },
                         { table: "Booking", constraints: [".equalTo('user', Parse.User.current())"], fields: ["iteration"] },
@@ -149,7 +149,7 @@ bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope", functio
                 for(var objectId in cache.data.Checkin) {
                         cache.data.Checkin[objectId].booking = cache.data.Booking[cache.data.Checkin[objectId].booking]
                 }
-                
+
                 cache.data.iterations=iterations;
                 cache.data.dates=dates
 
@@ -183,12 +183,41 @@ bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope", functio
                         dummyIteration.id = iteration.id                        
 
                         if (iteration.booked) {
+
+                                clash = false;
+
+                                angular.forEach(cache.data.iterations, function(i){
+
+                                        if(i.id!=iteration.id && i.booked) {
+
+                                                //DOES THE PREVIOUS START BEFORE THIS, AND FINISH AFTER IT?
+
+                                                if ((moment(i.time)<moment(iteration.time)) && (moment(i.time).add("minutes", i.event.length) > moment(iteration.time))) {
+                                                        clash=true
+                                                }
+
+
+                                                //DOES THIS ONE START BEFORE THE NEXT, AND FINISH AFTER IT?                                                
+                                                if ((moment(iteration.time)<moment(i.time)) && (moment(iteration.time).add("minutes", iteration.event.length) > moment(i.time))) {
+                                                        clash=true
+                                                }
+
+                                        }
+
+                                })                                
+
+                                if (clash) {
+                                        alert("You are already booked onto an event at this time.")
+                                        iteration.booked=false;
+                                        return;
+                                }                                
+
                                 cache.data.iterations[iterationIndex].booked=true;
                                 (new (Parse.Object.extend("Booking")))	
                                 .save({user:Parse.User.current(), iteration:dummyIteration})   
                                 iteration.bookings++;
                                 cache.save();        
-                                $rootScope.$apply();        
+
                         } else if(!iteration.booked) {                        
                                 cache.data.iterations[iterationIndex].booked=false;                                
                                 (new Parse.Query("Booking"))

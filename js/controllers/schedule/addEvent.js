@@ -15,6 +15,8 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  $ionicModal,
                 $scope.relatedData['Dates'][0] = startDate.format('DD/MM/YY')
                 for (d=1;d<numberOfDays;d++) $scope.relatedData['Dates'][d]=moment($scope.relatedData['Dates'][d-1],'DD/MM/YY').add('days',1).format('DD/MM/YY')
 
+                $scope.relatedData['Dates'].push(moment("2050-05-09T01:00:00.196Z").format('DD/MM/YY'));
+                
                 $scope.relatedData['Times'] = []                
                 $scope.relatedData['Times'][0] = startDate.format('HH:mm')                
                 for (d=1;d<numberOfTimeSlots;d++) $scope.relatedData['Times'][d]=moment($scope.relatedData['Times'][d-1],'HH:mm').add('minutes',lengthOfTimeSlots).format('HH:mm')
@@ -57,6 +59,7 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  $ionicModal,
                                         object: result,
                                         title: result.get('title'),
                                         description:result.get('description'),
+                                        length: result.get('length'),
                                         series:series,
                                         iterations: []
                                 }
@@ -81,6 +84,7 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  $ionicModal,
                                         title:null,
                                         description:null,
                                         series:null,
+                                        length:20,
                                         iterations: []
                                 }
 
@@ -177,6 +181,7 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  $ionicModal,
                                 object.set('title', title)
                                 object.set('description', description)
                                 object.set('series', series)
+                                object.set('length', length)                               
 
                                 angular.forEach($scope.event.iterations, function (iteration) {
                                         iteration.set("event", $scope.event.object);
