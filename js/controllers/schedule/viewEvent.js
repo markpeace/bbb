@@ -17,9 +17,25 @@ bbb.controller('ViewEvent', function($scope, ParseService, EventModel, $ionicMod
                 .equalTo("iteration", dummyIteration)
                 .count().then(function(r) {
                         $scope.iteration.bookings=r
+                        
+                        if ($scope.iteration.capacity-r == 0 ) { findAlternativeIterations()}
+                        
                         $scope.$apply()
                 })
-        }();
+        }
+        getCountOfBookings ();
+        
+        var findAlternativeIterations = function() {
+                $scope.alternativeIterations = []
+                
+                angular.forEach(EventModel.data().iterations, function (i) {
+                        if (i.event.id == $scope.iteration.event.id && i.id!=$scope.iteration.id) { $scope.alternativeIterations.push(i) }
+                })
+                
+                $scope.$apply();
+        }
+        
+        
 
 
         $scope.$watch("iteration.booked", function(n,o) {

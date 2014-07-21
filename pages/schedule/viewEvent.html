@@ -45,8 +45,17 @@
                         </div>
                         <div ng-show='(moment().isAfter(moment(iteration.time).subtract("days",2).hour("6").minute("0")) || securityLevel==1)'>
 
-                                <ion-toggle class="item item-footer" ng-model="iteration.booked" ng-hide="(iteration.capacity - iteration.bookings)==0 && booking.attending==false">Indicate Your Attendence:</ion-toggle>  
-                                <div class="item item-footer" style="text-align:center;" ng-show="(iteration.capacity - iteration.bookings)==0  && booking.attending==false" >This Event is Fully Booked</div>
+                                <ion-toggle class="item item-footer" ng-model="iteration.booked" ng-hide="(iteration.capacity - iteration.bookings)==0 && !iteration.booked">Indicate Your Attendence:</ion-toggle>  
+                                <div ng-show="(iteration.capacity - iteration.bookings)==0  && !iteration.booked" >
+                                        <div class="item item-footer">
+                                                This Event is Fully Booked <span ng-show="alternativeIterations.length>0">, Here Are Some Alternative Times and Days:  </span>                                              
+                                        </div>
+                                        <div class="item item-icon-right" ng-repeat="i in alternativeIterations" ui-sref="viewEvent({id:i.id})">
+                                                {{ moment(i.time).format("dddd, MMMM Do @ h:mm a"); }}
+                                                <i class="icon ion-ios7-arrow-right"></i>
+
+                                        </div>
+                                </div>
 
                         </div>
 
