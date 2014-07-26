@@ -52,7 +52,7 @@ bbb.controller('Register', function($scope, $ionicModal,  $ionicLoading, ParseSe
     
     errors=''
     
-    if (!$scope.evaluate.email()) { errors=errors + "- You must register with a valid MMU Email Address \n" }
+    //if (!$scope.evaluate.email()) { errors=errors + "- You must register with a valid MMU Email Address \n" }
     if (!$scope.evaluate.programme()) { errors=errors + "- You must choose an MMU programme of study \n" }    
     if (!$scope.evaluate.password()) { errors=errors + "- You must choose a password longer than five characters \n" }    
     if (!$scope.evaluate.confirm_password()) { errors=errors + "- Your password and confirmation should match \n" }
@@ -70,6 +70,7 @@ bbb.controller('Register', function($scope, $ionicModal,  $ionicLoading, ParseSe
     user.set("email",$scope.newUser.email)
     user.set("username",$scope.newUser.email)
     user.set("password",$scope.newUser.password)
+    user.set("cohort", (new Parse.Object("Programme")).id=$scope.newUser.programme)
     
     user.signUp(null, {
       success: function(user) {        

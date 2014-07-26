@@ -7,7 +7,7 @@
 
         <ion-content class="has-header">
                 <ion-list>
-                        <ion-toggle ng-model="cohort.selected" ng-repeat="cohort in cohorts" ng-click="updateCohortConstraints()">
+                        <ion-toggle ng-model="cohort.selected" ng-repeat="cohort in relatedData.Programme" ng-click="updateCohortConstraints()">
                                 {{ cohort.get("label") }}
                         </ion-toggle>       
                 </ion-list>

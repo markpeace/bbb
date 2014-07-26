@@ -2,21 +2,15 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  $ionicModal,
 
 
         $scope.cohorts=[]
-        var getCohorts = function() {
+/*        var getCohorts = function() {
                 (new Parse.Query("Programme")).find().then(function (r) {
                         $scope.cohorts=r
-                        
-                        angular.forEach($scope.cohorts,function(c) {
-                                angular.forEach($scope.event.cohorts, function(sc) {
-                                        if(c.id==sc) { c.selected=true }
-                                })
-                        })
-                        
                 })
         }
-        
+        //getCohorts()*/
+
         var getReferencedData = function () {                                                        // GET DATA FROM OTHER TABLES AS NEEDED                                
-                
+
                 $scope.relatedData=[]
                 $scope.moment = moment;
 
@@ -39,6 +33,7 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  $ionicModal,
                 queryData = [
                         { tableName: 'Series' },
                         { tableName: 'Location' },
+                        { tableName: 'Programme' },
                         { tableName: 'User', query: "lessThan('securityLevel', 3)"}
                 ]      
 
@@ -75,12 +70,16 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  $ionicModal,
                                         title: result.get('title'),
                                         description:result.get('description'),
                                         cohorts: result.get('cohorts'),
-                                        length: result.get('length'),
+                                        duration: result.get('duration'),
                                         series:series,
                                         iterations: []
                                 }
-                                
-                                getCohorts();
+                                				                                
+                                angular.forEach($scope.relatedData.Programme,function(c) {
+                                        angular.forEach($scope.event.cohorts, function(sc) {
+                                                if(c.id==sc) { c.selected=true }
+                                        })
+                                })
 
                                 new Parse.Query(Parse.Object.extend("Iteration"))
                                 .equalTo("event", result).include("host").include("location")
@@ -101,8 +100,9 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  $ionicModal,
                                         object: result,
                                         title:null,
                                         description:null,
+                                        cohorts:[],
                                         series:null,
-                                        length:20,
+                                        duration:20,
                                         iterations: []
                                 }
 
@@ -119,13 +119,13 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  $ionicModal,
         $scope.updateCohortConstraints = function() {
                 
                 $scope.event.cohorts=[]
-                
-                angular.forEach($scope.cohorts, function(c) {
-                	if(c.selected) {$scope.event.cohorts.push(c.id)}
+
+                angular.forEach($scope.relatedData.Programme, function(c) {
+                        if(c.selected) {$scope.event.cohorts.push(c.id)}
                 })
-                
+                	
         }
-        
+
         $scope.addIteration = function () {
                 var Iteration = Parse.Object.extend("Iteration")
                 var iteration = new Iteration().set("event", $scope.event.object).save()
@@ -217,7 +217,7 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  $ionicModal,
                                 object.set('description', description)
                                 object.set('cohorts', cohorts)
                                 object.set('series', series)
-                                object.set('length', length)                               
+                                object.set('duration', duration)                               
 
                                 angular.forEach($scope.event.iterations, function (iteration) {
                                         iteration.set("event", $scope.event.object);
@@ -225,7 +225,7 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  $ionicModal,
 
                                         object.relation("iterations").add(iteration);
                                 })
-
+ 
                                 object.save().then(function() {
                                         $state.go("tabs.schedule")
                                 });

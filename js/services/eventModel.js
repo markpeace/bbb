@@ -1,6 +1,6 @@
 bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope","$state", function(ParseService, $ionicLoading, $rootScope, $state) {                      
 
-        if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
+        if(localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
                 localStorage.setItem(Parse.User.current().id, JSON.stringify({
                         lastUpdated: {Iteration: moment().subtract('years',1)._d},
                         iterations: [],
@@ -36,7 +36,7 @@ bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope","$state"
                 toLookUp = [
                         { table: "User", constraints: [".lessThan('securityLevel', 3)"], fields: ["forename", "surname", "blurb"] },
                         { table: "Location", constraints: [], fields: ["label", "blurb"] },
-                        { table: "Event", constraints: [], fields: ["description", "series", "title", "length"] },
+                        { table: "Event", constraints: [], fields: ["description", "series", "title", "length", "cohorts"] },
                         { table: "Series", constraints: [], fields: ["label"] },
                         { table: "Iteration", constraints: [".ascending('time')"], fields: ["capacity", "event", "location", "host", "time"] },
                         { table: "Booking", constraints: [".equalTo('user', Parse.User.current())"], fields: ["iteration"] },
@@ -139,10 +139,19 @@ bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope","$state"
                                 cache.data.Iteration[objectId].isHost=true;
                         }
 
-                        iterations.push(cache.data.Iteration[objectId])
+                        
+                        push_it=true
+                        if (cache.data.Iteration[objectId].event.cohorts.length && JSON.stringify(cache.data.Iteration[objectId].event.cohorts).indexOf(Parse.User.current().get("cohort").id)==-1) {
+                        	push_it=false
+                        }
+                        
+                        if (push_it==true || Parse.User.current().get('securityLevel')<2 || cache.data.Iteration[objectId].host.id==Parse.User.current().id ) {
+                                iterations.push(cache.data.Iteration[objectId])
 
-                        if (moment(cache.data.Iteration[objectId].time).format("dddd, Do MMMM")!=dates[dates.length-1]) {
-                                dates.push(moment(cache.data.Iteration[objectId].time).format("dddd, Do MMMM"))
+                                if (moment(cache.data.Iteration[objectId].time).format("dddd, Do MMMM")!=dates[dates.length-1]) {
+                                        dates.push(moment(cache.data.Iteration[objectId].time).format("dddd, Do MMMM"))
+                                }
+
                         }
                 }
 
