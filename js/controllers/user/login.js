@@ -9,7 +9,6 @@ bbb.controller('Login', function($scope, $ionicLoading, ParseService, $rootScope
                 }
         });
 
-
         $scope.loginUser = { username: '', password: ''}
 
         $scope.signIn = function () {
@@ -30,7 +29,7 @@ bbb.controller('Login', function($scope, $ionicLoading, ParseService, $rootScope
                         },
                         error: function(user, error) {
                                 $scope.loading.hide();
-                                alert("Unable to sign in:  "  + error.message + "\n\nPlease note that you have to register to use the app using the button on this page - it won't link automatically to your account" );      }
+                                alert("Unable to sign in:  "  + error.message + "\n\nPlease note that you have to register to use the app using the button on this page, if you haven't already - it won't link automatically to your MMU account" );      }
                 });
 
         }
@@ -47,7 +46,7 @@ bbb.controller('Login', function($scope, $ionicLoading, ParseService, $rootScope
                         },
                         error: function(error) {
                                 // Show the error message somewhere
-                                alert("Sorry, we couldn't find your email address. \n\nPlease note that you have to register to use the app using the button on this page - it won't link automatically to your account");
+                                alert("Sorry, we couldn't find your email address. \n\nPlease note that you have to register to use the app using the button on this page, if you haven't already - it won't link automatically to your MMU account");
                         }
                 });
 
