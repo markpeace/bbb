@@ -1,7 +1,22 @@
 bbb.controller('AddEvent', function($scope, $state,  $stateParams,  $ionicModal, ParseService) { 
 
 
-        var getReferencedData = function () {                                                        // GET DATA FROM OTHER TABLES AS NEEDED
+        $scope.cohorts=[]
+        var getCohorts = function() {
+                (new Parse.Query("Programme")).find().then(function (r) {
+                        $scope.cohorts=r
+                        
+                        angular.forEach($scope.cohorts,function(c) {
+                                angular.forEach($scope.event.cohorts, function(sc) {
+                                        if(c.id==sc) { c.selected=true }
+                                })
+                        })
+                        
+                })
+        }
+        
+        var getReferencedData = function () {                                                        // GET DATA FROM OTHER TABLES AS NEEDED                                
+                
                 $scope.relatedData=[]
                 $scope.moment = moment;
 
@@ -16,7 +31,7 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  $ionicModal,
                 for (d=1;d<numberOfDays;d++) $scope.relatedData['Dates'][d]=moment($scope.relatedData['Dates'][d-1],'DD/MM/YY').add('days',1).format('DD/MM/YY')
 
                 $scope.relatedData['Dates'].push(moment("2050-05-09T01:00:00.196Z").format('DD/MM/YY'));
-                
+
                 $scope.relatedData['Times'] = []                
                 $scope.relatedData['Times'][0] = startDate.format('HH:mm')                
                 for (d=1;d<numberOfTimeSlots;d++) $scope.relatedData['Times'][d]=moment($scope.relatedData['Times'][d-1],'HH:mm').add('minutes',lengthOfTimeSlots).format('HH:mm')
@@ -44,7 +59,7 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  $ionicModal,
         }
 
         var getFocalRecord = function () {                                                           // EITHER RETRIEVES OR CREATES A RECORD
-                
+
                 if ($stateParams.id) {
                         new Parse.Query(Parse.Object.extend("Event"))
                         .include("series")
@@ -59,10 +74,13 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  $ionicModal,
                                         object: result,
                                         title: result.get('title'),
                                         description:result.get('description'),
+                                        cohorts: result.get('cohorts'),
                                         length: result.get('length'),
                                         series:series,
                                         iterations: []
                                 }
+                                
+                                getCohorts();
 
                                 new Parse.Query(Parse.Object.extend("Iteration"))
                                 .equalTo("event", result).include("host").include("location")
@@ -98,6 +116,16 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  $ionicModal,
 
         getReferencedData();
 
+        $scope.updateCohortConstraints = function() {
+                
+                $scope.event.cohorts=[]
+                
+                angular.forEach($scope.cohorts, function(c) {
+                	if(c.selected) {$scope.event.cohorts.push(c.id)}
+                })
+                
+        }
+        
         $scope.addIteration = function () {
                 var Iteration = Parse.Object.extend("Iteration")
                 var iteration = new Iteration().set("event", $scope.event.object).save()
@@ -119,6 +147,13 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  $ionicModal,
 
 
         }
+
+        $ionicModal.fromTemplateUrl('pages/schedule/addEvent_cohortConstraints.html', function($ionicModal) {
+                $scope.cohortConstraintModal = $ionicModal;
+        }, {
+                scope: $scope,
+                animation: 'slide-in-up'
+        });
 
 
         $ionicModal.fromTemplateUrl('pages/schedule/editIteration.html', function($ionicModal) {
@@ -180,6 +215,7 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  $ionicModal,
                         with ($scope.event) {                      
                                 object.set('title', title)
                                 object.set('description', description)
+                                object.set('cohorts', cohorts)
                                 object.set('series', series)
                                 object.set('length', length)                               
 

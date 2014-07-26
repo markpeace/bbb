@@ -20,7 +20,6 @@
                         </select>
                 </ion-item>
 
-
                 <ion-item class="item-input">
                         <div class="input-label">
                                 Title
@@ -41,9 +40,18 @@
                         </div>
                         <input type="text" ng-model="event.length">
                 </ion-item>
-                
-                
-                 <ion-item class="item item-divider item-icon-right">
+
+                <ion-item class="item item-icon-right item-icon-left " ng-click="cohortConstraintModal.show()">
+                        <i class="icon ion-ios7-circle-outline" ng-hide="!event.cohorts"></i>
+                        <i class="icon ion-ios7-checkmark-outline" ng-show="event.cohorts.length!=0"></i>
+                        <div class="input-label">
+                                Constrain To Cohorts                 
+                        </div>
+                        <i class="icon ion-ios7-arrow-right"></i>
+                </ion-item>
+
+
+                <ion-item class="item item-divider item-icon-right">
                         Iterations
                         <i class="icon ion-ios7-plus-outline" ng-click="addIteration()"></i>
                 </ion-item>
@@ -59,5 +67,5 @@
                 </ion-item>  
 
         </ion-list>
-        
+
 </ion-content>

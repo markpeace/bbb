@@ -1,0 +1,16 @@
+<div class="modal">
+
+        <div class="bar bar-header">
+                <button class="button button-icon icon ion-ios7-arrow-back" ng-click="cohortConstraintModal.hide()"></button>
+                <div class="title">Constrain to Cohorts</div>
+        </div>
+
+        <ion-content class="has-header">
+                <ion-list>
+                        <ion-toggle ng-model="cohort.selected" ng-repeat="cohort in cohorts" ng-click="updateCohortConstraints()">
+                                {{ cohort.get("label") }}
+                        </ion-toggle>       
+                </ion-list>
+        </ion-content>       
+
+</div>
