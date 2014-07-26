@@ -30,7 +30,25 @@ bbb.controller('Login', function($scope, $ionicLoading, ParseService, $rootScope
                         },
                         error: function(user, error) {
                                 $scope.loading.hide();
-                                alert("Unable to sign in:  "  + error.message);      }
+                                alert("Unable to sign in:  "  + error.message + "\n\nPlease note that you have to register to use the app using the button on this page - it won't link automatically to your account" );      }
+                });
+
+        }
+
+        $scope.resetPassword = function () {
+                if ($scope.loginUser.username=="") {
+                        alert("Please provide your email address in the field above and click this link again")
+                        return
+                }
+
+                Parse.User.requestPasswordReset($scope.loginUser.username, {
+                        success: function() {
+				alert("A link has been sent to your email address to reset your pasword")
+                        },
+                        error: function(error) {
+                                // Show the error message somewhere
+                                alert("Sorry, we couldn't find your email address. \n\nPlease note that you have to register to use the app using the button on this page - it won't link automatically to your account");
+                        }
                 });
 
         }
