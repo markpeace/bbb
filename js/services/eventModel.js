@@ -110,65 +110,70 @@ bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope","$state"
 
         var weaveData= function() {
 
+                try {
 
-                iterations = []
-                dates=[]
+                        iterations = []
+                        dates=[]
 
-                for(var objectId in cache.data.Event) {
-                        if (cache.data.Event[objectId].series.id) {
-                                cache.data.Event[objectId].series = cache.data.Series[cache.data.Event[objectId].series.id]
-                        } else {
-                                cache.data.Event[objectId].series = cache.data.Series[cache.data.Event[objectId].series]
-                        }
-
-                }            
-
-                for(var objectId in cache.data.Booking) {
-                        cache.data.Iteration[cache.data.Booking[objectId].iteration].booked = true
-                        cache.data.Booking[objectId].iteration = cache.data.Iteration[cache.data.Booking[objectId].iteration]
-                }            
-
-                for(var objectId in cache.data.Iteration) {
-
-                        cache.data.Iteration[objectId].event = cache.data.Event[cache.data.Iteration[objectId].event]
-                        cache.data.Iteration[objectId].location = cache.data.Location[cache.data.Iteration[objectId].location]
-                        cache.data.Iteration[objectId].host = cache.data.User[cache.data.Iteration[objectId].host]
-
-                        if (cache.data.Iteration[objectId].host.id==Parse.User.current().id) {
-                                cache.data.Iteration[objectId].booked=true;
-                                cache.data.Iteration[objectId].isHost=true;
-                        }
-
-                        
-                        push_it=true
-                        if (cache.data.Iteration[objectId].event.cohorts.length && JSON.stringify(cache.data.Iteration[objectId].event.cohorts).indexOf(Parse.User.current().get("cohort").id)==-1) {
-                        	push_it=false
-                        }
-                        
-                        if (push_it==true || Parse.User.current().get('securityLevel')<2 || cache.data.Iteration[objectId].host.id==Parse.User.current().id ) {
-                                iterations.push(cache.data.Iteration[objectId])
-
-                                if (moment(cache.data.Iteration[objectId].time).format("dddd, Do MMMM")!=dates[dates.length-1]) {
-                                        dates.push(moment(cache.data.Iteration[objectId].time).format("dddd, Do MMMM"))
+                        for(var objectId in cache.data.Event) {
+                                if (cache.data.Event[objectId].series.id) {
+                                        cache.data.Event[objectId].series = cache.data.Series[cache.data.Event[objectId].series.id]
+                                } else {
+                                        cache.data.Event[objectId].series = cache.data.Series[cache.data.Event[objectId].series]
                                 }
 
+                        }            
+
+                        for(var objectId in cache.data.Booking) {
+                                cache.data.Iteration[cache.data.Booking[objectId].iteration].booked = true
+                                cache.data.Booking[objectId].iteration = cache.data.Iteration[cache.data.Booking[objectId].iteration]
+                        }            
+
+                        for(var objectId in cache.data.Iteration) {
+
+                                cache.data.Iteration[objectId].event = cache.data.Event[cache.data.Iteration[objectId].event]
+                                cache.data.Iteration[objectId].location = cache.data.Location[cache.data.Iteration[objectId].location]
+                                cache.data.Iteration[objectId].host = cache.data.User[cache.data.Iteration[objectId].host]
+
+                                if (cache.data.Iteration[objectId].host.id==Parse.User.current().id) {
+                                        cache.data.Iteration[objectId].booked=true;
+                                        cache.data.Iteration[objectId].isHost=true;
+                                }
+
+
+                                push_it=true
+                                if (cache.data.Iteration[objectId].event.cohorts.length && JSON.stringify(cache.data.Iteration[objectId].event.cohorts).indexOf(Parse.User.current().get("cohort").id)==-1) {
+                                        push_it=false
+                                }
+
+                                if (push_it==true || Parse.User.current().get('securityLevel')<2 || cache.data.Iteration[objectId].host.id==Parse.User.current().id ) {
+                                        iterations.push(cache.data.Iteration[objectId])
+
+                                        if (moment(cache.data.Iteration[objectId].time).format("dddd, Do MMMM")!=dates[dates.length-1]) {
+                                                dates.push(moment(cache.data.Iteration[objectId].time).format("dddd, Do MMMM"))
+                                        }
+
+                                }
                         }
+
+                        for(var objectId in cache.data.Checkin) {
+                                cache.data.Checkin[objectId].booking = cache.data.Booking[cache.data.Checkin[objectId].booking]
+                        }
+
+                        cache.data.iterations=iterations;
+                        cache.data.dates=dates
+
+                        cache.data.lastUpdated.Iteration=moment()._d;      
+                        console.log(cache.data)
+                        cache.save();
+
+                        $ionicLoading.hide();
+
+                        $rootScope.$apply()
+                } catch(ex) {
+                        alert("An unknown error has occurred, please try again later. \n\nIf the problem persists, please contact m.peace@mmu.ac.uk")
+                        localStorage.removeItem(Parse.User.current().id)
                 }
-
-                for(var objectId in cache.data.Checkin) {
-                        cache.data.Checkin[objectId].booking = cache.data.Booking[cache.data.Checkin[objectId].booking]
-                }
-
-                cache.data.iterations=iterations;
-                cache.data.dates=dates
-
-                cache.data.lastUpdated.Iteration=moment()._d;      
-                console.log(cache.data)
-                cache.save();
-
-                $ionicLoading.hide();
-
-                $rootScope.$apply()
 
         }
 
