@@ -1,29 +1,34 @@
 bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope","$state", function(ParseService, $ionicLoading, $rootScope, $state) {                      
+
         
-        if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
-                localStorage.setItem(Parse.User.current().id, JSON.stringify({
-                        lastUpdated: {Iteration: moment().subtract('years',1)._d},
-                        iterations: [],
-                        dates:[]
-                })) 
-                console.log("Created localStorage Item")
-        }
+        if($state.current.name=="tabs.schedule") {
+        
+                if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
+                        localStorage.setItem(Parse.User.current().id, JSON.stringify({
+                                lastUpdated: {Iteration: moment().subtract('years',1)._d},
+                                iterations: [],
+                                dates:[]
+                        })) 
+                        console.log("Created localStorage Item")
+                }
 
-        cache = {
-                dc: this,
-                data: JSON.parse(localStorage.getItem(Parse.User.current().id)),
-                save: function () { localStorage.setItem(Parse.User.current().id, JSON.stringify(cache.data)); console.log("Saved Local Data Cache") }
-        }
+                cache = {
+                        dc: this,
+                        data: JSON.parse(localStorage.getItem(Parse.User.current().id)),
+                        save: function () { localStorage.setItem(Parse.User.current().id, JSON.stringify(cache.data)); console.log("Saved Local Data Cache") }
+                }
 
-        if(Parse.User.current().get('securityLevel')<2 
-           || moment(new Date(cache.data.lastUpdated.Iteration)) < moment().subtract('hours', 2) 
-           || !(cache.data.User && cache.data.Location && cache.data.Event && cache.data.Series && cache.data.Iteration && cache.data.Booking)) {  
-                (new Parse.Query("Iteration"))
-                .descending("updatedAt")
-                .limit(1)
-                .find().then(function(r) {        
-                        if(new Date(cache.data.lastUpdated.Iteration) < new Date(r[0].updatedAt)) { updateData(); }
-                })
+
+                if(Parse.User.current().get('securityLevel')<2 
+                   || moment(new Date(cache.data.lastUpdated.Iteration)) < moment().subtract('hours', 2) 
+                   || !(cache.data.User && cache.data.Location && cache.data.Event && cache.data.Series && cache.data.Iteration && cache.data.Booking)) {  
+                        (new Parse.Query("Iteration"))
+                        .descending("updatedAt")
+                        .limit(1)
+                        .find().then(function(r) {        
+                                if(new Date(cache.data.lastUpdated.Iteration) < new Date(r[0].updatedAt)) { updateData(); }
+                        })
+                }
         }
 
 
@@ -34,6 +39,7 @@ bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope","$state"
                 });
 
                 toLookUp = [
+                        { table: "Setting", constraints: [], fields: ["settings"] },
                         { table: "User", constraints: [".lessThan('securityLevel', 3)"], fields: ["forename", "surname", "blurb"] },
                         { table: "Location", constraints: [], fields: ["label", "blurb"] },
                         { table: "Event", constraints: [], fields: ["description", "series", "title", "length", "cohorts"] },
@@ -111,6 +117,9 @@ bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope","$state"
         var weaveData= function() {
 
                 try {
+                        for(var objectId in cache.data.Setting) {
+                                cache.data.settings = JSON.parse(cache.data.Setting[objectId].settings)
+                        }
 
                         iterations = []
                         dates=[]

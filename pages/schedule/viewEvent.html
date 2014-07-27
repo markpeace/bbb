@@ -40,10 +40,10 @@
 
                 <div ng-show="emailVerified">    
 
-                        <div class="item item-body" ng-hide='(moment().isAfter(moment(iteration.time).subtract("days",2).hour("6").minute("0")) || securityLevel==1)'>
+                        <div class="item item-body" ng-hide='(moment().isAfter(moment(iteration.time).subtract("days",2).hour("6").minute("0")) || securityLevel==1  || allowBookings)'>
                                 <p>Check back from {{ moment(iteration.time).subtract("days",2).format("Do MMMM"); }} to book yourself onto this pop-up.</p>                                                               
                         </div>
-                        <div ng-show='(moment().isAfter(moment(iteration.time).subtract("days",2).hour("6").minute("0")) || securityLevel==1)'>
+                        <div ng-show='(moment().isAfter(moment(iteration.time).subtract("days",2).hour("6").minute("0")) || securityLevel==1 || allowBookings)'>
 
                                 <ion-toggle class="item item-footer" ng-model="iteration.booked" ng-hide="(iteration.capacity - iteration.bookings)==0 && !iteration.booked">Indicate Your Attendence:</ion-toggle>  
                                 <div ng-show="(iteration.capacity - iteration.bookings)==0  && !iteration.booked" >
