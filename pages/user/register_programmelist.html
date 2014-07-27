@@ -5,17 +5,10 @@
         </div>
 
         <ion-content class="has-header">
-                <div class="list">
-
-
-                        <label class="item item-radio" ng-repeat="programme in programmes">
-                                <input type="radio" name="group" ng-model="newUser.programme" ng-value="programme" ng-change="modal.hide()">
-                                <div class="item-content computer-font small-font">
-                                        {{ programme.get('label') }}
-                                </div>
-                                <i class="radio-icon ion-checkmark"></i>
-                        </label>
-
-                </div>
+                
+                <ionlist>
+                        <ion-radio ng-repeat="programme in programmes" ng-model="newUser.programme" ng-value="programme" class="item-text-wrap"><p>{{ programme.get('label') }}</p></ion-radio>
+                </ionlist>
+                
         </ion-content>
 </div>
