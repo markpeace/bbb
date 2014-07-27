@@ -92,7 +92,9 @@
         <icon src="res/icon/appicon-72.png"            gap:platform="ios"        width="72" height="72" />
         <icon src="res/icon/appicon@2x.png"         gap:platform="ios"        width="114" height="114" />
         <icon src="res/icon/appicon-72@2x.png"         gap:platform="ios"        width="144" height="144" />
-
+        <icon src="res/icon/appicon-120.png"            gap:platform="ios"        width="120" height="120" />
+        <icon src="res/icon/appicon-76.png"            gap:platform="ios"        width="76" height="76" />
+        
         <!-- Define app splash screen for each platform. -->
         <gap:splash src="res/splash/screen-ldpi-portrait.png"       gap:platform="android" gap:qualifier="port-ldpi" />
         <gap:splash src="res/splash/screen-mdpi-portrait.png"       gap:platform="android" gap:qualifier="port-mdpi" />
