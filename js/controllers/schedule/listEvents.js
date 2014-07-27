@@ -1,9 +1,7 @@
 bbb.controller('ListEvents', function($state, $scope, ParseService, $rootScope, EventModel) { 
 
         EventModel.refresh();
-        
-        if (typeof cordova === 'object') { $scope.checkinEnabled=true }
-        
+                
         $scope.moment=moment
         $scope.securityLevel=$rootScope.currentUser.get('securityLevel')
 
