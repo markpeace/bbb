@@ -21,6 +21,15 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
                 controller: 'Tab',
                 templateUrl: "pages/tabs.html"
         })
+        .state('tabs.notifications', {
+                url: "/notifications",
+                views: {
+                        'notifications-tab': {
+                                templateUrl: "pages/notifications/list.html",
+                                controller: 'ListNotifications'          
+                        }
+                }
+        })
         .state('tabs.schedule', {
                 url: "/schedule",
                 views: {
