@@ -17,7 +17,6 @@ bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope","$state"
                         save: function () { localStorage.setItem(Parse.User.current().id, JSON.stringify(cache.data)); console.log("Saved Local Data Cache") }
                 }
 
-
                 if(Parse.User.current().get('securityLevel')<2 
                    || moment(new Date(cache.data.lastUpdated.Iteration)) < moment().subtract('hours', 2) 
                    || !(cache.data.User && cache.data.Location && cache.data.Event && cache.data.Series && cache.data.Iteration && cache.data.Booking)) {  
@@ -25,7 +24,7 @@ bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope","$state"
                         .descending("updatedAt")
                         .limit(1)
                         .find().then(function(r) {        
-                                if(new Date(cache.data.lastUpdated.Iteration) < new Date(r[0].updatedAt)) { updateData(); }
+                                if(moment(cache.data.lastUpdated.Iteration) < moment(r[0].updatedAt)) { updateData(); }
                         })
                 }
 
@@ -97,7 +96,6 @@ bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope","$state"
                                         })
 
                                         cache.data.lastUpdated[lookupItem.table] = moment()._d;
-
                                         console.log("updated " + lookupItem.table)
 
                                         checkTable()
