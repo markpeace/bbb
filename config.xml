@@ -71,7 +71,9 @@
         <!--<gap:plugin name="org.apache.cordova.globalization" /> -->
         <!--<gap:plugin name="org.apache.cordova.inappbrowser" /> -->
         <!--<gap:plugin name="org.apache.cordova.media" /> -->
+        
         <gap:plugin name="org.apache.cordova.network-information" />
+        
         <!--<gap:plugin name="org.apache.cordova.splashscreen" /> -->
         <!--<gap:plugin name="org.apache.cordova.vibration" /> -->
 
@@ -79,6 +81,8 @@
         <!-- A list of available plugins are available at https://build.phonegap.com/plugins -->
         <!--    -->
         <gap:plugin name="com.phonegap.plugins.barcodescanner" />
+        <gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.7.4" />
+        <gap:plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" />
 
 
         <!-- Define app icon for each platform. -->
