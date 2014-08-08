@@ -1,13 +1,14 @@
 bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope","$state", function(ParseService, $ionicLoading, $rootScope, $state) {                      
 
         var _refresh = function () {
-                
+
                 if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
                         localStorage.setItem(Parse.User.current().id, JSON.stringify({
                                 lastUpdated: {Iteration: moment().subtract('years',1)._d},
                                 iterations: [],
                                 dates:[]
                         })) 
+                        notification.destroyAll();
                         console.log("Created localStorage Item")
                 }
 
@@ -24,7 +25,10 @@ bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope","$state"
                         .descending("updatedAt")
                         .limit(1)
                         .find().then(function(r) {        
-                                if(moment(cache.data.lastUpdated.Iteration) < moment(r[0].updatedAt)) { updateData(); }
+                                if(moment(cache.data.lastUpdated.Iteration) < moment(r[0].updatedAt)) { 
+                                        notification.destroyAll();
+                                        updateData(); 
+                                }
                         })
                 }
 
@@ -184,6 +188,48 @@ bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope","$state"
                 }
 
                 }
+
+
+        notification = {
+                destroyAll: function () {
+                        console.log("Destroy all currently set notifications");
+                },
+                destroy: function(iteration){
+                        console.log("destroy reminder for...")
+                        console.log(iteration)                                                                                               
+                },
+                set: function (iteration) {
+                        console.log("set reminder for...")
+                        console.log(iteration)
+
+                        var now                  = new Date().getTime(),
+                            _10_seconds_from_now = new Date(now + 10*1000);
+
+
+                        window.plugin.notification.local.add({
+                                id:         iteration.id,  // A unique id of the notifiction
+                                date:       _10_seconds_from_now,    // This expects a date object
+                                message:    "A pop-up you are booked into ("+ iteration.event.title +") starts in ten minutes",  // The message that is displayed
+                                //title:      "This is a test of the local notifications",  // The title of the message
+                                badge:      1,  // Displays number badge to notification
+                                //sound:      String,  // A sound to be played
+                                //json:       String,  // Data to be passed through the notification
+                                //autoCancel: Boolean, // Setting this flag and the notification is automatically canceled when the user clicks it
+                         }, function () {
+                                alert("this is the callback")
+                        });
+
+                        window.plugin.notification.local.onclick = function (id, state, json) {
+                                alert("the user clicked the notification: "+id)
+                        };
+                        window.plugin.notification.local.oncancel = function (id, state, json) {
+                                alert("the user cancelled the notification: "+id)
+                        };
+
+                }
+        }
+
+
         return {
                 refresh: function() { _refresh() },
                 data: function() { return cache.data },
@@ -239,8 +285,10 @@ bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope","$state"
                                 .save({user:Parse.User.current(), iteration:dummyIteration})   
                                 iteration.bookings++;
                                 cache.save();        
+                                notification.set(iteration)
 
-                        } else if(!iteration.booked) {                        
+                        } else if(!iteration.booked) {                       
+                                notification.destroy(iteration)
                                 cache.data.iterations[iterationIndex].booked=false;                                
                                 (new Parse.Query("Booking"))
                                 .equalTo("user", Parse.User.current())
