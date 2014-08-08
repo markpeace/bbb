@@ -10,6 +10,7 @@ bbb.controller('ListNotifications', function($state, $scope, ParseService) {
         ]
 
 
+        try {
         window.plugin.notification.local.add({
                 id:         "test",  // A unique id of the notifiction
                 date:       moment().add("second",10),    // This expects a date object
@@ -22,6 +23,7 @@ bbb.controller('ListNotifications', function($state, $scope, ParseService) {
                 //autoCancel: Boolean, // Setting this flag and the notification is automatically canceled when the user clicks it
                 //ongoing:    Boolean, // Prevent clearing of notification (Android only)
         }, callback, scope);
-
-
+        } catch (ex) {
+                alert(ex)
+        }
 });
