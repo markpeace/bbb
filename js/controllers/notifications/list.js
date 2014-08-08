@@ -22,7 +22,9 @@ bbb.controller('ListNotifications', function($state, $scope, ParseService) {
                 //json:       String,  // Data to be passed through the notification
                 //autoCancel: Boolean, // Setting this flag and the notification is automatically canceled when the user clicks it
                 //ongoing:    Boolean, // Prevent clearing of notification (Android only)
-        }, callback, scope);
+        }, function () {
+                alert("this is the callback")
+        });
         } catch (ex) {
                 alert(ex)
         }
