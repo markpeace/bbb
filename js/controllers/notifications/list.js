@@ -14,7 +14,7 @@ bbb.controller('ListNotifications', function($state, $scope, ParseService) {
         try {
                 window.plugin.notification.local.add({
                         id:         "localnotificationtest",  // A unique id of the notifiction
-                        date:       moment().add("second",10),    // This expects a date object
+                        date:       moment().add("second",10)._d,    // This expects a date object
                         message:    "Local Notification Test",  // The message that is displayed
                         title:      "This is a test of the local notifications",  // The title of the message
                         //repeat:     String,  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
