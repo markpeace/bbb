@@ -30,6 +30,12 @@ bbb.controller('ListNotifications', function($state, $scope, ParseService) {
                 }, function () {
                         alert("this is the callback")
                 });
+                
+                window.plugin.notification.local.onclick = function (id, state, json) {
+                        alert("the user clicked the notification: "+id)
+                };
+                
+                
         } catch (ex) {
                 alert(ex)
         }
