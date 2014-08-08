@@ -224,15 +224,12 @@ bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope","$state"
                                 //autoCancel: Boolean, // Setting this flag and the notification is automatically canceled when the user clicks it
                         });
 
-                        window.plugin.notification.local.onclick = function (id, state, json) {
-                                alert("the user clicked the notification: "+id)
-                        };
-                        window.plugin.notification.local.oncancel = function (id, state, json) {
-                                alert("the user cancelled the notification: "+id)
-                        };
-
                 }
         }
+
+        window.plugin.notification.local.onclick = function (id, state, json) {
+                alert("the user clicked the notification: "+id)
+        };
 
 
         return {
