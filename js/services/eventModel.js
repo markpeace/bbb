@@ -193,10 +193,17 @@ bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope","$state"
         notification = {
                 destroyAll: function () {
                         console.log("Destroy all currently set notifications");
+                        window.plugin.notification.local.cancelAll(function () {});
+
                 },
                 destroy: function(iteration){
-                        console.log("destroy reminder for...")
-                        console.log(iteration)                                                                                               
+
+                        window.plugin.notification.local.cancel(iteration.id, function () {
+                                console.log("destroy reminder for...")
+                                console.log(iteration)     
+                        });
+
+
                 },
                 set: function (iteration) {
                         console.log("set reminder for...")
@@ -215,8 +222,6 @@ bbb.factory('EventModel', ["ParseService", "$ionicLoading","$rootScope","$state"
                                 //sound:      String,  // A sound to be played
                                 //json:       String,  // Data to be passed through the notification
                                 //autoCancel: Boolean, // Setting this flag and the notification is automatically canceled when the user clicks it
-                         }, function () {
-                                alert("this is the callback")
                         });
 
                         window.plugin.notification.local.onclick = function (id, state, json) {
