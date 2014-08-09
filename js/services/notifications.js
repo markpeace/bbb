@@ -1,11 +1,10 @@
 bbb.factory('NotificationService', ["ParseService", "$ionicLoading","$rootScope","$state", function(ParseService, $ionicLoading, $rootScope, $state) {                      
 
-        console.log("notification service")
-
-        /*
-        window.plugin.notification.local.onclick = function (id, state, json) {
-                alert("the user clicked the notification: "+id)
-        };*/
+        if (window.plugin) {
+                window.plugin.notification.local.onclick = function (id, state, json) {
+                        alert("the user clickified the notification: "+id)
+                };
+        }
 
         return {
                 destroyAll: function () {
