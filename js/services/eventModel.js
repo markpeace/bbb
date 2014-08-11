@@ -8,7 +8,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                 iterations: [],
                                 dates:[]
                         })) 
-                        NotificationService.destroyAll();
+                        NotificationService.reminders.destroyAll();
                         console.log("Created localStorage Item")
                 }
 
@@ -26,7 +26,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                         .limit(1)
                         .find().then(function(r) {        
                                 if(moment(cache.data.lastUpdated.Iteration) < moment(r[0].updatedAt)) { 
-                                        NotificationService.destroyAll();
+                                        NotificationService.reminders.destroyAll();
                                         updateData(); 
                                 }
                         })
@@ -244,10 +244,10 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                 .save({user:Parse.User.current(), iteration:dummyIteration})   
                                 iteration.bookings++;
                                 cache.save();        
-                                NotificationService.set(iteration)
+                                NotificationService.reminders.set(iteration)
 
                         } else if(!iteration.booked) {                       
-                                NotificationService.destroy(iteration)
+                                NotificationService.reminders.destroy(iteration)
                                 cache.data.iterations[iterationIndex].booked=false;                                
                                 (new Parse.Query("Booking"))
                                 .equalTo("user", Parse.User.current())
