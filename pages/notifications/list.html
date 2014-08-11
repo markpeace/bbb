@@ -1,6 +1,6 @@
 <ion-view>
         <ion-content class="has-header">    
-                <ion-list can-swipe="true">
+                <ion-list>
                         <ion-item ng-repeat="notification in notifications" ng-class="notification.read ? '' : 'item-icon-right'" ng-style="{'background-color':(notification.read ? '': '#FCFFCC')}">
                                 {{ notification.title }}
                                 <p>{{ notification.message }}</p>

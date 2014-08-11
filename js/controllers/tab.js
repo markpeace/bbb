@@ -10,6 +10,6 @@ bbb.controller('Tab', function($scope, ParseService, $ionicModal, $state, $rootS
                 animation: 'slide-in-up'
         });  
         
-        $scope.unreadNotifications=NotificationService.unread()
+        $scope.notifications=NotificationService
 
 });

@@ -2,9 +2,7 @@ bbb.controller('ListNotifications', function($state, $scope, NotificationService
         $scope.notifications=NotificationService.notifications()
 
         $scope.$on("$destroy", function(){
-                console.log("away")
-        });
-        
-        console.log(NotificationService.unread())
+                NotificationService.markAllRead()
+        });               
     
 });

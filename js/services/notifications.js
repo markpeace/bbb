@@ -32,17 +32,23 @@ bbb.factory('NotificationService', ["$rootScope", function($rootScope) {
 
 
         return {
-                
+
                 unread: function() {
                         u=0
                         angular.forEach(_notifications, function(n) {
-                                if (!n.read) u++
+                                if (!n.read) {u++}
                         })
                         return u
                 },
-                
+
+                markAllRead: function () {
+                        angular.forEach(_notifications, function(n) {
+                                n.read=true
+                        })     
+                },
+
                 notifications: function() { return _notifications; },
-                
+
                 destroyAll: function () {
                         console.log("Destroy all currently set notifications");
                         window.plugin.notification.local.cancelAll(function () {});
