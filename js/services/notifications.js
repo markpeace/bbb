@@ -1,27 +1,48 @@
-bbb.factory('NotificationService', ["ParseService", "$ionicLoading","$rootScope","$state", function(ParseService, $ionicLoading, $rootScope, $state) {                      
+bbb.factory('NotificationService', ["$rootScope", function($rootScope) {                      
 
-        newNotifications=10
-
-        if (window.plugin) {
+        var _hookUpEventListeners = function () {
                 window.plugin.notification.local.onclick = function (id, state, json) {
                         alert("the user clickified the notification: "+id)
                 };
 
-                window.plugin.notification.local.ontrigger = function (id, state, json) {
-
-                        if (json.message) {
-                                window.plugin.notification.local.add({
-                                        id:         "badge",  // A unique id of the notifiction
-                                        badge:      100,  // Displays number badge to notification
-                                        message:	"hi"
-                                });
-                        }
-
-                };
-
         }
 
+        _notifications = []
+        _unreadNotifications=0
+        var _initialiseNotificationCache = function () {
+                _notifications = localStorage.getItem(Parse.User.current().id + "_notifications")
+                _notifications = _notifications ? _notifications : []
+                angular.forEach(_notifications, function(notification) {
+                        if (!notification.read) _unreadNotifications++
+                                })
+        }
+
+
+        //RUN ONE TIME ONLY INITIALISATION
+
+        _initialiseNotificationCache()       
+        if (window.plugin) _hookUpEventListeners();
+        _notifications = [
+                {title: "Event Reminder", message: "the event occurs at 10:00 today", read:false, link:"/" },
+                {title: "Event Reminder", message: "the event occurs at 10:00 today", read:false, link:"/" },
+                {title: "Event Reminder", message: "the event occurs at 10:00 today", read:false, link:"/" },
+                {title: "Event Reminder", message: "the event occurs at 10:00 today", read:true, link:"/" },
+                {title: "Event Reminder", message: "the event occurs at 10:00 today", read:true, link:"/" }
+        ]
+
+
         return {
+                
+                unread: function() {
+                        u=0
+                        angular.forEach(_notifications, function(n) {
+                                if (!n.read) u++
+                        })
+                        return u
+                },
+                
+                notifications: function() { return _notifications; },
+                
                 destroyAll: function () {
                         console.log("Destroy all currently set notifications");
                         window.plugin.notification.local.cancelAll(function () {});

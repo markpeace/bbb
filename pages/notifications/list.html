@@ -1,10 +1,11 @@
 <ion-view>
         <ion-content class="has-header">    
-                <ion-list>
-                        <ion-item ng-repeat="d in dummyData">
-                                <h2>{{ d.header }}</h2>
-                                <p>{{ d.text }}</p>
-                        </ion-list-item>
+                <ion-list can-swipe="true">
+                        <ion-item ng-repeat="notification in notifications" ng-class="notification.read ? '' : 'item-icon-right'" ng-style="{'background-color':(notification.read ? '': '#FCFFCC')}">
+                                {{ notification.title }}
+                                <p>{{ notification.message }}</p>
+                                <i class="icon ion-ios7-sunny" ng-hide="notification.read"></i>
+                        </ion-item>
                 </ion-list>
         </ion-content>
 </ion-view>
