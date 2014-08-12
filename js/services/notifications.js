@@ -1,13 +1,13 @@
 bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope, $state) {                      
 
         var _hookUpEventListeners = function () {
-                try {
+            
                                 window.plugin.notification.local.oncancel = function (id, state, json) { alert("cancelled")};     
                                 window.plugin.notification.local.onadd = function (id, state, json) { alert("added")};
-
-                } catch(ex) {
-                        alert(ex)
-                }
+                                window.plugin.notification.local.ontriggered = function (id, state, json) { 
+                                        alert("triggered"+json)
+                                };     
+           
         }
 
         _notifications = []
