@@ -1,7 +1,9 @@
 bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope, $state) {                      
-    
+    	
+        var _notifier = _notifier
+        
         var _hookUpEventListeners = function () {
-    		window.plugin.notification.local.oncancel = function (id, state, json) { alert("cancelled")};
+    		_notifier.oncancel = function (id, state, json) { alert("cancelled")};
 
         }
 
@@ -53,13 +55,13 @@ bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope,
                         destroyAll: function () {
                                 if(window.plugin) {
                                         console.log("Destroy all currently set notifications");
-                                        window.plugin.notification.local.cancelAll(function () {});
+                                        _notifier.cancelAll(function () {});
                                 }
 
                         },
                         destroy: function(iteration){
                                 if(window.plugin) {
-                                        window.plugin.notification.local.cancel(iteration.id, function () {
+                                        _notifier.cancel(iteration.id, function () {
                                                 console.log("destroy reminder for...")
                                                 console.log(iteration)     
                                         });
@@ -76,14 +78,13 @@ bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope,
                                             _10_seconds_from_now = new Date(now + 10*1000);
 
 
-                                        window.plugin.notification.local.add({
+                                        _notifier.add({
                                                 id:         iteration.id,  // A unique id of the notifiction
                                                 date:       _10_seconds_from_now,    // This expects a date object
                                                 message:    "A pop-up you are booked into ("+ iteration.event.title +") starts in ten minutes",  // The message that is displayed
                                                 json:       { title: "Event Reminder!", message: this.message, link: $state.href("viewEvent", {id:iteration.id }) },  // Data to be passed through the notification
                                         });
                                         
-                                        window.plugin.notification.local.oncancel = function (id, state, json) { alert("cancelled")};
                                 }
                         }
                 }
