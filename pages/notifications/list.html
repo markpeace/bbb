@@ -1,7 +1,10 @@
 <ion-view>
         <ion-content class="has-header">    
                 <ion-list>
-                        <ion-item ng-repeat="notification in notifications" ng-class="notification.read ? '' : 'item-icon-right'" ng-style="{'background-color':(notification.read ? '': '#FCFFCC')}">
+                        <ion-item ng-repeat="notification in notifications" 
+                                  ng-class="notification.read ? '' : 'item-icon-right'" 
+                                  ng-style="{'background-color':(notification.read ? '': '#FCFFCC')}"
+                                  ng-href="{{ notification.link }}">
                                 {{ notification.title }}
                                 <p>{{ notification.message }}</p>
                                 <i class="icon ion-ios7-sunny" ng-hide="notification.read"></i>

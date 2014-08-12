@@ -3,6 +3,7 @@ bbb.controller('ListNotifications', function($state, $scope, NotificationService
 
         $scope.$on("$destroy", function(){
                 NotificationService.markAllRead()
-        });               
+                NotificationService.add({ title: "test", message:"tester", link:'#/schedule/view/sDUzggRgAl' })
+        });                               
     
 });

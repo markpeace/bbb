@@ -22,23 +22,25 @@ bbb.factory('NotificationService', ["$rootScope", function($rootScope) {
 
         _initialiseNotificationCache()       
         if (window.plugin) _hookUpEventListeners();
-        _notifications = [
-                {title: "Event Reminder", message: "the event occurs at 10:00 today", read:false, link:"/" },
-                {title: "Event Reminder", message: "the event occurs at 10:00 today", read:false, link:"/" },
-                {title: "Event Reminder", message: "the event occurs at 10:00 today", read:false, link:"/" },
-                {title: "Event Reminder", message: "the event occurs at 10:00 today", read:true, link:"/" },
-                {title: "Event Reminder", message: "the event occurs at 10:00 today", read:true, link:"/" }
-        ]
+        _notifications = []
 
 
         return {
 
+                notifications: function() { return _notifications; },
+                
                 unread: function() {
                         u=0
                         angular.forEach(_notifications, function(n) {
                                 if (!n.read) {u++}
                         })
                         return u
+                },
+                
+                add: function(notification) {
+                        newNotifications=[notification]
+                        angular.forEach(_notifications, function(n) { newNotifications.push(n) })
+                        _notifications=newNotifications
                 },
 
                 markAllRead: function () {
@@ -47,11 +49,10 @@ bbb.factory('NotificationService', ["$rootScope", function($rootScope) {
                         })     
                 },
 
-                notifications: function() { return _notifications; },
-
                 reminders: {
 
                         destroyAll: function () {
+                                
                                 console.log("Destroy all currently set notifications");
                                 window.plugin.notification.local.cancelAll(function () {});
 
