@@ -28,7 +28,7 @@ bbb.factory('NotificationService', ["$rootScope", function($rootScope) {
         return {
 
                 notifications: function() { return _notifications; },
-                
+
                 unread: function() {
                         u=0
                         angular.forEach(_notifications, function(n) {
@@ -36,7 +36,7 @@ bbb.factory('NotificationService', ["$rootScope", function($rootScope) {
                         })
                         return u
                 },
-                
+
                 add: function(notification) {
                         newNotifications=[notification]
                         angular.forEach(_notifications, function(n) { newNotifications.push(n) })
@@ -52,36 +52,38 @@ bbb.factory('NotificationService', ["$rootScope", function($rootScope) {
                 reminders: {
 
                         destroyAll: function () {
-                                
-                                console.log("Destroy all currently set notifications");
-                                window.plugin.notification.local.cancelAll(function () {});
+                                if(window.plugin) {
+                                        console.log("Destroy all currently set notifications");
+                                        window.plugin.notification.local.cancelAll(function () {});
+                                }
 
                         },
                         destroy: function(iteration){
-
-                                window.plugin.notification.local.cancel(iteration.id, function () {
-                                        console.log("destroy reminder for...")
-                                        console.log(iteration)     
-                                });
-
+                                if(window.plugin) {
+                                        window.plugin.notification.local.cancel(iteration.id, function () {
+                                                console.log("destroy reminder for...")
+                                                console.log(iteration)     
+                                        });
+                                }
 
                         },
                         set: function (iteration) {
-                                console.log("set reminder for...")
-                                console.log(iteration)
+                                if(window.plugin) {                                
+                                        console.log("set reminder for...")
+                                        console.log(iteration)
 
-                                var now                  = new Date().getTime(),
-                                    _10_seconds_from_now = new Date(now + 10*1000);
+                                        var now                  = new Date().getTime(),
+                                            _10_seconds_from_now = new Date(now + 10*1000);
 
 
-                                window.plugin.notification.local.add({
-                                        id:         iteration.id,  // A unique id of the notifiction
-                                        date:       _10_seconds_from_now,    // This expects a date object
-                                        message:    "A pop-up you are booked into ("+ iteration.event.title +") starts in ten minutes",  // The message that is displayed
-                                        //badge:      1,  // Displays number badge to notification
-                                        json:       { mark: "peace" },  // Data to be passed through the notification
-                                });
-
+                                        window.plugin.notification.local.add({
+                                                id:         iteration.id,  // A unique id of the notifiction
+                                                date:       _10_seconds_from_now,    // This expects a date object
+                                                message:    "A pop-up you are booked into ("+ iteration.event.title +") starts in ten minutes",  // The message that is displayed
+                                                //badge:      1,  // Displays number badge to notification
+                                                json:       { mark: "peace" },  // Data to be passed through the notification
+                                        });
+                                }
                         }
                 }
         }
