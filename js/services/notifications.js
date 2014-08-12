@@ -2,14 +2,25 @@ bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope,
 
         var _hookUpEventListeners = function () {
                 alert("hooked up")
-                window.plugin.notification.local.onclick = function (id, state, json) {
-                        try {
-                                alert("the user clickified the notification: "+id)
-                                _add(json)
-                        } catch (ex) {
-                                alert(ex)
-                        }
-                };
+                try {
+                        window.plugin.notification.local.onclick = function (id, state, json) {
+                                try {
+                                        alert("the user clickified the notification: "+id)
+                                        alert(json)
+                                } catch (ex) {
+                                        alert(ex)
+                                }
+                        };
+                        
+                        window.plugin.notification.local.ontrigger = function (id, state, json) {
+                               _add(json) 
+                        };
+                        
+                } catch(ex) {
+                        alert(ex)
+                }
+
+
 
         }
 
