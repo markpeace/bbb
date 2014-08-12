@@ -88,7 +88,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
 
                                 if(window.plugin) {       
 
-                                        alert(moment(iteration.time).subtract('minutes', 10)._d)
+                                        //alert(moment(iteration.time).subtract('minutes', 10)._d)
 
                                         var now                  = new Date().getTime(),
                                             _10_seconds_from_now = new Date(now + 10*1000);
