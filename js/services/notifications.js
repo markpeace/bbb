@@ -1,12 +1,7 @@
 bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope, $state) {                      
-    	
-        var _notifier = window.plugin.notification.local()
-        
+            
         var _hookUpEventListeners = function () {
-                alert("wiredup")
-                try {
-    		_notifier.oncancel = function (id, state, json) { alert("cancelled")};
-                        } catch (ex) {alert(ex)}
+    		window.plugin.notification.local.oncancel = function (id, state, json) { alert("cancelled")};                
 
         }
 
@@ -58,13 +53,13 @@ bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope,
                         destroyAll: function () {
                                 if(window.plugin) {
                                         console.log("Destroy all currently set notifications");
-                                        _notifier.cancelAll(function () {});
+                                        window.plugin.notification.local.cancelAll(function () {});
                                 }
 
                         },
                         destroy: function(iteration){
                                 if(window.plugin) {
-                                        _notifier.cancel(iteration.id, function () {
+                                        window.plugin.notification.local.cancel(iteration.id, function () {
                                                 console.log("destroy reminder for...")
                                                 console.log(iteration)     
                                         });
@@ -73,6 +68,8 @@ bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope,
                         },
                         set: function (iteration) {
 
+                                alert(window.plugin.notification.local.oncancel)
+                                
                                 if(window.plugin) {                                
                                         console.log("set reminder for...")
                                         console.log(iteration)
@@ -81,7 +78,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope,
                                             _10_seconds_from_now = new Date(now + 10*1000);
 
 
-                                        _notifier.add({
+                                        window.plugin.notification.local.add({
                                                 id:         iteration.id,  // A unique id of the notifiction
                                                 date:       _10_seconds_from_now,    // This expects a date object
                                                 message:    "A pop-up you are booked into ("+ iteration.event.title +") starts in ten minutes",  // The message that is displayed
