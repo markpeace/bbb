@@ -1,4 +1,4 @@
-bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope, $state) {                      
+bbb.factory('NotificationService', ["$rootScope", "$state", "$location", function($rootScope, $state, $location) {                      
 
         var _hookUpEventListeners = function () {
 
@@ -11,7 +11,11 @@ bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope,
                 };
 
                 window.plugin.notification.local.onclick = function (id, state, json) { 
-                        alert("clicked")
+                        json=JSON.parse(json)
+                        json.read=true
+                        _add(json)
+                        $location.path(json.link)
+                        $rootScope.$apply();
                 };
 
         }
