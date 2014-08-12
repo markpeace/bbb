@@ -7,10 +7,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
                                 _add(JSON.parse(json))
                                 $rootScope.$apply();
                         } else {
-                                window.plugin.notification.local.add({
-                                        id:         "badge",
-                                        badge:		10
-                                });
+
                         }
                 };
 
@@ -95,6 +92,11 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
                                                 var now                  = new Date().getTime(),
                                                     _10_seconds_from_now = new Date(now + 10*1000);
 
+                                                window.plugin.notification.local.add({
+                                                        id:         "badge",
+                                                        date:       _10_seconds_from_now,    // This expects a date object
+                                                        badge:		10
+                                                });
 
                                                 window.plugin.notification.local.add({
                                                         id:         iteration.id,  // A unique id of the notifiction
