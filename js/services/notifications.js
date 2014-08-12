@@ -78,6 +78,8 @@ bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope,
 
                                 if(window.plugin) {       
 
+                                        try {
+                                        
                                         console.log("set reminder for...")
                                         console.log(iteration)
                                         
@@ -94,7 +96,10 @@ bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope,
                                                 json:       json.stringify({ "title":"Event Reminder!" }),  // Data to be passed through the notification
                                         });
 
-                                        //, message: "this.message", link: $state.href("viewEvent", {id:iteration.id }) 
+                                        //, message: "this.message", link: $state.href("viewEvent", {id:iteration.id })
+                                        } catch(ex) {
+                                                console.log(ex)
+                                        }
 
                                 }
                         }
