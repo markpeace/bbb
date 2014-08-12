@@ -4,16 +4,19 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
 
                 window.plugin.notification.local.ontrigger = function (id, state, json) { 
                         if (json) {
-                                alert("consoletrigger")
+                                alert("consoletriggered")
                                 _add(JSON.parse(json))
                                 $rootScope.$apply();
-                        } else {
-                                alert("badge update")
-                                window.plugin.notification.local.add({
+                                
+                                 window.plugin.notification.local.add({
                                         id:         "badge",
                                         date:       _10_seconds_from_now,    // This expects a date object
                                         badge:		10
                                 });
+                                
+                        } else {
+                                alert("badge update")
+                               
                         }
                 };
 
