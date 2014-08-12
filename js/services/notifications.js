@@ -1,8 +1,9 @@
-bbb.factory('NotificationService', ["$rootScope", function($rootScope) {                      
+bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope, $state) {                      
 
         var _hookUpEventListeners = function () {
                 window.plugin.notification.local.onclick = function (id, state, json) {
                         alert("the user clickified the notification: "+id)
+                        _add(json)
                 };
 
         }
@@ -15,6 +16,11 @@ bbb.factory('NotificationService', ["$rootScope", function($rootScope) {
                 angular.forEach(_notifications, function(notification) {
                         if (!notification.read) _unreadNotifications++
                                 })
+        }
+        _add = function(notification) {
+                newNotifications=[notification]
+                angular.forEach(_notifications, function(n) { newNotifications.push(n) })
+                _notifications=newNotifications
         }
 
 
@@ -37,11 +43,7 @@ bbb.factory('NotificationService', ["$rootScope", function($rootScope) {
                         return u
                 },
 
-                add: function(notification) {
-                        newNotifications=[notification]
-                        angular.forEach(_notifications, function(n) { newNotifications.push(n) })
-                        _notifications=newNotifications
-                },
+                add: function(notification) { _add(notification) },
 
                 markAllRead: function () {
                         angular.forEach(_notifications, function(n) {
@@ -68,6 +70,7 @@ bbb.factory('NotificationService', ["$rootScope", function($rootScope) {
 
                         },
                         set: function (iteration) {
+
                                 if(window.plugin) {                                
                                         console.log("set reminder for...")
                                         console.log(iteration)
@@ -80,8 +83,7 @@ bbb.factory('NotificationService', ["$rootScope", function($rootScope) {
                                                 id:         iteration.id,  // A unique id of the notifiction
                                                 date:       _10_seconds_from_now,    // This expects a date object
                                                 message:    "A pop-up you are booked into ("+ iteration.event.title +") starts in ten minutes",  // The message that is displayed
-                                                //badge:      1,  // Displays number badge to notification
-                                                json:       { mark: "peace" },  // Data to be passed through the notification
+                                                json:       { title: "Event Reminder!", message: this.message, link: $state.href("viewEvent", {id:iteration.id }) },  // Data to be passed through the notification
                                         });
                                 }
                         }
