@@ -1,6 +1,6 @@
 bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope, $state) {                      
     	
-        var _notifier = window.plugin.notification.local
+        var _notifier = window.plugin.notification.local()
         
         var _hookUpEventListeners = function () {
                 alert("wiredup")
