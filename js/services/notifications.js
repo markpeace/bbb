@@ -79,24 +79,24 @@ bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope,
                                 if(window.plugin) {       
 
                                         try {
-                                        
-                                        console.log("set reminder for...")
-                                        console.log(iteration)
-                                        
-                                        alert(json.stringify({ "title":"Event Reminder!" }))
 
-                                        var now                  = new Date().getTime(),
-                                            _10_seconds_from_now = new Date(now + 10*1000);
+                                                console.log("set reminder for...")
+                                                console.log(iteration)
+
+                                                alert(JSON.stringify({ "title":"Event Reminder!" }))
+
+                                                var now                  = new Date().getTime(),
+                                                    _10_seconds_from_now = new Date(now + 10*1000);
 
 
-                                        window.plugin.notification.local.add({
-                                                id:         iteration.id,  // A unique id of the notifiction
-                                                date:       _10_seconds_from_now,    // This expects a date object
-                                                message:    "A pop-up you are booked into ("+ iteration.event.title +") starts in ten minutes",  // The message that is displayed
-                                                json:       json.stringify({ "title":"Event Reminder!" }),  // Data to be passed through the notification
-                                        });
+                                                window.plugin.notification.local.add({
+                                                        id:         iteration.id,  // A unique id of the notifiction
+                                                        date:       _10_seconds_from_now,    // This expects a date object
+                                                        message:    "A pop-up you are booked into ("+ iteration.event.title +") starts in ten minutes",  // The message that is displayed
+                                                        //json:       json.stringify({ "title":"Event Reminder!" }),  // Data to be passed through the notification
+                                                });
 
-                                        //, message: "this.message", link: $state.href("viewEvent", {id:iteration.id })
+                                                //, message: "this.message", link: $state.href("viewEvent", {id:iteration.id })
                                         } catch(ex) {
                                                 console.log(ex)
                                         }
