@@ -12,8 +12,10 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
 
                 window.plugin.notification.local.onclick = function (id, state, json) { 
                         json=JSON.parse(json)
+                        json.link=json.link.substring(1)
+                        alert(json.link)
                         json.read=true
-                        _add(json)
+                        _add(json)                        
                         $location.path(json.link)
                         $rootScope.$apply();
                 };
