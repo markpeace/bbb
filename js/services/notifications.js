@@ -86,7 +86,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope,
                                                 date:       _10_seconds_from_now,    // This expects a date object
                                                 message:    "A pop-up you are booked into ("+ iteration.event.title +") starts in ten minutes",  // The message that is displayed
                                                 json:       { title: "Event Reminder!", message: this.message, link: $state.href("viewEvent", {id:iteration.id }) },  // Data to be passed through the notification
-                                        });
+                                        }, $rootScope);
 
                                 }
                         }
