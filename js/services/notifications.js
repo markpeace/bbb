@@ -4,11 +4,11 @@ bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope,
 
                 window.plugin.notification.local.oncancel = function (id, state, json) { alert("cancelled")};     
                 window.plugin.notification.local.onadd = function (id, state, json) { alert("added")};
-                window.plugin.notification.local.ontriggered = function (id, state, json) { 
-                        alert("triggered"+json)
+                window.plugin.notification.local.ontrigger = function (id, state, json) { 
+                        alert("triggered")
                 };
-                window.plugin.notification.local.onclicked = function (id, state, json) { 
-                        alert("clicked"+json)
+                window.plugin.notification.local.onclick = function (id, state, json) { 
+                        alert("clicked")
                 };
 
         }
