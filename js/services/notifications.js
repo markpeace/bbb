@@ -3,7 +3,10 @@ bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope,
         var _notifier = _notifier
         
         var _hookUpEventListeners = function () {
+                alert("wiredup")
+                try {
     		_notifier.oncancel = function (id, state, json) { alert("cancelled")};
+                        } catch (ex) {alert(ex)}
 
         }
 
