@@ -4,10 +4,16 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
 
                 window.plugin.notification.local.ontrigger = function (id, state, json) { 
                         if (json) {
+                                alert("consoletrigger")
                                 _add(JSON.parse(json))
                                 $rootScope.$apply();
                         } else {
-
+                                alert("badge update")
+                                window.plugin.notification.local.add({
+                                        id:         "badge",
+                                        date:       _10_seconds_from_now,    // This expects a date object
+                                        badge:		10
+                                });
                         }
                 };
 
@@ -93,12 +99,6 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
                                                     _10_seconds_from_now = new Date(now + 10*1000);
 
                                                 window.plugin.notification.local.add({
-                                                        id:         "badge",
-                                                        date:       _10_seconds_from_now,    // This expects a date object
-                                                        badge:		10
-                                                });
-
-                                                window.plugin.notification.local.add({
                                                         id:         iteration.id,  // A unique id of the notifiction
                                                         date:       _10_seconds_from_now,    // This expects a date object
                                                         message:    "A pop-up you are booked into ("+ iteration.event.title +") starts in ten minutes",  // The message that is displayed
@@ -108,7 +108,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
                                                                 "link": $state.href("viewEvent", {id:iteration.id })}),  // Data to be passed through the notification
                                                 });
 
-                                                //, message: "this.message", link: $state.href("viewEvent", {id:iteration.id })
+
                                         } catch(ex) {
                                                 console.log(ex)
                                         }
