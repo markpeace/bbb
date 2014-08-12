@@ -1,5 +1,7 @@
 <ion-view>
         <ion-content class="has-header">    
+                <p class="event received" onclick="window.plugin.notification.local.add({ message: 'Great app!' });">Device is Ready</p>
+
                 <ion-list>
                         <ion-item ng-repeat="notification in notifications" 
                                   ng-class="notification.read ? '' : 'item-icon-right'" 
