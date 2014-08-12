@@ -4,22 +4,18 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
 
                 window.plugin.notification.local.ontrigger = function (id, state, json) { 
                         if (json) {
-                                alert("consoletriggerifificated")
+
                                 _add(JSON.parse(json))
-
-                                var now                  = new Date().getTime(),
-                                    _10_seconds_from_now = new Date(now + 10*1000);
-
-                                window.plugin.notification.local.add({
+                                
+                                /*window.plugin.notification.local.add({
                                         id:         "badge",
-                                        date:       _10_seconds_from_now,    // This expects a date object
-                                        badge:		10
-                                });
+                                        date:       new Date().getTime(),    // This expects a date object
+                                        badge:		unread()
+                                });*/					// <-Doesn't work because I can't run in background 
 
                                 $rootScope.$apply();                                
 
                         } else {
-                                alert("badge update")
 
                         }
                 };
@@ -36,13 +32,20 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
         }
 
         _notifications = []
-        _unreadNotifications=0
+
         var _initialiseNotificationCache = function () {
                 _notifications = localStorage.getItem(Parse.User.current().id + "_notifications")
                 _notifications = _notifications ? _notifications : []
                 angular.forEach(_notifications, function(notification) {
                         if (!notification.read) _unreadNotifications++
                                 })
+        }
+        _unread = function() {
+                u=0
+                angular.forEach(_notifications, function(n) {
+                        if (!n.read) {u++}
+                })
+                return u
         }
         _add = function(notification) {
                 newNotifications=[notification]
@@ -63,11 +66,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
                 notifications: function() { return _notifications; },
 
                 unread: function() {
-                        u=0
-                        angular.forEach(_notifications, function(n) {
-                                if (!n.read) {u++}
-                        })
-                        return u
+                        return _unread;
                 },
 
                 add: function(notification) { _add(notification) },
