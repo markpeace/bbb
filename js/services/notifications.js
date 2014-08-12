@@ -3,21 +3,10 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
         var _hookUpEventListeners = function () {
 
                 window.plugin.notification.local.ontrigger = function (id, state, json) { 
-                        if (json) {
+                        _add(JSON.parse(json))
 
-                                _add(JSON.parse(json))
+                        $rootScope.$apply();                                
 
-                                /*window.plugin.notification.local.add({
-                                        id:         "badge",
-                                        date:       new Date().getTime(),    // This expects a date object
-                                        badge:		unread()
-                                });*/					// <-Doesn't work because I can't run in background 
-
-                                $rootScope.$apply();                                
-
-                        } else {
-
-                        }
                 };
 
                 window.plugin.notification.local.onclick = function (id, state, json) { 
@@ -66,7 +55,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
                 notifications: function() { return _notifications; },
 
                 unread: function() {
-                        return _unread;
+                        return _unread();
                 },
 
                 add: function(notification) { _add(notification) },
@@ -100,7 +89,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
                                 if(window.plugin) {       
 
                                         alert(moment(iteration.time).subtract('minutes', 10)._d)
-                                        
+
                                         var now                  = new Date().getTime(),
                                             _10_seconds_from_now = new Date(now + 10*1000);
 
