@@ -14,7 +14,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
                         try {
                                 json=JSON.parse(json)
                                 json.link=json.link.substring(1)
-                                alert(json.link)
+                                alert(json.link + "m")
                                 json.read=true
                                 _add(json)                        
                                 $location.path(json.link)
