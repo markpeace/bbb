@@ -2,8 +2,8 @@ bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope,
 
         var _hookUpEventListeners = function () {
 
-                window.plugin.notification.local.oncancel = function (id, state, json) { alert("cancelled")};     
-                window.plugin.notification.local.onadd = function (id, state, json) { alert("added")};
+                //window.plugin.notification.local.oncancel = function (id, state, json) { alert("cancelled")};     
+                //window.plugin.notification.local.onadd = function (id, state, json) { alert("added")};
 
                 window.plugin.notification.local.ontrigger = function (id, state, json) { 
                         _add(JSON.parse(json))
