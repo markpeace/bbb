@@ -6,7 +6,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope,
                 window.plugin.notification.local.onadd = function (id, state, json) { alert("added")};
 
                 window.plugin.notification.local.ontrigger = function (id, state, json) { 
-                        alert("triggered"+json)
+                        _add(JSON.parse(json))
                 };
 
                 window.plugin.notification.local.onclick = function (id, state, json) { 
@@ -81,11 +81,6 @@ bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope,
                                 if(window.plugin) {       
 
                                         try {
-
-                                                console.log("set reminder for...")
-                                                console.log(iteration)
-
-                                                alert(JSON.stringify({ "title":"Event Reminder!" }))
 
                                                 var now                  = new Date().getTime(),
                                                     _10_seconds_from_now = new Date(now + 10*1000);
