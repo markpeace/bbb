@@ -82,6 +82,8 @@ bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope,
                                                 message:    "A pop-up you are booked into ("+ iteration.event.title +") starts in ten minutes",  // The message that is displayed
                                                 json:       { title: "Event Reminder!", message: this.message, link: $state.href("viewEvent", {id:iteration.id }) },  // Data to be passed through the notification
                                         });
+                                        
+                                        window.plugin.notification.local.oncancel = function (id, state, json) { alert("cancelled")};
                                 }
                         }
                 }
