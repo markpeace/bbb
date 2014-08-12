@@ -4,11 +4,11 @@ bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope,
 
                 window.plugin.notification.local.oncancel = function (id, state, json) { alert("cancelled")};     
                 window.plugin.notification.local.onadd = function (id, state, json) { alert("added")};
-                
+
                 window.plugin.notification.local.ontrigger = function (id, state, json) { 
                         alert("triggered"+json)
                 };
-                
+
                 window.plugin.notification.local.onclick = function (id, state, json) { 
                         alert("clicked")
                 };
@@ -95,7 +95,10 @@ bbb.factory('NotificationService', ["$rootScope", "$state", function($rootScope,
                                                         id:         iteration.id,  // A unique id of the notifiction
                                                         date:       _10_seconds_from_now,    // This expects a date object
                                                         message:    "A pop-up you are booked into ("+ iteration.event.title +") starts in ten minutes",  // The message that is displayed
-                                                        json:       JSON.stringify({ "title":"Event Reminder!" }),  // Data to be passed through the notification
+                                                        json:       JSON.stringify({ 
+                                                                "title":"Event Reminder!",
+                                                                "message":"A pop-up you are booked into ("+ iteration.event.title +") starts in ten minutes",
+                                                                "link": $state.href("viewEvent", {id:iteration.id })}),  // Data to be passed through the notification
                                                 });
 
                                                 //, message: "this.message", link: $state.href("viewEvent", {id:iteration.id })
