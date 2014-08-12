@@ -6,7 +6,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
                         if (json) {
 
                                 _add(JSON.parse(json))
-                                
+
                                 /*window.plugin.notification.local.add({
                                         id:         "badge",
                                         date:       new Date().getTime(),    // This expects a date object
@@ -99,25 +99,21 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
 
                                 if(window.plugin) {       
 
-                                        try {
+                                        alert(moment(iteration.time).subtract('minutes', 10)._d)
+                                        
+                                        var now                  = new Date().getTime(),
+                                            _10_seconds_from_now = new Date(now + 10*1000);
 
-                                                var now                  = new Date().getTime(),
-                                                    _10_seconds_from_now = new Date(now + 10*1000);
+                                        window.plugin.notification.local.add({
+                                                id:         iteration.id,  // A unique id of the notifiction
+                                                date:       _10_seconds_from_now,    // This expects a date object
+                                                message:    "A pop-up you are booked into ("+ iteration.event.title +") starts in ten minutes",  // The message that is displayed
+                                                json:       JSON.stringify({ 
+                                                        "title":"Event Reminder!",
+                                                        "message":"A pop-up you are booked into ("+ iteration.event.title +") starts in ten minutes",
+                                                        "link": $state.href("viewEvent", {id:iteration.id })}),  // Data to be passed through the notification
+                                        });
 
-                                                window.plugin.notification.local.add({
-                                                        id:         iteration.id,  // A unique id of the notifiction
-                                                        date:       _10_seconds_from_now,    // This expects a date object
-                                                        message:    "A pop-up you are booked into ("+ iteration.event.title +") starts in ten minutes",  // The message that is displayed
-                                                        json:       JSON.stringify({ 
-                                                                "title":"Event Reminder!",
-                                                                "message":"A pop-up you are booked into ("+ iteration.event.title +") starts in ten minutes",
-                                                                "link": $state.href("viewEvent", {id:iteration.id })}),  // Data to be passed through the notification
-                                                });
-
-
-                                        } catch(ex) {
-                                                console.log(ex)
-                                        }
 
                                 }
                         }
