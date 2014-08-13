@@ -13,7 +13,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
                 window.plugins.pushNotification.register(successHandler, errorHandler,{"senderID":"422402149973","ecb":"onNotificationGCM"});
         }
 
-        onNotificationGCM = function() {
+        onNotificationGCM = function(e) {
                 switch( e.event )
                 {
                         case 'registered':
