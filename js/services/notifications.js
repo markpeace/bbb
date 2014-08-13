@@ -1,43 +1,12 @@
 bbb.factory('NotificationService', ["$rootScope", "$state", "$location", function($rootScope, $state, $location) {                      
 
-        var _initialisePushNotifications = function () {
-
-                successHandler= function(result) {
-                        alert('Callback Success! Result = '+result)
+        
+	var _pushNotifications = {
+                initialise: function() {
+                        console.log("initialise")
                 }
-
-                errorHandler = function(error) {
-                        alert(error);
-                }
-
-                window.plugins.pushNotification.register(successHandler, errorHandler,{"senderID":"422402149973","ecb":"onNotificationGCM"});
-        }
-
-        onNotificationGCM = function(e) {
-                switch( e.event )
-                {
-                        case 'registered':
-                                if ( e.regid.length > 0 )
-                                {
-                                        console.log("Regid " + e.regid);
-                                        alert('registration id = '+e.regid);
-                                }
-                                break;
-
-                        case 'message':
-                                // this is the actual push notification. its format depends on the data model from the push server
-                                alert('message = '+e.message+' msgcnt = '+e.msgcnt);
-                                break;
-
-                        case 'error':
-                                alert('GCM error = '+e.msg);
-                                break;
-
-                        default:
-                                alert('An unknown GCM event has occurred');
-                                break;
-                }
-        }
+        }        
+        
 
         var _hookUpEventListeners = function () {
 
@@ -88,7 +57,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
         _initialiseNotificationCache()       
         if (window.plugin) {
                 _hookUpEventListeners();
-                _initialisePushNotifications()
+                _pushNotifications.initialise();
         }
         _notifications = []
 
