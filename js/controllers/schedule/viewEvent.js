@@ -1,5 +1,5 @@
 bbb.controller('ViewEvent', function($scope, ParseService, EventModel, $ionicModal, $ionicLoading, $stateParams, $state) {                    
-
+        
         $scope.moment=moment;
 
         $scope.currentUser=Parse.User.current()

@@ -1,6 +1,8 @@
 bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading","$rootScope","$state", function(NotificationService, ParseService, $ionicLoading, $rootScope, $state) {                      
-
+        
         var _refresh = function () {
+                
+                console.log("refresh")
 
                 if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
                         localStorage.setItem(Parse.User.current().id, JSON.stringify({
@@ -191,7 +193,10 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
 
         return {
                 refresh: function() { _refresh() },
-                data: function() { return cache.data },
+                data: function() { 
+                        if (typeof cache === 'undefined') { _refresh() } 
+                        return cache.data 
+                },
                 toggleBooking: function (iteration) {
 
                         angular.forEach(cache.data.iterations, function(i, index) {
