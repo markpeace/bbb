@@ -1,4 +1,4 @@
-bbb.factory('NotificationService', ["$rootScope", "$state", "$location", function($rootScope, $state, $location) {                      
+bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseService", function($rootScope, $state, $location, ParseService) {                      
 
 
         var _pushNotifications = {
@@ -32,8 +32,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
                         alert("error")
                 },
                 tokenHandler: function(result) {
-                        alert("token:"+result)
-                        
+                        Parse.User.current().set("token", result).save()                        
                 },
                 onNotification: function() {
                         alert("onNotification")
