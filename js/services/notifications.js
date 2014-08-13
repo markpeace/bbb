@@ -103,7 +103,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
 
                                 if(window.plugin) {                                          
 
-                                        alert("start")
+                                        alert("started")
                                         
                                         window.plugin.notification.local.add({
                                                 id:         iteration.id,  // A unique id of the notifiction
@@ -115,7 +115,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
                                                         "link": $state.href("viewEvent", {id:iteration.id })}),  // Data to be passed through the notification
                                         });
 
-					alert("end")
+					alert("ended")
                                         
                                 }
                         }
