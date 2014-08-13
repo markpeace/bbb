@@ -1,12 +1,47 @@
 bbb.factory('NotificationService', ["$rootScope", "$state", "$location", function($rootScope, $state, $location) {                      
 
-        
-	var _pushNotifications = {
+
+        var _pushNotifications = {
                 initialise: function() {
-                        console.log("initialise")
-                }
+                        try {
+                                if ( device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){
+                                        window.plugins.pushNotification.register(
+                                                _pushNotifications.successHandler,
+                                                _pushNotifications.errorHandler,
+                                                {
+                                                        "senderID":"replace_with_sender_id",
+                                                        "ecb":"_pushNotifications.onNotification"
+                                                });
+                                } else {
+                                        window.plugins.pushNotification.register(
+                                                _pushNotifications.tokenHandler,
+                                                _pushNotifications.errorHandler,
+                                                {
+                                                        "badge":"true",
+                                                        "sound":"true",
+                                                        "alert":"true",
+                                                        "ecb":"_pushNotifications.onNotificationAPN"
+                                                });
+                                }
+                        } catch(ex) { alert(ex) }
+                },
+                successHandler: function() {
+                        alert("success")
+                },
+                errorHandler: function() {
+                        alert("error")
+                },
+                tokenHandler: function() {
+                        alert("token")
+                },
+                onNotification: function() {
+                        alert("onNotification")
+                },
+                onNotificationAPN: function() {
+                        alert("onNotificationAPN")
+                },
         }        
-        
+
 
         var _hookUpEventListeners = function () {
 
