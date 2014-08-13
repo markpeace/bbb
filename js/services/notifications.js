@@ -14,9 +14,31 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
         }
 
         onNotificationGCM = function() {
-                alert("notified")
+                switch( e.event )
+                {
+                        case 'registered':
+                                if ( e.regid.length > 0 )
+                                {
+                                        console.log("Regid " + e.regid);
+                                        alert('registration id = '+e.regid);
+                                }
+                                break;
+
+                        case 'message':
+                                // this is the actual push notification. its format depends on the data model from the push server
+                                alert('message = '+e.message+' msgcnt = '+e.msgcnt);
+                                break;
+
+                        case 'error':
+                                alert('GCM error = '+e.msg);
+                                break;
+
+                        default:
+                                alert('An unknown GCM event has occurred');
+                                break;
+                }
         }
-        
+
         var _hookUpEventListeners = function () {
 
                 window.plugin.notification.local.ontrigger = function (id, state, json) { 
@@ -62,7 +84,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
 
         //RUN ONE TIME ONLY INITIALISATION
 
-        
+
         _initialiseNotificationCache()       
         if (window.plugin) {
                 _hookUpEventListeners();
