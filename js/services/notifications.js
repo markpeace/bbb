@@ -1,5 +1,22 @@
 bbb.factory('NotificationService', ["$rootScope", "$state", "$location", function($rootScope, $state, $location) {                      
 
+        var _initialisePushNotifications = function () {
+
+                successHandler= function(result) {
+                        alert('Callback Success! Result = '+result)
+                }
+
+                errorHandler = function(error) {
+                        alert(error);
+                }
+
+                window.plugins.pushNotification.register(successHandler, errorHandler,{"senderID":"422402149973","ecb":"onNotificationGCM"});
+        }
+
+        onNotificationGCM = function() {
+                alert("notified")
+        }
+        
         var _hookUpEventListeners = function () {
 
                 window.plugin.notification.local.ontrigger = function (id, state, json) { 
@@ -45,8 +62,12 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
 
         //RUN ONE TIME ONLY INITIALISATION
 
+        
         _initialiseNotificationCache()       
-        if (window.plugin) _hookUpEventListeners();
+        if (window.plugin) {
+                _hookUpEventListeners();
+                _initialisePushNotifications()
+        }
         _notifications = []
 
 
