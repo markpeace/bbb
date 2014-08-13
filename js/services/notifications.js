@@ -89,7 +89,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
 
                                 iteration.time=moment().add('minutes', 10)
 
-                                i=new Date(iteration.time.subtract('minutes',10).add('seconds',20)._d)
+                                i=iteration.time.subtract('minutes',10).add('seconds',20)._d
 
                                 var now                  = new Date().getTime(),
                                     _20_seconds_from_now = new Date(now + 20*1000);
@@ -103,7 +103,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
 
                                 if(window.plugin) {                                          
 
-                                        alert("started")
+                                        alert("startified")
                                         
                                         window.plugin.notification.local.add({
                                                 id:         iteration.id,  // A unique id of the notifiction
