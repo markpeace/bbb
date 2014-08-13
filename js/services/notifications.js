@@ -91,8 +91,6 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
 
                                 if(window.plugin) {                                          
 
-                                        alert("startified")
-                                        
                                         window.plugin.notification.local.add({
                                                 id:         iteration.id,  // A unique id of the notifiction
                                                 date:      iteration.time.subtract('minutes',10)._d,
@@ -102,8 +100,6 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
                                                         "message":"A pop-up you are booked into ("+ iteration.event.title +") starts in ten minutes",
                                                         "link": $state.href("viewEvent", {id:iteration.id })}),  // Data to be passed through the notification
                                         });
-
-					alert("ended")
                                         
                                 }
                         }
