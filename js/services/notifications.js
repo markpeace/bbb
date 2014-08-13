@@ -107,7 +107,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
                                         
                                         window.plugin.notification.local.add({
                                                 id:         iteration.id,  // A unique id of the notifiction
-                                                date:      _20_seconds_from_now,
+                                                date:      i,
                                                 message:    "A pop-up you are booked into ("+ iteration.event.title +") starts in ten minutes",  // The message that is displayed
                                                 json:       JSON.stringify({ 
                                                         "title":"Event Reminder!",
