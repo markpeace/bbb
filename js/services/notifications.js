@@ -32,7 +32,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
                         alert("error")
                 },
                 tokenHandler: function() {
-                        alert("token")
+                        alert("token:"+result)
                 },
                 onNotification: function() {
                         alert("onNotification")
