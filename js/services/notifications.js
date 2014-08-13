@@ -1,5 +1,5 @@
 bbb.factory('NotificationService', ["$rootScope", "$state", "$location", function($rootScope, $state, $location) {                      
-
+        
         var _hookUpEventListeners = function () {
 
                 window.plugin.notification.local.ontrigger = function (id, state, json) { 
@@ -87,16 +87,11 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
                         set: function (iteration) {
 
                                 if(window.plugin) {       
-
-                                        var now                  = new Date().getTime()
-                                        alert("javascript time " + now)
-                                        alert("moment time: " + moment()._d)
-                                        alert("alarm time: " + moment(iteration.time).subtract('minutes', 10)._d)
                                         
 
                                         window.plugin.notification.local.add({
                                                 id:         iteration.id,  // A unique id of the notifiction
-                                                date:       moment(iteration.time).subtract('minutes', 10)._d,
+                                                date:       moment(iteration.time).subtract('minutes', 10)._d.getTime(),
                                                 message:    "A pop-up you are booked into ("+ iteration.event.title +") starts in ten minutes",  // The message that is displayed
                                                 json:       JSON.stringify({ 
                                                         "title":"Event Reminder!",
