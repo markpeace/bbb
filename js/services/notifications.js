@@ -87,7 +87,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
                         set: function (iteration) {
 
 
-                                iteration.time=moment().add('minutes', 10).add('seconds',20)                                                               
+                                //iteration.time=moment().add('minutes', 10).add('seconds',20)                                                               
 
                                 if(window.plugin) {                                          
 
