@@ -88,10 +88,11 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", functio
 
                                 if(window.plugin) {       
 
-                                        //alert()
-
-                                        var now                  = new Date().getTime(),
-                                            _10_seconds_from_now = new Date(now + 10*1000);
+                                        var now                  = new Date().getTime()
+                                        alert("javascript time " + now)
+                                        alert("moment time: " + moment()._d)
+                                        alert("alarm time: " + moment(iteration.time).subtract('minutes', 10)._d)
+                                        
 
                                         window.plugin.notification.local.add({
                                                 id:         iteration.id,  // A unique id of the notifiction
