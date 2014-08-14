@@ -19,7 +19,7 @@ if (typeof cordova === 'object') {
 
                 var initialise = function() {
 
-                        console.log("Init1")
+                        alert("Init1")
 
                         window.plugins.pushNotification.register(
                                 tokenHandler,
