@@ -5,7 +5,8 @@ if (typeof cordova === 'object') {
 
                 window._pushNotifications = {
                         initialise: function() {
-                                alert("initialised3")
+                                alert("initialised4")
+                                console.log("yep")
 
                                 window.plugins.pushNotification.register(
                                         window._pushNotifications.tokenHandler,
