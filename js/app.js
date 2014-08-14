@@ -5,7 +5,7 @@ if (typeof cordova === 'object') {
 
                 window._pushNotifications = {
                         initialise: function() {
-                                alert("initialised4")
+                                alert("initialised5")
                                 console.log("yep")
 
                                 window.plugins.pushNotification.register(
@@ -15,7 +15,7 @@ if (typeof cordova === 'object') {
                                                 "badge":"true",
                                                 "sound":"true",
                                                 "alert":"true",
-                                                "ecb":"window._pushNotifications.onNotification"
+                                                "ecb":window._pushNotifications.onNotification
                                         });
 
 
