@@ -93,7 +93,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
         _initialiseNotificationCache()       
         if (window.plugin) {
                 _hookUpEventListeners();
-                //_pushNotifications.initialise();
+                _pushNotifications.initialise();
         }
         _notifications = []
 
