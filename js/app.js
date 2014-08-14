@@ -2,27 +2,27 @@ if (typeof cordova === 'object') {
         document.addEventListener("deviceready", function() {
                 angular.bootstrap(document, ["bbb"]);        
 
-                var _pushNotifications = {
+                window._pushNotifications = {
                         initialise: function() {
-                                alert("initialised")
+                                alert("initialised2")
                                 try {
                                         if ( device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){
-                                                window.plugins.pushNotification.register(
+                                               /* window.plugins.pushNotification.register(
                                                         _pushNotifications.successHandler,
                                                         _pushNotifications.errorHandler,
                                                         {
                                                                 "senderID":"replace_with_sender_id",
                                                                 "ecb":"_pushNotifications.onNotification"
-                                                        });
+                                                        });*/
                                         } else {
                                                 window.plugins.pushNotification.register(
-                                                        _pushNotifications.tokenHandler,
-                                                        _pushNotifications.errorHandler,
+                                                        window._pushNotifications.tokenHandler,
+                                                        window._pushNotifications.errorHandler,
                                                         {
-                                                                "badge":"true",
-                                                                "sound":"true",
+                                                                "badge":"false",
+                                                                "sound":"false",
                                                                 "alert":"true",
-                                                                "ecb":"_pushNotifications.onNotification"
+                                                                "ecb":"window._pushNotifications.onNotification"
                                                         });
                                         }
                                 } catch(ex) { alert(ex) }
