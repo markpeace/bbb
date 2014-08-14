@@ -120,9 +120,6 @@ function errorHandler (error) {
 
 document.addEventListener('deviceready', onDeviceReady, true);
 
-</script>
-
-
 if (typeof cordova === 'object') {
         document.addEventListener("deviceready", function() {
 
