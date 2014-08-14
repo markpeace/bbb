@@ -6,12 +6,12 @@ if (typeof cordova === 'object') {
                 function onNotification() {
                         alert("hi")
                 }
-                
+
                 var _pushNotifications = {
                         initialise: function() {
-                                
+
                                 console.log("Init1")
-                                
+
                                 window.plugins.pushNotification.register(
                                         _pushNotifications.tokenHandler,
                                         _pushNotifications.errorHandler,
@@ -19,7 +19,7 @@ if (typeof cordova === 'object') {
                                                 "badge":"true",
                                                 "sound":"true",
                                                 "alert":"true",
-                                                "ecb":"onNotification"
+                                                "ecb":onNotification
                                         });
 
                         },
@@ -36,7 +36,7 @@ if (typeof cordova === 'object') {
 
                 _pushNotifications.initialise();
 
-                }, false);
+        }, false);
 
 } else {        
         angular.element(document).ready(function() {
