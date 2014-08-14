@@ -3,38 +3,36 @@ if (typeof cordova === 'object') {
 
                 angular.bootstrap(document, ["bbb"]);        
 
-                function onNotification() {
-                        alert("hi")
+                var successHandler = function() {
+                        alert("success")
+                }
+                var errorHandler = function() {
+                        alert("error")
+                }
+                var tokenHandler = function(result) {
+                        alert(result)                
                 }
 
-                var _pushNotifications = {
-                        initialise: function() {
+                var onNotification = function() {
+                        alert("gorrit")
+                }
 
-                                console.log("Init1")
+                var initialise = function() {
 
-                                window.plugins.pushNotification.register(
-                                        _pushNotifications.tokenHandler,
-                                        _pushNotifications.errorHandler,
-                                        {
-                                                "badge":"true",
-                                                "sound":"true",
-                                                "alert":"true",
-                                                "ecb":onNotification
-                                        });
+                        console.log("Init1")
 
-                        },
-                        successHandler: function() {
-                                alert("success")
-                        },
-                        errorHandler: function() {
-                                alert("error")
-                        },
-                        tokenHandler: function(result) {
-                                alert(result)                
-                        }
-                }        
+                        window.plugins.pushNotification.register(
+                                tokenHandler,
+                                errorHandler,
+                                {
+                                        "badge":"true",
+                                        "sound":"true",
+                                        "alert":"true",
+                                        "ecb":"onNotification"
+                                });
+                }
 
-                _pushNotifications.initialise();
+                initialise();
 
         }, false);
 
