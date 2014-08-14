@@ -1,37 +1,81 @@
 if (typeof cordova === 'object') {
         document.addEventListener("deviceready", function() {
-                
+
                 angular.bootstrap(document, ["bbb"]);        
 
-                window._pushNotifications = {
-                        initialise: function() {
-                                alert("initialised5")
-                                console.log("yep")
+                var PushNotApp = PushNotApp || {};
 
-                                window.plugins.pushNotification.register(
-                                        window._pushNotifications.tokenHandler,
-                                        window._pushNotifications.errorHandler,
-                                        {
-                                                "badge":"true",
-                                                "sound":"true",
-                                                "alert":"true",
-                                                "ecb":window._pushNotifications.onNotification
-                                        });
+                PushNotApp.main = (function() {
 
+                        var pushNotification = window.plugins.pushNotification,
 
-                        },
-                        tokenHandler: function(result) {
-                                //Parse.User.current().set("token", result).save()  
-                                alert(result)                      
-                        },
-                        onNotification: function() {
-                                alert("onNotification")
+                            showAlert = function(message, title) {
+                                    if(navigator.notification) {
+                                            navigator.notification.alert(message, null, title, 'Close');
+                                            navigator.notification.vibrate(1000);
+                                    }else{
+                                            alert(title ? (title + ": " + message) : message);
+                                    }
+                            },
+
+                            addCallback = function(key, callback) {
+                                    if(window.callbacks === undefined) {
+                                            window.callbacks = {};
+                                    }
+                                    window.callbacks[key] = callback;
+                            },
+
+                            addNotification = function(notificationTxt) {
+                                    alert('notification added to DOM');
+                                    var el = document.getElementById('notification');
+                                    el.innerHTML += notificationTxt;
+                            },
+
+                            registrationSuccessHandler = function(token) {
+                                    alert('successful registration with token: ' + token);
+                                    addCallback('notificationHandler', notificationHandler);
+                            },
+
+                            registrationFailedHandler = function(error) {
+                                    showAlert(error, "Error");
+                            },
+
+                            notificationHandler = function(evt) {
+                                    alert("received a notification: " + evt.alert);
+                                    navigator.notification.beep(3);
+                                    if(evt.alert) {
+                                            addNotification(evt.alert);
+                                    }
+                                    if(evt.prop){
+                                            addNotification(" received a special property: " + evt.prop);
+                                    }
+                            },
+
+                            deviceReady = function() {
+                                    alert('Device is ready');
+                                    if(parseFloat(device.version) === 7.0) {
+                                            document.body.style.marginTop = "20px";
+                                    }
+                                    pushNotification.register(registrationSuccessHandler,
+                                                              registrationFailedHandler, {
+                                                                      "badge":"true",
+                                                                      "sound":"true",
+                                                                      "alert":"true",
+                                                                      "ecb":"callbacks.notificationHandler"
+                                                              });
+                            },
+
+                            initialize = function(){
+                                    document.addEventListener("deviceready", deviceReady, false);
+                            }
+
+                        return {
+                                initialize:initialize
                         }
 
-                }        
+                }());
 
-                _pushNotifications.initialise()
-
+                PushNotApp.main.initialize();
 
         }, false);
 
