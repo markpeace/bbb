@@ -20,7 +20,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
                                                         "badge":"true",
                                                         "sound":"true",
                                                         "alert":"true",
-                                                        "ecb":"_pushNotifications.onNotificationAPN"
+                                                        "ecb":"alert"
                                                 });
                                 }
                         } catch(ex) { alert(ex) }
