@@ -41,7 +41,7 @@ var notifier = "YOUR NOTIFIER";
  * an iOS device.
  */
 function onNotificationAPN(event) {
-    console.log(JSON.stringify(event, undefined, 2));
+    alert(JSON.stringify(event, undefined, 2));
     if (event.alert) {
         navigator.notification.alert(event.alert);
     }
@@ -72,7 +72,7 @@ function onNotificationGCM(e) {
             $("#app-status-ul").append('<li>REGISTERED -> REGID:' + e.regid + "</li>");
             // Your GCM push server needs to know the regID before it can push to this device
             // here is where you might want to send it the regID for later use.
-            console.log("regID = " + e.regID);
+            alert("regID = " + e.regID);
         }
         break;
 
@@ -149,9 +149,9 @@ var app = {
           // for notifications.
           client.registerDevice(options, function(error, result){
             if(error) {
-                console.log(error);
+                alert(error);
             } else {
-                console.log(result);
+                alert(result);
             }
           });
         }
@@ -159,11 +159,11 @@ var app = {
 
       // A callback function used by Google GCM when notification registration
       // is successful. Not used on iOS.
-      function successHandler(result) {console.log(result);}
+      function successHandler(result) {alert(result);}
 
       // A callback function used by Apple APNs and Google GCM when 
       // notification registration fails.
-      function errorHandler(error){ console.log(error);}
+      function errorHandler(error){ alert(error);}
 
       // Detect the device platform this app is deployed on and register
       // accordingly for notifications.
@@ -194,9 +194,9 @@ var app = {
         // Send a notification to this device.
         client.sendPushToDevice(options, function(error, data){
           if(error) {
-            console.log(data);
+            alert(data);
           } else {
-            console.log("Push sent");
+            alert("Push sent");
           }
         });
       });
@@ -212,6 +212,6 @@ var app = {
       listeningElement.setAttribute('style', 'display:none;');
       receivedElement.setAttribute('style', 'display:block;');
       
-      console.log('Received Event: ' + id);
+      alert('Received Event: ' + id);
   }
 };
