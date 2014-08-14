@@ -2,8 +2,14 @@ if (typeof cordova === 'object') {
         document.addEventListener("deviceready", function() {
                 angular.bootstrap(document, ["bbb"]);        
 
-	alert("updated")
-                
+                alert("updated2")
+
+                function tokenHandler (result) {
+                        // Your iOS push server needs to know the token before it can push to this device
+                        // here is where you might want to send it the token for later use.
+                        alert('device token = ' + result);
+                }
+
                 function successHandler (result) {
                         alert('result = ' + result);
                 }
@@ -41,22 +47,22 @@ if (typeof cordova === 'object') {
                                         // you might want to play a sound to get the user's attention, throw up a dialog, etc.
                                         if ( e.foreground )
                                         {
-                                               alert("inline notifcation")                                                
+                                                alert("inline notifcation")                                                
                                         }
                                         else
                                         {  // otherwise we were launched because the user touched a notification in the notification tray.
                                                 if ( e.coldstart )
                                                 {
-							console.log("coldstart notification")
+                                                        console.log("coldstart notification")
                                                 }
                                                 else
                                                 {
-							console.log("background notification")
+                                                        console.log("background notification")
                                                 }
                                         }
 
                                         alert(e.payload.message + e.payload.msgcnt)
-                                        
+
                                         break;
 
                                 case 'error':
