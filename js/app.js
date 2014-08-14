@@ -1,37 +1,23 @@
 if (typeof cordova === 'object') {
         document.addEventListener("deviceready", function() {
+                
                 angular.bootstrap(document, ["bbb"]);        
 
                 window._pushNotifications = {
                         initialise: function() {
-                                alert("initialised2")
-                                try {
-                                        if ( device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){
-                                               /* window.plugins.pushNotification.register(
-                                                        _pushNotifications.successHandler,
-                                                        _pushNotifications.errorHandler,
-                                                        {
-                                                                "senderID":"replace_with_sender_id",
-                                                                "ecb":"_pushNotifications.onNotification"
-                                                        });*/
-                                        } else {
-                                                window.plugins.pushNotification.register(
-                                                        window._pushNotifications.tokenHandler,
-                                                        window._pushNotifications.errorHandler,
-                                                        {
-                                                                "badge":"false",
-                                                                "sound":"false",
-                                                                "alert":"true",
-                                                                "ecb":"window._pushNotifications.onNotification"
-                                                        });
-                                        }
-                                } catch(ex) { alert(ex) }
-                        },
-                        successHandler: function() {
-                                alert("success")
-                        },
-                        errorHandler: function() {
-                                alert("error")
+                                alert("initialised3")
+
+                                window.plugins.pushNotification.register(
+                                        window._pushNotifications.tokenHandler,
+                                        window._pushNotifications.errorHandler,
+                                        {
+                                                "badge":"true",
+                                                "sound":"true",
+                                                "alert":"true",
+                                                "ecb":"window._pushNotifications.onNotification"
+                                        });
+
+
                         },
                         tokenHandler: function(result) {
                                 //Parse.User.current().set("token", result).save()  
@@ -39,16 +25,14 @@ if (typeof cordova === 'object') {
                         },
                         onNotification: function() {
                                 alert("onNotification")
-                        },
-                        onNotificationAPN: function() {
-                                alert("onNotificationAPN")
                         }
+
                 }        
 
                 _pushNotifications.initialise()
 
 
-                }, false);
+        }, false);
 
 } else {        
         angular.element(document).ready(function() {
