@@ -1,48 +1,64 @@
 <!DOCTYPE html>
-<!--
- Licensed to the Apache Software Foundation (ASF) under one
- or more contributor license agreements.  See the NOTICE file
- distributed with this work for additional information
- regarding copyright ownership.  The ASF licenses this file
- to you under the Apache License, Version 2.0 (the
- "License"); you may not use this file except in compliance
- with the License.  You may obtain a copy of the License at
- 
- http://www.apache.org/licenses/LICENSE-2.0
- 
- Unless required by applicable law or agreed to in writing,
- software distributed under the License is distributed on an
- "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- KIND, either express or implied.  See the License for the
- specific language governing permissions and limitations
- under the License.
- -->
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <ul id="app-status-ul">
-            </ul>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-            <input type="button" value="Send a push with Phonegap!" style="height:44px;width:230px;" id="push"/>
-        </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-        <script type="text/javascript" src="js/apigee.js"></script>
-        <!--script type="text/javascript" src="PushNotification.js"></script-->
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
-    </body>
+<html lang="en">
+        <head>
+                <title>Birley Big Bang</title>
+
+                <meta charset="utf-8">
+                <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+                <meta name="apple-itunes-app" content="app-id=889723694">
+
+                <link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
+                <link rel="stylesheet" href="bower_components/ionic/css/ionic.min.css">	
+                <link rel="stylesheet" href="css/overrides.css">
+
+                <!-- CDN libraries -->
+                <script src="bower_components/momentjs/min/moment.min.js"></script>
+                <!--<script src="bower_components/angular/angular.min.js"></script>     -->           
+                <script src="bower_components/ionic/js/ionic.bundle.min.js"></script>
+                <script src="bower_components/parse-js-sdk/lib/parse.min.js"></script>
+
+                <!-- PLUGINS -->
+
+                <script src="bower_components/qrcode-generator/js/qrcode.js"></script>
+                <script src="bower_components/angular-qrcode/qrcode.js"></script>      
+
+                <!-- Needed for Cordova/PhoneGap -->
+                <script type="text/javascript" src="cordova.js"></script>
+                <script type="text/javascript" src="barcodescanner.js"></script>
+
+                <!-- Application Structure -->
+                <script src="js/app.js"></script>
+                <script src="js/routes.js"></script>
+                <script src="js/services.js"></script>
+                <script src="js/services/eventModel.js"></script>
+                <script src="js/services/notifications.js"></script>
+
+                <script src="js/controllers/checkin/checkin.js"></script>
+                <script src="js/controllers/notifications/list.js"></script>
+                <script src="js/controllers/hunt/listHuntItems.js"></script>
+                <script src="js/controllers/badges/listBadges.js"></script>
+                <script src="js/controllers/schedule/listEvents.js"></script>
+                <script src="js/controllers/schedule/addEvent.js"></script>
+                <script src="js/controllers/schedule/viewEvent.js"></script>
+                <script src="js/controllers/schedule/eventQRCode.js"></script>
+                <script src="js/controllers/schedule/messageAttendees.js"></script>
+                <script src="js/controllers/schedule/register.js"></script>
+                <script src="js/controllers/user/register.js"></script>
+                <script src="js/controllers/user/login.js"></script>
+                <script src="js/controllers/settings.js"></script>
+
+                <script src="js/controllers/tab.js"></script>
+
+
+        </head>
+
+        <body>
+                <div class="backgroundContainer">
+                        <img class="backgrounds animated-big-bang" src="splash.png" />
+                        <a class="mmu-logo" href="/"><img src="css/mmu-logo-black.png" width="89" height="106" alt="Manchester Metropolitan University Homepage"></a>                
+                </div>
+                <ion-nav-view animation="none" autoscroll="false"></ion-nav-view>
+
+        </body>
 </html>
+
