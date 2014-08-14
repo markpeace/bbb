@@ -1,6 +1,7 @@
 bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseService", function($rootScope, $state, $location, ParseService) {                      
 
-
+        window.r=function() { alert("hi") }       
+        
         var _pushNotifications = {
                 initialise: function() {
                         try {
@@ -10,7 +11,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
                                                 _pushNotifications.errorHandler,
                                                 {
                                                         "senderID":"replace_with_sender_id",
-                                                        "ecb":"_pushNotifications.onNotification"
+                                                        "ecb":"window.r"
                                                 });
                                 } else {
                                         window.plugins.pushNotification.register(
@@ -20,7 +21,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
                                                         "badge":"true",
                                                         "sound":"true",
                                                         "alert":"true",
-                                                        "ecb":"alert"
+                                                        "ecb":"window.r"
                                                 });
                                 }
                         } catch(ex) { alert(ex) }
