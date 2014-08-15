@@ -25,11 +25,13 @@ function initPushwoosh() {
                 alert("about to register")
                 pushNotification.registerDevice(
                         function(status) {
+                                alert("yes")                                
                                 var deviceToken = status['deviceToken'];
                                 console.warn('registerDevice: ' + deviceToken);
                                 alert('registerDevice: ' + deviceToken);
                         },
                         function(status) {
+                                alert("no")
                                 console.warn('failed to register : ' + JSON.stringify(status));
                                 alert(JSON.stringify(['failed to register ', status]));
                         }
