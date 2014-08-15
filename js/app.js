@@ -1,9 +1,10 @@
-function initPushwoosh() {
-        var pushNotification = window.plugins.pushNotification;
+function initPushwoosh() {       
 
         alert("pushwoosh")
 
         try {
+                
+                var pushNotification = window.plugins.pushNotification;
 
                 //set push notification callback before we initialize the plugin
                 document.addEventListener('push-notification', function(event) {
@@ -45,7 +46,7 @@ if (typeof cordova === 'object') {
                 angular.bootstrap(document, ["bbb"]);        
 
                 alert("start")
-                
+
                 initPushwoosh();
 
 
