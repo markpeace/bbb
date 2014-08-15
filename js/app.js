@@ -22,6 +22,7 @@ function initPushwoosh() {
                 pushNotification.onDeviceReady({pw_appid:"3FD7A-0CF27"});
 
                 //register for pushes
+                alert("about to register")
                 pushNotification.registerDevice(
                         function(status) {
                                 var deviceToken = status['deviceToken'];
@@ -33,6 +34,7 @@ function initPushwoosh() {
                                 alert(JSON.stringify(['failed to register ', status]));
                         }
                 );
+                alert("registered")
 
                 //reset badges on app start
                 pushNotification.setApplicationIconBadgeNumber(0);
