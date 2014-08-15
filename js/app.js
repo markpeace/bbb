@@ -1,8 +1,6 @@
 if (typeof cordova === 'object') {
         document.addEventListener("deviceready", function() {
-
                 angular.bootstrap(document, ["bbb"]);        
-
         }, false);
 
 } else {        
