@@ -1,7 +1,10 @@
 if (typeof cordova === 'object') {
         document.addEventListener("deviceready", function() {
-                angular.bootstrap(document, ["bbb"]);        
-        }, false);
+
+                angular.bootstrap(document, ["bbb"]);    
+                alert("mark")
+
+        });
 
 } else {        
         angular.element(document).ready(function() {
