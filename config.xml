@@ -82,7 +82,9 @@
         <!--    -->
         <gap:plugin name="com.phonegap.plugins.barcodescanner" />
         <gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.7.4" />
-        <gap:plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" />
+        <!--<gap:plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" />-->
+        <gap:plugin name="com.pushwoosh.plugins.pushwoosh" version="3.0.2" />
+        <access origin="*.pushwoosh.com" />
 
 
         <!-- Define app icon for each platform. -->
