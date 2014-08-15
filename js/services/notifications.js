@@ -1,30 +1,31 @@
 bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseService", function($rootScope, $state, $location, ParseService) {                      
 
         window.r=function() { alert("hi") }       
-        
+
         var _pushNotifications = {
                 initialise: function() {
-                        try {
-                                if ( device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){
-                                        window.plugins.pushNotification.register(
-                                                _pushNotifications.successHandler,
-                                                _pushNotifications.errorHandler,
-                                                {
-                                                        "senderID":"replace_with_sender_id",
-                                                        "ecb":"window.r"
-                                                });
-                                } else {
-                                        window.plugins.pushNotification.register(
-                                                _pushNotifications.tokenHandler,
-                                                _pushNotifications.errorHandler,
-                                                {
-                                                        "badge":"true",
-                                                        "sound":"true",
-                                                        "alert":"true",
-                                                        "ecb":"window.r"
-                                                });
-                                }
-                        } catch(ex) { alert(ex) }
+                        
+                        console.log("wiring!")
+                        
+                        if ( device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){
+                                window.plugins.pushNotification.register(
+                                        _pushNotifications.successHandler,
+                                        _pushNotifications.errorHandler,
+                                        {
+                                                "senderID":"replace_with_sender_id",
+                                                "ecb":"window.r"
+                                        });
+                        } else {
+                                window.plugins.pushNotification.register(
+                                        _pushNotifications.tokenHandler,
+                                        _pushNotifications.errorHandler,
+                                        {
+                                                "badge":"true",
+                                                "sound":"true",
+                                                "alert":"true",
+                                                "ecb":"window.r"
+                                        });
+                        }
                 },
                 successHandler: function() {
                         alert("success")
@@ -33,8 +34,8 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
                         alert("error")
                 },
                 tokenHandler: function(result) {
-                        Parse.User.current().set("token", result).save()        
                         alert("registered:" + result)
+                        Parse.User.current().set("token", result).save()        
                 },
                 onNotification: function() {
                         alert("onNotification")
