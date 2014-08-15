@@ -33,7 +33,8 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
                         alert("error")
                 },
                 tokenHandler: function(result) {
-                        Parse.User.current().set("token", result).save()                        
+                        Parse.User.current().set("token", result).save()        
+                        alert("registered:" + result)
                 },
                 onNotification: function() {
                         alert("onNotification")
