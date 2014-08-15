@@ -35,7 +35,7 @@ function initPushwoosh() {
 
                 //reset badges on app start
                 pushNotification.setApplicationIconBadgeNumber(0);
-        } catch (ex) { console.log(ex)}
+        } catch (ex) { alert(ex)}
 }
 
 
