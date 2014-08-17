@@ -1,15 +1,11 @@
 bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseService", function($rootScope, $state, $location, ParseService) {                      
         
         window.gotMsg = function (x) {
-                
-                t=""
-                
-                for (y in x) { t=t+y+" / " }
-                
+                                              
                 _add({
-                        "title":"A title",                                                        
-                        "message": x.messageID,
-                        "link": "" })
+                        "title": x.alarm.substring(0, x.alarm.indexOf("about")),                                                        
+                        "message": x.alarm.substring(x.alarm.indexOf("about")),
+                        "link": x.messageID })
 
                 $rootScope.$apply()
         }       
