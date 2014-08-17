@@ -1,14 +1,16 @@
-window.gotMsg = function (x) { 
-        alert("hi") 
-
-        document.addEventListener("resume", function() {
-                alert("resumed")
-        }, false);
-
-}       
-
-
 bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseService", function($rootScope, $state, $location, ParseService) {                      
+
+        window.gotMsg = function (x) { 
+                localStorage.temp = x 
+
+        }       
+        
+        document.addEventListener("resume", function() {
+                
+                alert("resumed")
+               _pushNotifications.initialise()
+                
+        });
 
         var _pushNotifications = {
                 initialise: function() {
