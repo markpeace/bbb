@@ -1,4 +1,4 @@
-bbb.controller('Login', function($scope, $ionicLoading, ParseService, $rootScope, $state, $location) { 
+bbb.controller('Login', function($scope, $ionicLoading, ParseService, $rootScope, $state, $location, NotificationService) { 
         $scope.userCount = "45"
         var User = Parse.Object.extend("User");
         var query = new Parse.Query(User);
@@ -21,6 +21,7 @@ bbb.controller('Login', function($scope, $ionicLoading, ParseService, $rootScope
                         success: function(user) {
 
                                 $rootScope.currentUser = user;
+                               	NotificationService.initialisePushNotifications();
 
                                 $scope.loading.hide();
 

@@ -101,6 +101,8 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
 
 
         return {
+                
+                initialisePushNotifications : function () { return _pushNotifications.initialise() },
 
                 notifications: function() { return _notifications; },
 
