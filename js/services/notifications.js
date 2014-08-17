@@ -14,6 +14,10 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
                                         "alert":"true",
                                         "ecb":"window.gotMsg"
                                 });
+                        window.plugins.pushNotification.getPendingNotifications(function(notifications) {
+                                app.myLog.value+=JSON.stringify(['getPendingNotifications', notifications])+"\n";
+                                alert(JSON.stringify(['getPendingNotifications', notifications]));
+                        });
                 },
                 successHandler: function() {
                         alert("success")
@@ -32,6 +36,8 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
                         alert("onNotificationAPN")
                 },
         }        
+
+
 
 
         var _hookUpEventListeners = function () {
