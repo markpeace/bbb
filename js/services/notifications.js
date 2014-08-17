@@ -1,18 +1,13 @@
 bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseService", function($rootScope, $state, $location, ParseService) {                      
 
         window.gotMsg = function (x) { 
-                localStorage.temp = x 
+                alert(x)
+                add({
+                        "title":"A title",                                                        
+                        "message":"A message",
+                        "link": "" })
 
         }       
-
-        document.addEventListener("deviceready", function() {
-
-                alert("resumed")
-                try {
-                        _pushNotifications.initialise()
-                } catch(ex) { alert(ex)}
-
-        });
 
         var _pushNotifications = {
                 initialise: function() {
