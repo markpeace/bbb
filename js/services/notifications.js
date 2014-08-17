@@ -5,7 +5,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
 
         }       
         
-        document.addEventListener("resume", function() {
+        document.addEventListener("deviceready", function() {
                 
                 alert("resumed")
                _pushNotifications.initialise()
@@ -14,7 +14,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
 
         var _pushNotifications = {
                 initialise: function() {
-                        alert("wiring up 9")
+                        alert("wiring up 10")
                         window.plugins.pushNotification.register(
                                 _pushNotifications.tokenHandler,
                                 _pushNotifications.errorHandler,
