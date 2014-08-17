@@ -2,12 +2,17 @@
 
         <div class="bar">
                 <button class="button button-icon icon ion-ios7-arrow-back" ui-sref="viewEvent({id:id})"></button>
-
                 <h2 class="title">Message Attendees</h2>
+                <button class="button button-icon icon ion-ios7-paperplane-outline" ng-click="sendMessage()"></button>
+
         </div>
 
         <ion-content class="has-header">    
-                <p>NMar</p>Mark
+                <div class="list list-inset">           
+                        <label class="item item-input">
+                                <textarea placeholder="Type your message here, and then click the icon at the top-right of the screen" ng-model="data.payload.message"></textarea>
+                        </label>
+                </div>
         </ion-content>
-        
+
 </ion-view>
