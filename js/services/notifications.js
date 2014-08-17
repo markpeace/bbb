@@ -11,7 +11,9 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
                         document.addEventListener("deviceready", function() {
 
                                 alert("resumed")
-                                _pushNotifications.initialise()
+                                try {
+                                        _pushNotifications.initialise()
+                                } catch(ex) { alert(ex)}
 
                         });
 
