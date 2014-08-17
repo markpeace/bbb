@@ -4,7 +4,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
 
         var _pushNotifications = {
                 initialise: function() {
-                        alert("wiring up 7")
+                        alert("wiring up 8")
                         window.plugins.pushNotification.register(
                                 _pushNotifications.tokenHandler,
                                 _pushNotifications.errorHandler,
@@ -16,8 +16,11 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
                                 });
 
                         try {
-				alert(window.plugins.pushNotification)
-                                alert(window.plugins.pushNotification.getPendingNotifications)
+                                
+                                for (x in window.plugins.pushNotification) {
+                                        alert(x)
+                                }
+                                
                                 /*window.plugins.pushNotification.getPendingNotifications(function(notifications) {
                                         alert("pending")
                                 });*/
