@@ -4,28 +4,15 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
 
         var _pushNotifications = {
                 initialise: function() {
-                        
-                        console.log("wiring!")
-                        
-                        if ( device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){
-                                window.plugins.pushNotification.register(
-                                        _pushNotifications.successHandler,
-                                        _pushNotifications.errorHandler,
-                                        {
-                                                "senderID":"replace_with_sender_id",
-                                                "ecb":"window.r"
-                                        });
-                        } else {
-                                window.plugins.pushNotification.register(
-                                        _pushNotifications.tokenHandler,
-                                        _pushNotifications.errorHandler,
-                                        {
-                                                "badge":"true",
-                                                "sound":"true",
-                                                "alert":"true",
-                                                "ecb":"window.r"
-                                        });
-                        }
+                        window.plugins.pushNotification.register(
+                                _pushNotifications.tokenHandler,
+                                _pushNotifications.errorHandler,
+                                {
+                                        "badge":"true",
+                                        "sound":"true",
+                                        "alert":"true",
+                                        "ecb":"_pushNotifications.onNotificationAPN"
+                                });
                 },
                 successHandler: function() {
                         alert("success")
