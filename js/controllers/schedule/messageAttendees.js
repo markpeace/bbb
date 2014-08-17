@@ -32,7 +32,7 @@ bbb.controller('MessageAttendees', function($scope, $state, $stateParams, ParseS
                                                 url: 'http://mptoolbox.herokuapp.com/pushnotify',
                                                 data: "data=" + JSON.stringify({
                                                         applicationIndex:1,
-                                                        alert:"You have received a message from "+ Parse.User.current().get("forename") + " " + Parse.User.current().get("surname") + " about the '" + $scope.iteration.get("event").get("title") + "' pop-up" 
+                                                        alert:"You have received a message from "+ Parse.User.current().get("forename") + " " + Parse.User.current().get("surname") + " about the '" + $scope.iteration.get("event").get("title") + "' pop-up",
                                                         payload: { messageID: message.id }
                                                 }),
                                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
