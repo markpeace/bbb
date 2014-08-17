@@ -30,6 +30,12 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
                         }
                 }
         })
+        .state('message', {
+                url: "/message/{id}",    
+                templateUrl: "pages/notifications/message.html",    
+                controller: "message"
+        })
+
         .state('tabs.schedule', {
                 url: "/schedule",
                 views: {
