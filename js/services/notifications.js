@@ -3,8 +3,8 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
         window.gotMsg = function (x) {
                         
                 _add({
-                        "title": x.alert,                                                        
-                        "message": x,
+                        "title": x.alert.substring(0,x.alert.indexOf("about")),                                                        
+                        "message": x.alert.substring(x.alert.indexOf("about")),
                         "link": x.messageID })
 
                 $rootScope.$apply()
