@@ -1,6 +1,6 @@
 bbb.controller('MessageAttendees', function($scope, $state, $stateParams, ParseService, $ionicLoading, $http, $q) { 
 
-        $scope.message
+        $scope.data = { message: "" }
 
         $scope.id=$stateParams.id
 
@@ -31,7 +31,8 @@ bbb.controller('MessageAttendees', function($scope, $state, $stateParams, ParseS
                                 .save({
                                         from: Parse.User.current(),
                                         to: booking.get("user"),
-                                        message: $scope.message
+                                        iteration: $scope.iteration,
+                                        message: $scope.data.message
                                 }).then(function(message) {
 
                                         secondPromises.push ($http({

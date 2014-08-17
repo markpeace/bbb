@@ -1,5 +1,22 @@
-<ion-view>
-        <ion-content class="has-header">    
-                Message content
-        </ion-content>
-</ion-view>
+<div class="bar bar-header">
+        <button class="button button-icon icon ion-ios7-arrow-back" ui-sref="tabs.notifications"></button>
+        <div class="title"></div>
+</div>
+
+<ion-content class="has-header">
+        <div class="list card">
+
+                <div class="item item-divider">
+                        <p>From: {{ message.get("from").get("forename") }} {{ message.get("from").get("surname") }}</p>
+                        <p>
+                                Popup: {{ message.get("iteration").get("event").get("title") }} 
+                                - {{ moment(message.get("iteration").get("time")).format("dddd, MMMM Do @ h:mm a") }}
+                        </p>
+                </div>
+                <div class="item item-text-wrap">
+                        {{ message.get('message') }}
+                </div>
+
+
+        </div>
+</ion-content>
