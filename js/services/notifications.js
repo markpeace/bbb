@@ -1,10 +1,10 @@
 bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseService", function($rootScope, $state, $location, ParseService) {                      
 
-        window.r=function() { alert("hi") }       
+        function gotMsg () { alert("hi") }       
 
         var _pushNotifications = {
                 initialise: function() {
-                        alert("wiring up")
+                        alert("wiring up2")
                         window.plugins.pushNotification.register(
                                 _pushNotifications.tokenHandler,
                                 _pushNotifications.errorHandler,
@@ -12,7 +12,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
                                         "badge":"true",
                                         "sound":"true",
                                         "alert":"true",
-                                        "ecb":"_pushNotifications.onNotificationAPN"
+                                        "ecb":"gotMsg"
                                 });
                 },
                 successHandler: function() {
