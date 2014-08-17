@@ -4,6 +4,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
 
         var _pushNotifications = {
                 initialise: function() {
+                        alert("wiring up")
                         window.plugins.pushNotification.register(
                                 _pushNotifications.tokenHandler,
                                 _pushNotifications.errorHandler,
