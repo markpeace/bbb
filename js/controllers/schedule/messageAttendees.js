@@ -1,9 +1,6 @@
-bbb.controller('MessageAttendees', function($scope, $state, $stateParams, ParseService, $ionicLoading, $http) { 
+bbb.controller('MessageAttendees', function($scope, $state, $stateParams, ParseService, $ionicLoading, $http, $q) { 
 
-        $scope.data = {
-                tokens:[],
-                payload: { message: "" }
-        }
+        $scope.message
 
         $scope.id=$stateParams.id
 
@@ -20,7 +17,40 @@ bbb.controller('MessageAttendees', function($scope, $state, $stateParams, ParseS
                 new Parse.Query("Booking")
                 .equalTo("iteration", dummyIteration)
                 .include("user")
-                .find().then(function(result) {
+                .find().then(function(users) {
+
+                        angular.forEach(users, function(user) {
+
+                                (new (Parse.Object.extend("Message")))
+                                .save({
+                                        from: Parse.User.current(),
+                                        to: user,
+                                        message: $scope.message
+                                }).then(function(message) {
+                                        $http({
+                                                method: 'POST',
+                                                url: 'http://mptoolbox.herokuapp.com/pushnotify',
+                                                data: "data=" + JSON.stringify({
+                                                        applicationIndex:1,
+                                                        alert:"You have received a message from "+ Parse.User.current().get("forename") + " " + Parse.User.current().get("surname") + " about the '" + $scope.iteration.get("event").get("title") + "' pop-up" 
+                                                        payload: { messageID: message.id }
+                                                }),
+                                                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                        })
+                                        .success(function() {
+                                                $ionicLoading.hide();
+                                                console.log("done")
+                                        })
+                                        .error(function(data, status, headers, config) {
+                                                $ionicLoading.hide();
+                                                alert("An error prevented your message from being sent:" + data)
+                                        });
+                                })
+
+                        })
+
+
+                        /*
 
                         $ionicLoading.show({
                                 template: 'Sending Message...'
@@ -34,7 +64,7 @@ bbb.controller('MessageAttendees', function($scope, $state, $stateParams, ParseS
                         $scope.data.alert = "You have received a message from "+
                                 Parse.User.current().get("forename") + " " +
                                 Parse.User.current().get("surname") +
-                                " about of the '" + 
+                                " about the '" + 
                                 $scope.iteration.get("event").get("title") + "' pop-up"
 
                         $http({
@@ -52,7 +82,7 @@ bbb.controller('MessageAttendees', function($scope, $state, $stateParams, ParseS
                                 alert("An error prevented your message from being sent:" + data)
                         });
 
-
+			*/
                 })
         }
 

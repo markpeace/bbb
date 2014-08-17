@@ -8,7 +8,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
                 
                 _add({
                         "title":"A title",                                                        
-                        "message": x.message,
+                        "message": x.messageID,
                         "link": "" })
 
                 $rootScope.$apply()
