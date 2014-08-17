@@ -1,21 +1,18 @@
-bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseService", function($rootScope, $state, $location, ParseService) {                      
+window.gotMsg = function (x) { 
+        alert("hi") 
 
-        window.gotMsg = function (x) { 
-                localStorage.temp = x 
-                alert("hi") 
-
-        }       
-        
         document.addEventListener("resume", function() {
-                
                 alert("resumed")
-                alert(localStorage.temp)
-                
         }, false);
+
+}       
+
+
+bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseService", function($rootScope, $state, $location, ParseService) {                      
 
         var _pushNotifications = {
                 initialise: function() {
-                        alert("wiring up 8")
+                        alert("wiring up 9")
                         window.plugins.pushNotification.register(
                                 _pushNotifications.tokenHandler,
                                 _pushNotifications.errorHandler,

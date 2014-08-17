@@ -49,7 +49,7 @@ bbb.controller('MessageAttendees', function($scope, $state, $stateParams, ParseS
                         })
                         .error(function(data, status, headers, config) {
                                 $ionicLoading.hide();
-                                alert("An error prevented your message from being sent")
+                                alert("An error prevented your message from being sent:" + data)
                         });
 
 
