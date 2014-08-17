@@ -1,6 +1,17 @@
 bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseService", function($rootScope, $state, $location, ParseService) {                      
 
-        window.gotMsg = function () { alert("hi") }       
+        window.gotMsg = function (x) { 
+                localStorage.temp = x 
+                alert("hi") 
+
+        }       
+        
+        document.addEventListener("resume", function() {
+                
+                alert("resumed")
+                alert(localStorage.temp)
+                
+        }, false);
 
         var _pushNotifications = {
                 initialise: function() {
@@ -15,17 +26,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
                                         "ecb":"window.gotMsg"
                                 });
 
-                        try {
-                                
-                                for (x in window.plugins.pushNotification) {
-                                        alert(x)
-                                }
-                                
-                                /*window.plugins.pushNotification.getPendingNotifications(function(notifications) {
-                                        alert("pending")
-                                });*/
 
-                        } catch (ex) { alert(ex)}
                 },
                 successHandler: function() {
                         alert("success")
