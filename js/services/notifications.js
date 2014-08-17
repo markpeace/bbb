@@ -5,18 +5,17 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
 
         }       
 
+        document.addEventListener("deviceready", function() {
+
+                alert("resumed")
+                try {
+                        _pushNotifications.initialise()
+                } catch(ex) { alert(ex)}
+
+        });
+
         var _pushNotifications = {
                 initialise: function() {
-
-                        document.addEventListener("deviceready", function() {
-
-                                alert("resumed")
-                                try {
-                                        _pushNotifications.initialise()
-                                } catch(ex) { alert(ex)}
-
-                        });
-
 
                         alert("wiring up 11")
                         window.plugins.pushNotification.register(
