@@ -3,8 +3,8 @@ if (typeof cordova === 'object') {
 
                 angular.bootstrap(document, ["bbb"]);    
 
-                
-                               
+
+
         });
 
 } else {        
