@@ -1,4 +1,4 @@
-bbb.controller('Register', function($scope, $ionicModal,  $ionicLoading, ParseService, $state, $rootScope, NotificationService) { 
+bbb.controller('Register', function($scope, $ionicModal,  $ionicLoading, ParseService, $state, $rootScope) { 
 
         $scope.programmes=[];
 
@@ -84,7 +84,6 @@ bbb.controller('Register', function($scope, $ionicModal,  $ionicLoading, ParseSe
                                 $rootScope.currentUser = user;
                                 $scope.$apply(); // Notify AngularJS to sync currentUser
                                 alert('You can now access the Birley Big Bang app, but you will also need to verify your email to use it fully')
-                               	NotificationService.initialisePushNotifications();
                                 $scope.loading.hide();
                                 $state.go('tabs.schedule')
                         },

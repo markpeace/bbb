@@ -1,4 +1,4 @@
-bbb.controller('ListEvents', function($state, $scope, ParseService, $rootScope, EventModel) { 
+bbb.controller('ListEvents', function($state, $scope, ParseService, $rootScope, EventModel, NotificationService) { 
 
         EventModel.refresh();
                 
