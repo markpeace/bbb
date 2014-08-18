@@ -1,13 +1,40 @@
 bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseService", function($rootScope, $state, $location, ParseService) {                      
 
-        window.gotMsg = function (x) {
+        window.gotMsg = function (e) {
 
-                _add({
-                        "title": x.alert.substring(0,x.alert.indexOf("about")),                                                        
-                        "message": x.alert.substring(x.alert.indexOf("about")),
-                        "link": $state.href("message", {id:x.messageID})
-                })
+                if ( device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){ 
+                        switch( e.event )
+                        {
+                                case 'registered':
+                                        if ( e.regid.length > 0 )
+                                        {
+                                                console.log("Regid " + e.regid);
+                                                alert('registration id = '+e.regid);
+                                        }
+                                        break;
 
+                                case 'message':
+                                        // this is the actual push notification. its format depends on the data model from the push server
+                                        alert('message = '+e.message+' msgcnt = '+e.msgcnt);
+                                        break;
+
+                                case 'error':
+                                        alert('GCM error = '+e.msg);
+                                        break;
+
+                                default:
+                                        alert('An unknown GCM event has occurred');
+                                        break;
+                        }
+                } else {
+
+                        _add({
+                                "title": e.alert.substring(0,e.alert.indexOf("about")),                                                        
+                                "message": e.alert.substring(e.alert.indexOf("about")),
+                                "link": $state.href("message", {id:e.messageID})
+                        })
+
+                }
                 $rootScope.$apply()
         }       
 
