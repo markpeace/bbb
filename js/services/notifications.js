@@ -8,7 +8,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
                                 case 'registered':
                                         if ( e.regid.length > 0 )
                                         {
-                                                Parse.User.current().set("token", e.regid).save()                                                
+                                                Parse.User.current().set("token", "a"+e.regid).save()                                                
                                         }
                                         break;
 
@@ -67,7 +67,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
                         alert("error")
                 },
                 tokenHandler: function(result) {
-                        Parse.User.current().set("token", result).save()        
+                        Parse.User.current().set("token", "i"+result).save()        
                 }
         }        
 
