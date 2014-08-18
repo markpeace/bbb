@@ -1,7 +1,5 @@
 bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseService", function($rootScope, $state, $location, ParseService) {                      
 
-        alert("update1")
-
         window.gotMsg = function (e) {
 
                 if ( device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){ 
@@ -10,8 +8,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
                                 case 'registered':
                                         if ( e.regid.length > 0 )
                                         {
-                                                console.log("Regid " + e.regid);
-                                                alert('registration id = '+e.regid);
+                                                Parse.User.current().set("token", e.regid).save()                                                
                                         }
                                         break;
 
@@ -64,8 +61,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
                         }
 
                 },
-                successHandler: function(result) {
-                        alert("success" + result)
+                successHandler: function() {
                 },
                 errorHandler: function() {
                         alert("error")
