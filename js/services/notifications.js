@@ -43,8 +43,8 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
                         if ( device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){
 
                                 pushNotification.register(
-                                        successHandler,
-                                        errorHandler,
+                                         _pushNotifications.successHandler,
+                                         _pushNotifications.errorHandler,
                                         {
                                                 "senderID":"422402149973",
                                                 "ecb":"window.gotMsg"
