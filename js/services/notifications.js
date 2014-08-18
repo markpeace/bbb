@@ -13,28 +13,35 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
 
         var _pushNotifications = {
                 initialise: function() {
+                        if ( device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){
 
-                        alert("wiring up 13")
-                        window.plugins.pushNotification.register(
-                                _pushNotifications.tokenHandler,
-                                _pushNotifications.errorHandler,
-                                {
-                                        "badge":"true",
-                                        "sound":"true",
-                                        "alert":"true",
-                                        "ecb":"window.gotMsg"
-                                });
-
+                                pushNotification.register(
+                                        successHandler,
+                                        errorHandler,
+                                        {
+                                                "senderID":"422402149973",
+                                                "ecb":"window.gotMsg"
+                                        });
+                        } else {
+                                window.plugins.pushNotification.register(
+                                        _pushNotifications.tokenHandler,
+                                        _pushNotifications.errorHandler,
+                                        {
+                                                "badge":"true",
+                                                "sound":"true",
+                                                "alert":"true",
+                                                "ecb":"window.gotMsg"
+                                        });
+                        }
 
                 },
-                successHandler: function() {
-                        alert("success")
+                successHandler: function(result) {
+                        alert("success" + result)
                 },
                 errorHandler: function() {
                         alert("error")
                 },
                 tokenHandler: function(result) {
-                        alert("registered:" + result)
                         Parse.User.current().set("token", result).save()        
                 }
         }        
