@@ -39,6 +39,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
 
         var _pushNotifications = {
                 initialise: function() {
+                        console.log("initialising")
                         if ( device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){
 
                                 window.plugins.pushNotification.register(
