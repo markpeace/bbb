@@ -37,9 +37,11 @@ bbb.controller('MessageAttendees', function($scope, $state, $stateParams, ParseS
 
                                         secondPromises.push ($http({
                                                 method: 'POST',
-                                                url: 'http://mptoolbox.herokuapp.com/pushnotify',
+                                                url: 'http://ordeal-dromic.codio.io:3000/pushnotify',
+                                                //url: 'http://mptoolbox.herokuapp.com/pushnotify',
                                                 data: "data=" + JSON.stringify({
-                                                        tokens:[booking.get("user").get("token")],
+                                                        platform:booking.get("user").get("token").substring(0,1),
+                                                        tokens:[booking.get("user").get("token").substring(1)],
                                                         applicationIndex: "1",
                                                         alert:"Message from "+ Parse.User.current().get("forename") + " " + Parse.User.current().get("surname") + " about the '" + $scope.iteration.get("event").get("title") + "' pop-up",
                                                         payload: { messageID: message.id }

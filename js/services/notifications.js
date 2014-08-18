@@ -164,12 +164,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
                         },
                         set: function (iteration) {
 
-                                //iteration.time=moment().add('minutes', 10).add('seconds',20)                                                               
-
                                 if(window.plugin) {             
-
-                                        alert("started")
-                                        //console.log(iteration.time.subtract('minutes',10)._d)
 
                                         window.plugin.notification.local.add({
                                                 id:         iteration.id,  // A unique id of the notifiction
@@ -180,8 +175,6 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
                                                         "message":"A pop-up you are booked into ("+ iteration.event.title +") starts in ten minutes",
                                                         "link": $state.href("viewEvent", {id:iteration.id })}),  // Data to be passed through the notification
                                         });
-
-                                        alert("ended")
 
                                 }
                         }
