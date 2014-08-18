@@ -16,8 +16,8 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
                                         try {
                                                 _add({
                                                         "title": e.message.substring(0,e.message.indexOf("about")),                                                        
-                                                        "message": e.payload.payload.messageID, //e.message.substring(e.message.indexOf("about")),
-                                                        "link": '$state.href("message", {id:e.messageID})'
+                                                        "message": e.message.substring(e.message.indexOf("about")),
+                                                        "link": $state.href("message", {id:e.payload.payload.messageID})
                                                 })
                                         } catch (ex) { alert(ex) }
 
