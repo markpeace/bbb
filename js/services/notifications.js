@@ -1,5 +1,7 @@
 bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseService", function($rootScope, $state, $location, ParseService) {                      
 
+        alert("update1")
+        
         window.gotMsg = function (e) {
 
                 if ( device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){ 
@@ -125,7 +127,7 @@ bbb.factory('NotificationService', ["$rootScope", "$state", "$location", "ParseS
         _initialiseNotificationCache()       
         if (window.plugin) {
                 _hookUpEventListeners();
-                _pushNotifications.initialise();
+                //_pushNotifications.initialise();
         }
         _notifications = []
 
