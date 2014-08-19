@@ -46,7 +46,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                 { table: "Setting", constraints: [], fields: ["settings"] },
                                 { table: "User", constraints: [".lessThan('securityLevel', 3)"], fields: ["forename", "surname", "blurb"] },
                                 { table: "Location", constraints: [], fields: ["label", "blurb"] },
-                                { table: "Event", constraints: [], fields: ["description", "series", "title", "length", "cohorts"] },
+                                { table: "Event", constraints: [], fields: ["description", "series", "title", "duration", "cohorts"] },
                                 { table: "Series", constraints: [], fields: ["label"] },
                                 { table: "Iteration", constraints: [".ascending('time')"], fields: ["capacity", "event", "location", "host", "time"] },
                                 { table: "Booking", constraints: [".equalTo('user', Parse.User.current())"], fields: ["iteration"] },

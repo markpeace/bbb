@@ -217,7 +217,7 @@ bbb.controller('AddEvent', function($scope, $state,  $stateParams,  $ionicModal,
                                 object.set('description', description)
                                 object.set('cohorts', cohorts)
                                 object.set('series', series)
-                                object.set('duration', duration)                               
+                                object.set('duration', parseInt(duration))                               
 
                                 angular.forEach($scope.event.iterations, function (iteration) {
                                         iteration.set("event", $scope.event.object);
