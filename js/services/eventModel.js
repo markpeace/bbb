@@ -1,7 +1,7 @@
 bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading","$rootScope","$state", function(NotificationService, ParseService, $ionicLoading, $rootScope, $state) {                      
-        
+
         var _refresh = function () {
-                
+
                 console.log("refresh")
 
                 if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
@@ -244,14 +244,23 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                         return;
                                 }                                
 
+                                $ionicLoading.show({
+                                        template: 'Completing Booking...'
+                                });
+
                                 cache.data.iterations[iterationIndex].booked=true;
                                 (new (Parse.Object.extend("Booking")))	
-                                .save({user:Parse.User.current(), iteration:dummyIteration})   
+                                .save({user:Parse.User.current(), iteration:dummyIteration}).then(function() {
+                                        $ionicLoading.hide();
+                                }) 
                                 iteration.bookings++;
                                 cache.save();        
                                 NotificationService.reminders.set(iteration)
 
                         } else if(!iteration.booked) {                       
+                                $ionicLoading.show({
+                                        template: 'Removing Booking...'
+                                });
                                 NotificationService.reminders.destroy(iteration)
                                 cache.data.iterations[iterationIndex].booked=false;                                
                                 (new Parse.Query("Booking"))
@@ -263,6 +272,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                                 iteration.bookings--;
                                                 $rootScope.$apply();
                                         })
+                                        $ionicLoading.hide()
                                 })
 
                                 cache.save();                
