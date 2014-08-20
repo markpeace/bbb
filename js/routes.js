@@ -89,14 +89,21 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
                 controller: "AddEvent"
         })
 
-        .state('tabs.hunt', {
-                url: "/hunt",
+        .state('tabs.explore', {
+                url: "/explore",
                 views: {
-                        'hunt-tab': {
-                                templateUrl: "pages/hunt/listHuntItems.html",
-                                controller: 'ListHuntItems'          
+                        'explore-tab': {
+                                templateUrl: "pages/explore/list.html",
+                                controller: 'ListLocations'          
                         }
                 }})
+
+        .state('addLocation', {
+                url: "/explore/add",
+                controller: 'AddLocation',
+                templateUrl: "pages/explore/add.html"
+        })     
+
 
         .state('tabs.badges', {
                 url: "/badges",
@@ -112,7 +119,7 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
                 url: "/settings",
                 controller: 'Settings',
                 templateUrl: "pages/settings.html"
-        })
+        })   
 
         .state('isOffline', {
                 url: "/isOffline",
