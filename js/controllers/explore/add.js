@@ -30,7 +30,7 @@ bbb.controller('AddLocation', function($scope, $state, $stateParams, ParseServic
                         
                         geolocation.attempts++
                         
-                        $scope.location.geolocation = "attempt #" +geolocation.attempts+ " accuracy=" +e.coords.accuracy
+                        $scope.location.geolocation = "Attempt #" +geolocation.attempts+ "/ Accuracy=" +e.coords.accuracy
                         $scope.$apply()
                                                 
                         if(e.coords.accuracy<geolocation.targetAccuracy) {                                 
