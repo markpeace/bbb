@@ -102,8 +102,19 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
                 url: "/explore/add",
                 controller: 'AddLocation',
                 templateUrl: "pages/explore/add.html"
-        })     
+        })  
+        .state('viewLocation', {
+                url: "/explore/{id}",
+                controller: 'ViewLocation',
+                templateUrl: "pages/explore/view.html"
+        })  
+        .state('editLocation', {
+                url: "/explore/{id}/edit",
+                controller: 'EditLocation',
+                templateUrl: "pages/explore/edit.html"
+        })  
 
+        
 
         .state('tabs.badges', {
                 url: "/badges",

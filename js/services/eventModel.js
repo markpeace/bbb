@@ -45,7 +45,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                         toLookUp = [
                                 { table: "Setting", constraints: [], fields: ["settings"] },
                                 { table: "User", constraints: [".lessThan('securityLevel', 3)"], fields: ["forename", "surname", "blurb"] },
-                                { table: "Location", constraints: [], fields: ["label", "blurb"] },
+                                { table: "Location", constraints: [], fields: ["label", "blurb", "categories", "clue", "enigmaticTitle", "explorationLocation", "popupLocation", "geolocation", "range" ] },
                                 { table: "Event", constraints: [], fields: ["description", "series", "title", "duration", "cohorts"] },
                                 { table: "Series", constraints: [], fields: ["label"] },
                                 { table: "Iteration", constraints: [".ascending('time')"], fields: ["capacity", "event", "location", "host", "time"] },
@@ -172,6 +172,24 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                         cache.data.Checkin[objectId].booking = cache.data.Booking[cache.data.Checkin[objectId].booking]
                                 }
 
+                                locations = []
+                                locationCategories=[]
+                                for(var objectId in cache.data.Location) {
+                                        locations.push(cache.data.Location[objectId])
+                                        if(cache.data.Location[objectId].categories) {
+                                                angular.forEach(cache.data.Location[objectId].categories.split(";"), function (category) {
+                                                        add=true
+                                                        angular.forEach(locationCategories, function(e) { 
+                                                        	if(e==category) { add=false }
+                                                        })
+                                                        if (add) { locationCategories.push(category) }
+                                                })
+                                        }              
+                                }
+
+                                cache.data.locations=locations
+                                cache.data.locationCategories=locationCategories
+
                                 cache.data.iterations=iterations;
                                 cache.data.dates=dates
 
@@ -183,6 +201,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
 
                                 $rootScope.$apply()
                         } catch(ex) {
+                                alert(ex)
                                 alert("An unknown error has occurred, please try again later. \n\nIf the problem persists, please contact m.peace@mmu.ac.uk")
                                 localStorage.removeItem(Parse.User.current().id)
                         }

@@ -1,13 +1,25 @@
 <ion-view>
         <ion-content class="has-header">    
+
                 <ion-list>
                         <ion-item ng-show="isAdmin" ui-sref="addLocation">
                                 Add A Location...
                         </ion-item>
-                        <ion-item ng-repeat="notification in notifications"  class="item-text-wrap item-icon-left">
-                                <i class="icon ion-ios7-circle-outline" ng-hide="1==1"></i>
-                                <i class="icon ion-ios7-checkmark-outline" ng-show="1==1"></i>
-                        </ion-item>
+
+                        <div ng-repeat="category in locationCategories" >
+                                <ion-item class="item-divider">
+                                        {{category}}
+                                </ion-item>
+                                <ion-item ng-repeat="location in locations | filter: category | filter: location.explorationLocation=true "  class="item-text-wrap item-icon-left">
+                                        <i class="icon ion-ios7-circle-outline" ng-hide="1==1"></i>
+                                        <i class="icon ion-ios7-checkmark-outline" ng-show="1==1"></i>
+
+                                        <h2>{{ location.enigmaticTitle }}</h2>
+                                        <p>{{ location.clue }} </p>
+
+                                </ion-item>                                
+                        </div>                                              
+
                 </ion-list>
         </ion-content>
 </ion-view>
