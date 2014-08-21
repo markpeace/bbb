@@ -33,15 +33,15 @@ bbb.controller('AddLocation', function($scope, $state, $stateParams, ParseServic
                         $scope.location.geolocation = "attempt #" +geolocation.attempts+ " accuracy=" +e.coords.accuracy
                         $scope.$apply()
                                                 
-                        if(e.coords.accuracy<geolocation.targetAccuracy) { 
+                        /*if(e.coords.accuracy<geolocation.targetAccuracy) { 
                                 alert("aborted")
                                 navigator.geolocation.clearWatch(geolocation.watch) 
-                        }                        
+                        } */                       
                         
                 },
                 onError:function() {},
                 go: function () {
-                        geolocation.watch = navigator.geolocation.watchPosition(geolocation.onSuccess, geolocation.onError, { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true });
+                        geolocation.watch = navigator.geolocation.watchPosition(geolocation.onSuccess, geolocation.onError, { maximumAge: 3000, timeout: 5000 });
                 }
         }
         
