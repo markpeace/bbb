@@ -10,7 +10,7 @@ if (typeof cordova === 'object') {
 
 
 
-        }, fslse);
+        });
 
 } else {        
         angular.element(document).ready(function() {
