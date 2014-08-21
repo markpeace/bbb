@@ -1,7 +1,7 @@
-bbb.controller('AddLocation', function($scope, $state, $stateParams, ParseService) { 
+bbb.controller('AddLocation', function($scope, $state, $stateParams, $ionicLoading, ParseService) { 
 
         $scope.location={
-                geolocation: "Searching..."
+                geolocation: {accuracy: 99999}
         }
 
         if($stateParams.id) {
@@ -13,42 +13,50 @@ bbb.controller('AddLocation', function($scope, $state, $stateParams, ParseServic
                         console.log("NEED A MECHANISM TO SAVE EXISTING")
                 } else {
 
-
+                        $ionicLoading.show({template:"Saving..."});
+                        
                         (new (Parse.Object.extend("Location")))
-                        .save($stateParams.location).then(function() {
-                                $state.go("tabs.explore")
+                        .save($scope.location).then(function() {
+                                $ionicLoading.hide();
+                                $state.go("tabs.explore")                                
                         })                        
                 }
         }
 
-        
-        
-        
 
         geolocation = {
                 g: this,
+                active: false,
                 attempts:0,
                 targetAccuracy:11,
                 onSuccess:function(e) {
-                        
+
                         geolocation.attempts++
-                        
-                        $scope.location.geolocation = e.coords
-                        $scope.$apply()
-                                                
+
+                        if(e.coords.accuracy<$scope.location.geolocation.accuracy) {  
+                                $scope.location.geolocation = e.coords
+                                $scope.$apply()
+                        }
+
                         if(e.coords.accuracy<geolocation.targetAccuracy) {                                 
                                 navigator.geolocation.clearWatch(geolocation.watch) 
+                                geolocation.active=false;
                                 $scope.location.geolocation=e.coords
                                 $scope.$apply();
                         }
-                        
+
                 },
                 onError:function() {},
                 go: function () {
+                        console.log("looking for location")
                         geolocation.watch = navigator.geolocation.watchPosition(geolocation.onSuccess, geolocation.onError, { maximumAge: 3000, maxWait: 10000, enableHighAccuracy: true });
+                        geolocation.active=true;
                 }
+        }       
+
+        if($scope.location.geolocation.accuracy>1000) { geolocation.go(); }  
+        $scope.refreshLocation = function() {
+                geolocation.go(); 
         }
-        
-        geolocation.go();
 
 });

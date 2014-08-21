@@ -20,19 +20,41 @@
                         </div>
                         <textarea type="text" ng-model="location.blurb"></textarea>
                 </ion-item>
-                <ion-item class="item-input">
-                        <div class="input-label">
-                                Clue
-                        </div>
-                        <textarea ng-model="location.clue"></textarea>
-                </ion-item>
-                
-                <ion-item class="">
-                        Geolocation Accuracy:
-                        <span class="item-note">
-                                {{ location.geolocation.accuracy }}
-                        </span>
-                </ion-item>
+
+                <ion-toggle toggle-class="toggle-calm" ng-model="location.popupLocation">Pop-Up Location</ion-toggle>
+                <ion-toggle toggle-class="toggle-calm" ng-model="location.explorationLocation">Exploration Location</ion-toggle>
+
+                <div ng-show="location.explorationLocation">
+
+                        <ion-item class="item-input">
+                                <div class="input-label">
+                                        Enigmatic Title
+                                </div>
+                                <input type="text" ng-model="location.enigmaticTitle">
+                        </ion-item>
+                        
+                        <ion-item class="item-input">
+                                <div class="input-label">
+                                        Category
+                                </div>
+                                <input type="text" ng-model="location.category">
+                        </ion-item>
+
+                        <ion-item class="item-input">
+                                <div class="input-label">
+                                        Clue
+                                </div>
+                                <textarea ng-model="location.clue"></textarea>
+                        </ion-item>
+
+                        <ion-item class="item-icon-right">
+                                Geolocation Accuracy:
+                                <span class="item-note">
+                                        {{ location.geolocation.accuracy }}
+                                </span>
+                                <i class="icon ion-ios7-reload" ng-click="refreshLocation()"></i>
+                        </ion-item>
+                </div>
 
 
         </ion-list>
