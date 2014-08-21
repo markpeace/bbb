@@ -1,7 +1,8 @@
 bbb.controller('AddLocation', function($scope, $state, $stateParams, $ionicLoading, ParseService) { 
 
         $scope.location={
-                geolocation: {accuracy: 99999}
+                geolocation: {accuracy: 99999},
+                range:10
         }
 
         if($stateParams.id) {
