@@ -13,14 +13,20 @@ bbb.controller('AddLocation', function($scope, $state, $stateParams, $ionicLoadi
                         console.log("NEED A MECHANISM TO SAVE EXISTING")
                 } else {
 
+                        navigator.geolocation.clearWatch(geolocation.watch)
                         $ionicLoading.show({template:"Saving..."});
-                        
+
                         (new (Parse.Object.extend("Location")))
                         .save($scope.location).then(function() {
                                 $ionicLoading.hide();
-                                $state.go("tabs.explore")                                
+                                $state.go("tabs.explore")                                         
                         })                        
                 }
+        }
+
+        $scope.goBack=function() {
+                navigator.geolocation.clearWatch(geolocation.watch)    
+                $state.go("tabs.explore") 
         }
 
 
