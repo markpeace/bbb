@@ -3,20 +3,20 @@ if (navigator.appName == 'Microsoft Internet Explorer') {
 }
 
 
-        if (typeof cordova === 'object') {
-                document.addEventListener("deviceready", function() {
+if (typeof cordova === 'object') {
+        document.addEventListener("deviceready", function() {
 
-                        angular.bootstrap(document, ["bbb"]);    
+                angular.bootstrap(document, ["bbb"]);    
 
 
 
-                });
+        }, fslse);
 
-        } else {        
-                angular.element(document).ready(function() {
-                        angular.bootstrap(document, ["bbb"]);
-                });
-        }
+} else {        
+        angular.element(document).ready(function() {
+                angular.bootstrap(document, ["bbb"]);
+        });
+}
 
 var bbb = angular.module('bbb', ['ionic', 'monospaced.qrcode'])
 
