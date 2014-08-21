@@ -32,8 +32,11 @@ bbb.controller('AddLocation', function($scope, $state, $stateParams, ParseServic
                         
                         $scope.location.geolocation = "attempt #" +geolocation.attempts+ " accuracy=" +e.coords.accuracy
                         $scope.$apply()
-                        
-                        //if(e.coords.accuracy<geolocation.targetAccuracy) { navigator.geolocation.clearWatch(geolocation.watch) }                        
+                                                
+                        if(e.coords.accuracy<geolocation.targetAccuracy) { 
+                                alert("aborted")
+                                navigator.geolocation.clearWatch(geolocation.watch) 
+                        }                        
                         
                 },
                 onError:function() {},
