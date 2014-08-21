@@ -1,6 +1,8 @@
 bbb.controller('AddLocation', function($scope, $state, $stateParams, ParseService) { 
 
-        $stateParams.location={}
+        $scope.location={
+                geolocation: "Searching..."
+        }
 
         if($stateParams.id) {
                 console.log("NEED A MECHANISM TO RETRIEVE EXISTING ")
@@ -19,6 +21,35 @@ bbb.controller('AddLocation', function($scope, $state, $stateParams, ParseServic
                 }
         }
 
+
+        geolocation = {
+                g: this,                     
+                attempts:0,
+                maxAttempts:10,
+                targetAccuracy:5,
+                onSuccess:function(e) {
+                        
+                        $scope.location.geolocation = "Attempt #" + geolocation.attempts + " accuracy=" +e.coords.accuracy
+                        $scope.$apply()
+                        
+                        if(e.coords.accuracy<geolocation.targetAccuracy) { geolocation.go(); }
+                        
+                },
+                onError:function() {
+                        geolocation.go();
+                },
+                go: function () {
+                        geolocation.attempts++
+                        if(geolocation.attempts>geolocation.maxAttempts) { return }                        
+                        navigator.geolocation.getCurrentPosition(geolocation.onSuccess, geolocation.onError, { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true });
+                }
+        }
+        
+        geolocation.go();
+
+
+
+        /*
         var onSuccess = function(position) {
                 alert('Latitude: '          + position.coords.latitude          + '\n' +
                       'Longitude: '         + position.coords.longitude         + '\n' +
@@ -33,10 +64,10 @@ bbb.controller('AddLocation', function($scope, $state, $stateParams, ParseServic
         // onError Callback receives a PositionError object
         //
         function onError(error) {
-                alert('code: '    + error.code    + '\n' +
-                      'message: ' + error.message + '\n');
+                //alert('code: '    + error.code    + '\n' +
+                 //     'message: ' + error.message + '\n');
         }
 
         navigator.geolocation.getCurrentPosition(onSuccess, onError, { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true });
-
+*/
 });
