@@ -1,3 +1,51 @@
+navigator.geolocation.getAccurateCurrentPosition = function (geolocationSuccess, geolocationError, geoprogress, options) {
+        var lastCheckedPosition,
+            locationEventCount = 0,
+            watchID,
+            timerID;
+
+        options = options || {};
+
+        var checkLocation = function (position) {
+                lastCheckedPosition = position;
+                locationEventCount = locationEventCount + 1;
+                // We ignore the first event unless it's the only one received because some devices seem to send a cached
+                // location even when maxaimumAge is set to zero
+                if ((position.coords.accuracy <= options.desiredAccuracy) && (locationEventCount > 1)) {
+                        clearTimeout(timerID);
+                        navigator.geolocation.clearWatch(watchID);
+                        foundPosition(position);
+                } else {
+                        geoprogress(position);
+                }
+        };
+
+        var stopTrying = function () {
+                navigator.geolocation.clearWatch(watchID);
+                foundPosition(lastCheckedPosition);
+        };
+
+        var onError = function (error) {
+                clearTimeout(timerID);
+                navigator.geolocation.clearWatch(watchID);
+                geolocationError(error);
+        };
+
+        var foundPosition = function (position) {
+                geolocationSuccess(position);
+        };
+
+        if (!options.maxWait)            options.maxWait = 10000; // Default 10 seconds
+        if (!options.desiredAccuracy)    options.desiredAccuracy = 20; // Default 20 meters
+        if (!options.timeout)            options.timeout = options.maxWait; // Default to maxWait
+
+        options.maximumAge = 0; // Force current locations only
+        options.enableHighAccuracy = true; // Force high accuracy (otherwise, why are you using this function?)
+
+        watchID = navigator.geolocation.watchPosition(checkLocation, onError, options);
+        timerID = setTimeout(stopTrying, options.maxWait); // Set a timeout that will abandon the location loop
+};
+
 bbb.controller('AddLocation', function($scope, $state, $stateParams, ParseService) { 
 
         $scope.location={
@@ -21,54 +69,20 @@ bbb.controller('AddLocation', function($scope, $state, $stateParams, ParseServic
                 }
         }
 
-
-        geolocation = {
-                g: this,
-                attempts:0,
-                targetAccuracy:11,
-                onSuccess:function(e) {
-                        
-                        geolocation.attempts++
-                        
-                        $scope.location.geolocation = "Attempt #" +geolocation.attempts+ "/ Accuracy=" +e.coords.accuracy
-                        $scope.$apply()
-                                                
-                        if(e.coords.accuracy<geolocation.targetAccuracy) {                                 
-                                navigator.geolocation.clearWatch(geolocation.watch) 
-                                $scope.location.geolocation=e.coords
-                                $scope.$apply();
-                        }
-                        
-                },
-                onError:function() {},
-                go: function () {
-                        geolocation.watch = navigator.geolocation.watchPosition(geolocation.onSuccess, geolocation.onError, { maximumAge: 3000, enableHighAccuracy: true });
-                }
+        geolocationSuccess = function(e) {
+		$scope.location.geolocation=e.coords
         }
         
-        geolocation.go();
-
-
-
-        /*
-        var onSuccess = function(position) {
-                alert('Latitude: '          + position.coords.latitude          + '\n' +
-                      'Longitude: '         + position.coords.longitude         + '\n' +
-                      'Altitude: '          + position.coords.altitude          + '\n' +
-                      'Accuracy: '          + position.coords.accuracy          + '\n' +
-                      'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-                      'Heading: '           + position.coords.heading           + '\n' +
-                      'Speed: '             + position.coords.speed             + '\n' +
-                      'Timestamp: '         + position.timestamp                + '\n');
-        };
-
-        // onError Callback receives a PositionError object
-        //
-        function onError(error) {
-                //alert('code: '    + error.code    + '\n' +
-                 //     'message: ' + error.message + '\n');
+        geolocationError = function(e) { alert("error") }
+        
+        geolocationProgress = function(e) {
+		$scope.location.geolocation=$scope.location.geolocation=e.coords.accuracy
         }
+        
+        
+        navigator.geolocation.getAccurateCurrentPosition(geolocationSuccess, geolocationError, geolocationProgress)
 
-        navigator.geolocation.getCurrentPosition(onSuccess, onError, { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true });
-*/
+        
+
+
 });
