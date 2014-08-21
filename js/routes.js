@@ -110,8 +110,8 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
         })  
         .state('editLocation', {
                 url: "/explore/{id}/edit",
-                controller: 'EditLocation',
-                templateUrl: "pages/explore/edit.html"
+                controller: 'AddLocation',
+                templateUrl: "pages/explore/add.html"
         })  
 
         
