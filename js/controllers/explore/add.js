@@ -1,17 +1,18 @@
 bbb.controller('AddLocation', function($scope, $state, $stateParams, $ionicLoading, ParseService) { 
 
-        $scope.location={
-                geolocation: {accuracy: 99999},
-                range:10
-        }
 
-        if($stateParams.id) {
-                console.log("NEED A MECHANISM TO RETRIEVE EXISTING ")
-        } 
 
         $scope.saveLocation = function() {
                 if($stateParams.id) {
-                        console.log("NEED A MECHANISM TO SAVE EXISTING")
+                        $ionicLoading.show({template:"Updating..."});
+                        angular.forEach(["label", "blurb", "popupLocation", "explorationLocation", "enigmaticTitle", "categories", "clue", "range", "geolocation"], function(field) {
+                                $scope.location.parseObject.set(field, $scope.location[field])
+                        })
+                        $scope.location.parseObject.save().then(function() {
+                                $ionicLoading.hide();
+                                $state.go("tabs.explore") 
+                        })
+
                 } else {
 
                         navigator.geolocation.clearWatch(geolocation.watch)
@@ -61,9 +62,31 @@ bbb.controller('AddLocation', function($scope, $state, $stateParams, $ionicLoadi
                 }
         }       
 
-        if($scope.location.geolocation.accuracy>1000) { geolocation.go(); }  
         $scope.refreshLocation = function() {
-                geolocation.go(); 
+                geolocation.go()
         }
+
+        $scope.location={
+                geolocation: {accuracy: 99999},
+                range:10
+        }     
+
+        if($stateParams.id) {
+
+                (new Parse.Query("Location"))
+                .get($stateParams.id).then(function(result) {
+
+                        $scope.location.parseObject=result
+
+                        angular.forEach(["label", "blurb", "popupLocation", "explorationLocation", "enigmaticTitle", "categories", "clue", "range", "geolocation"], function(field) {
+                                $scope.location[field] = $scope.location.parseObject.get(field)
+                        })
+                        $scope.$apply()
+                })
+        }  else {                
+                geolocation.go();   
+        }
+
+
 
 });
