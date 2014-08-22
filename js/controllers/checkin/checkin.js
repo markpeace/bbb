@@ -17,7 +17,7 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel) {
                         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
                         var d = R * c; // Distance in km
                         return d*1000;
-                },
+                },                
 
                 locate: function () {
                         locationBased.watch = navigator.geolocation.watchPosition(locationBased.getPlaces, function() {}, { maximumAge: 5000, maxWait: 10000, enableHighAccuracy: true });
@@ -25,7 +25,9 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel) {
                                 navigator.geolocation.clearWatch(locationBased.watch)
                         })
                 },
+                getCount:0,
                 getPlaces: function(e) {
+                        if (getCount==0) { getCount++; return;}
                         $scope.geolocated=true                        
                         $scope.nearby=[]
                         angular.forEach(EventModel.data().locations, function(location) {                                
