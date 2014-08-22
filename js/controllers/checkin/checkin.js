@@ -20,14 +20,13 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel) {
                 },                
 
                 locate: function () {
-                        locationBased.watch = navigator.geolocation.watchPosition(locationBased.getPlaces, function() {}, { maximumAge: 5000, maxWait: 10000, enableHighAccuracy: true });
+                        locationBased.watch = navigator.geolocation.watchPosition(locationBased.getPlaces, function() {}, { maximumAge: 0, maxWait: 10000, enableHighAccuracy: true });
                         $scope.$on('$stateChangeStart', function() {
                                 navigator.geolocation.clearWatch(locationBased.watch)
                         })
                 },
-                getCount:0,
                 getPlaces: function(e) {
-                        if (getCount==0) { getCount++; return;}
+                        console.log(moment(e.timestamp)._d)
                         $scope.geolocated=true                        
                         $scope.nearby=[]
                         angular.forEach(EventModel.data().locations, function(location) {                                
