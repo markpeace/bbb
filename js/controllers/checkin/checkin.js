@@ -30,7 +30,6 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel) {
                         $scope.nearby=[]
                         angular.forEach(EventModel.data().locations, function(location) {                                
                                 if(location.explorationLocation) {
-                                        alert(locationBased.getDistance(e.coords.latitude, e.coords.longitude, location.geolocation.latitude, location.geolocation.longitude))
                                         if(locationBased.getDistance(e.coords.latitude, e.coords.longitude, location.geolocation.latitude, location.geolocation.longitude)<location.range) {
                                                 $scope.nearby.push(location)
                                         }
