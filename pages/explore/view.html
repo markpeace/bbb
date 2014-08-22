@@ -1,0 +1,28 @@
+<div class="bar bar-header">
+        <button class="button button-icon icon ion-ios7-arrow-back" ui-sref="tabs.explore"></button>
+        <div class="title"></div>
+</div>
+
+<ion-content class="has-header">
+        <div class="list card">
+
+                <div class="item item-divider">     
+                        <h2>{{ location.enigmaticTitle }}</h2>
+                        <p> {{ location.clue }}</p>
+                </div>
+
+        </div>
+
+        <div class="list card" ng-show="isAdmin">
+
+                <div class="item item-divider">
+                        Admin Tools 
+                </div>
+
+                <a ui-sref="editLocation({id:iteration.event.id })" class="item item-body" style="font-size:1em;">
+                        Edit Location
+                </a>
+
+        </div>
+
+</ion-content>
