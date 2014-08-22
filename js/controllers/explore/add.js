@@ -1,7 +1,5 @@
 bbb.controller('AddLocation', function($scope, $state, $stateParams, $ionicLoading, ParseService) { 
 
-
-
         $scope.saveLocation = function() {
                 if($stateParams.id) {
                         $ionicLoading.show({template:"Updating..."});

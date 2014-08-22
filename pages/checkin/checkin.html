@@ -10,7 +10,21 @@
                                 <button class="button button-block button-energized" ng-click="scan()">
                                         Scan QR Code
                                 </button>
-                        </div>                                                
+                        </div>     
+                </div>
+                <div class="card" style="text-align:center">
+                        <div class="item item-divider" >
+                                Or Check In Using Your Location...
+                        </div>
+                        <div class="item item-text-wrap" ng-hide="geolocated">
+                                PinPointing Your Geolocation
+                        </div>     
+                        <div class="item item-text-wrap" ng-show="geolocated && nearby.length==0">
+                                No Exploration Location Nearby
+                        </div>
+                        <a class="item item-text-wrap" ng-repeat="location in nearby">
+                                {{ location.enigmaticTitle }}
+                        </a>
                 </div>
         </ion-content>
 
