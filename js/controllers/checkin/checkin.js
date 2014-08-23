@@ -26,6 +26,7 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel) {
                         })
                 },
                 getPlaces: function(e) {
+                        console.log(e)
                         $scope.geolocated=true                        
                         $scope.nearby=[]
                         angular.forEach(EventModel.data().locations, function(location) {                                

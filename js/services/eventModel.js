@@ -180,7 +180,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                                 angular.forEach(cache.data.Location[objectId].categories.split(";"), function (category) {
                                                         add=true
                                                         angular.forEach(locationCategories, function(e) { 
-                                                        	if(e==category) { add=false }
+                                                                if(e==category) { add=false }
                                                         })
                                                         if (add) { locationCategories.push(category) }
                                                 })
