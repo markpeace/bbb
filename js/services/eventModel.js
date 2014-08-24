@@ -4,7 +4,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
 
                 console.log("refresh")
 
-                if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
+               if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
                         localStorage.setItem(Parse.User.current().id, JSON.stringify({
                                 lastUpdated: {Iteration: moment().subtract('years',1)._d},
                                 iterations: [],
@@ -12,7 +12,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                         })) 
                         NotificationService.reminders.destroyAll();
                         console.log("Created localStorage Item")
-                }
+               }
 
                 cache = {
                         dc: this,
@@ -50,7 +50,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                 { table: "Series", constraints: [], fields: ["label"] },
                                 { table: "Iteration", constraints: [".ascending('time')"], fields: ["capacity", "event", "location", "host", "time"] },
                                 { table: "Booking", constraints: [".equalTo('user', Parse.User.current())"], fields: ["iteration"] },
-                                { table: "Checkin", constraints: [".equalTo('user', Parse.User.current())"], fields: ["booking"] }
+                                { table: "Checkin", constraints: [".equalTo('user', Parse.User.current())"], fields: ["booking", "location"] }
                         ]
                         lookupIndex=-1
 
@@ -63,14 +63,15 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                 lookupIndex++
                                 lookupItem = toLookUp[lookupIndex]
 
-
+                                if(!cache.data[lookupItem.table]) { cache.data[lookupItem.table] = {} }
+                                
                                 $ionicLoading.show({
                                         template: 'Updating ' + lookupItem.table
                                 });                        
 
                                 query = new Parse.Query(lookupItem.table)
                                 angular.forEach(lookupItem.constraints, function (constraint) { eval("query" + constraint) })                        
-                                query.descending("updatedAt").limit(1).find().then(function(r) {
+                                query.descending("updatedAt").limit(1).find().then(function(r) {                                        
                                         if (r.length==0 || new Date(cache.data.lastUpdated[lookupItem.table]) > new Date(r[0].updatedAt)) { 
                                                 return checkTable(); 
                                         } else {

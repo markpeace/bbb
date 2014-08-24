@@ -1,4 +1,4 @@
-bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel) { 
+bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel, $ionicLoading) { 
 
         var locationBased = {
 
@@ -26,7 +26,6 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel) {
                         })
                 },
                 getPlaces: function(e) {
-                        console.log(e)
                         $scope.geolocated=true                        
                         $scope.nearby=[]
                         angular.forEach(EventModel.data().locations, function(location) {                                
@@ -34,7 +33,7 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel) {
                                         if(locationBased.getDistance(e.coords.latitude, e.coords.longitude, location.geolocation.latitude, location.geolocation.longitude)<location.range) {
                                                 $scope.nearby.push(location)
                                         }
-                                        
+
                                 }
                         })
                         $scope.$apply()
@@ -96,5 +95,55 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel) {
                         console.log(ex)
                 }
         }
+
+        $scope.doCheckin = function(locationID) {
+
+                $ionicLoading.show({ template: "Checking In..." })
+
+                //MANUALLY SET THE FIRST ITERATION TO TAKE PLACE NOW, AND HERE
+                EventModel.data().iterations[0].time=moment().subtract("minutes",10)._d
+                EventModel.data().iterations[0].location.id=locationID               
+
+
+                //SEE IF THERE IS AN EVENT CURRENTLY HAPPENING IN THIS PLACE
+                currentIteration=null
+                angular.forEach(EventModel.data().iterations, function(iteration) {                        
+                        if(
+                                iteration.location.id==locationID 
+                                && moment().isAfter(moment(iteration.time))
+                                && moment().isBefore(moment(iteration.time).add("minutes", iteration.event.duration))
+                        ) {                                
+                                currentIteration = iteration.id
+                        }                                                
+                })
+
+                //IF THERE IS AN EVENT, FIND THE USER'S BOOKING
+                var booking=null
+                angular.forEach(EventModel.data().Booking, function(b) {
+                        if(b.iteration.id == currentIteration) {
+                                booking=b.id
+                        }
+                })
+
+                
+                //CHECK TO SEE IF THE USER HAS ALREADY CHECKED IN TO THIS COMBINATION
+                console.log("need to write something which checks whether this checkin exists")               
+                
+                //EventModel.data().Checkin.push({ booking: booking, location: locationID })
+                //EventModel.data().save()
+                console.log(EventModel.data())
+                
+                
+/*                (new (Parse.Object.extend("Location")))
+                .save($scope.location).then(function() {
+                        $ionicLoading.hide();
+                        $state.go("tabs.explore")                                         
+                })    
+
+                $ionicLoading.hide()
+*/
+
+        }
+
 
 });
