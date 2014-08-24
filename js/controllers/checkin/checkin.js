@@ -97,7 +97,7 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel, $io
         }
 
         $scope.doCheckin = function(locationID) {
-
+               
                 $ionicLoading.show({ template: "Checking In..." })
 
                 //MANUALLY SET THE FIRST ITERATION TO TAKE PLACE NOW, AND HERE
@@ -112,29 +112,23 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel, $io
                                 iteration.location.id==locationID 
                                 && moment().isAfter(moment(iteration.time))
                                 && moment().isBefore(moment(iteration.time).add("minutes", iteration.event.duration))
-                        ) {                                
+                                && iteration.booked
+                        ) {          
+                                console.log(iteration)
                                 currentIteration = iteration.id
                         }                                                
-                })
+                })                
 
-                //IF THERE IS AN EVENT, FIND THE USER'S BOOKING
-                var booking=null
-                angular.forEach(EventModel.data().Booking, function(b) {
-                        if(b.iteration.id == currentIteration) {
-                                booking=b.id
-                        }
-                })
 
+                //CHECK TO SEE IF THE USER HAS ALREADY CHECKED IN TO THIS COMBINATION                                
+                console.log("need to write something which checks whether this checkin exists")                                      
                 
-                //CHECK TO SEE IF THE USER HAS ALREADY CHECKED IN TO THIS COMBINATION
-                console.log("need to write something which checks whether this checkin exists")               
-                
-                //EventModel.data().Checkin.push({ booking: booking, location: locationID })
-                //EventModel.data().save()
-                console.log(EventModel.data())
-                
-                
-/*                (new (Parse.Object.extend("Location")))
+                EventModel.data().Checkin.push({ iteration: currentIteration, location: locationID })
+                EventModel.save()
+                console.log(EventModel.data().Checkin)
+
+
+                /*                (new (Parse.Object.extend("Location")))
                 .save($scope.location).then(function() {
                         $ionicLoading.hide();
                         $state.go("tabs.explore")                                         
@@ -143,7 +137,9 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel, $io
                 $ionicLoading.hide()
 */
 
-        }
+                }
+        
+        console.log(EventModel.data())
 
 
 });

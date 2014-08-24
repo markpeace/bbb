@@ -63,7 +63,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                 lookupIndex++
                                 lookupItem = toLookUp[lookupIndex]
 
-                                if(!cache.data[lookupItem.table]) { cache.data[lookupItem.table] = {} }
+                                if(!cache.data[lookupItem.table]) { cache.data[lookupItem.table] = [] }
                                 
                                 $ionicLoading.show({
                                         template: 'Updating ' + lookupItem.table
@@ -85,7 +85,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                         }
 
                         var refreshData = function(lookupItem) {
-                                cache.data[lookupItem.table] = {}
+                                cache.data[lookupItem.table] = []
 
                                 query = new Parse.Query(lookupItem.table)
                                 angular.forEach(lookupItem.constraints, function (constraint) { eval("query" + constraint) })
@@ -137,9 +137,10 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
 
                                 }            
 
+                                cache.data.bookings=[]
                                 for(var objectId in cache.data.Booking) {
-                                        cache.data.Iteration[cache.data.Booking[objectId].iteration].booked = true
-                                        cache.data.Booking[objectId].iteration = cache.data.Iteration[cache.data.Booking[objectId].iteration]
+                                        cache.data.bookings.push(cache.data.Booking[objectId])
+                                        cache.data.Iteration[cache.data.Booking[objectId].iteration].booked = true                                        
                                 }            
 
                                 for(var objectId in cache.data.Iteration) {
@@ -213,6 +214,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
 
         return {
                 refresh: function() { _refresh() },
+                save: function() { cache.save() },
                 data: function() { 
                         if (typeof cache === 'undefined') { _refresh() } 
                         return cache.data 
