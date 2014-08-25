@@ -4,15 +4,15 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
 
                 console.log("refresh")
 
-               if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
-                        localStorage.setItem(Parse.User.current().id, JSON.stringify({
-                                lastUpdated: {Iteration: moment().subtract('years',1)._d},
-                                iterations: [],
-                                dates:[]
-                        })) 
-                        NotificationService.reminders.destroyAll();
-                        console.log("Created localStorage Item")
-               }
+                //if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
+                localStorage.setItem(Parse.User.current().id, JSON.stringify({
+                        lastUpdated: {Iteration: moment().subtract('years',1)._d},
+                        iterations: [],
+                        dates:[]
+                })) 
+                NotificationService.reminders.destroyAll();
+                console.log("Created localStorage Item")
+                //}
 
                 cache = {
                         dc: this,
@@ -64,7 +64,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                 lookupItem = toLookUp[lookupIndex]
 
                                 if(!cache.data[lookupItem.table]) { cache.data[lookupItem.table] = [] }
-                                
+
                                 $ionicLoading.show({
                                         template: 'Updating ' + lookupItem.table
                                 });                        
@@ -98,8 +98,8 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                                                 if (newItem[field].id) { newItem[field]=newItem[field].id }
                                                         }
                                                 })
-                                                cache.data[lookupItem.table][result.id]=newItem
-                                                cache.data[lookupItem.table][result.id].id=result.id
+                                                newItem.id=result.id
+                                                cache.data[lookupItem.table].push(newItem)
                                         })
 
                                         cache.data.lastUpdated[lookupItem.table] = moment()._d;
@@ -121,79 +121,92 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                 var weaveData= function() {
 
                         try {
+
+
+                                var findIt = function(table, id) {
+
+                                        response={}
+
+                                        angular.forEach(table, function (r) {
+                                                if (r.id==id) { response=r }
+                                        })
+                                        return response
+                                }
+
+                                //UPDATE SETTINGS
+
+                                cache.data.settings = {} 
+
+                                angular.forEach(cache.data.Setting, function (s) {
+                                        for (key in JSON.parse(s.settings)) {
+                                                cache.data.settings[key] = JSON.parse(s.settings)[key]
+                                        }
+                                })
+
                                 for(var objectId in cache.data.Setting) {
                                         cache.data.settings = JSON.parse(cache.data.Setting[objectId].settings)
                                 }
 
-                                iterations = []
-                                dates=[]
 
-                                for(var objectId in cache.data.Event) {
-                                        if (cache.data.Event[objectId].series.id) {
-                                                cache.data.Event[objectId].series = cache.data.Series[cache.data.Event[objectId].series.id]
-                                        } else {
-                                                cache.data.Event[objectId].series = cache.data.Series[cache.data.Event[objectId].series]
-                                        }
+                                //UPDATE EVENTS
 
-                                }            
+                                angular.forEach(cache.data.Event, function(event) {
+                                        event.series = findIt(cache.data.Series, event.series.id || event.series)
+                                })
 
-                                cache.data.bookings=[]
-                                for(var objectId in cache.data.Booking) {
-                                        cache.data.bookings.push(cache.data.Booking[objectId])
-                                        cache.data.Iteration[cache.data.Booking[objectId].iteration].booked = true                                        
-                                }            
+                                //UPDATE ITERATIONS
+                                angular.forEach(cache.data.Iteration, function(iteration){
+                                        iteration.event = findIt(cache.data.Event, iteration.event.id || iteration.event)
+                                        iteration.location = findIt(cache.data.Location, iteration.location.id || iteration.location)
+                                        iteration.host = findIt(cache.data.User, iteration.host.id || iteration.host)
 
-                                for(var objectId in cache.data.Iteration) {
-
-                                        cache.data.Iteration[objectId].event = cache.data.Event[cache.data.Iteration[objectId].event]
-                                        cache.data.Iteration[objectId].location = cache.data.Location[cache.data.Iteration[objectId].location]
-                                        cache.data.Iteration[objectId].host = cache.data.User[cache.data.Iteration[objectId].host]
-
-                                        if (cache.data.Iteration[objectId].host.id==Parse.User.current().id) {
-                                                cache.data.Iteration[objectId].booked=true;
-                                                cache.data.Iteration[objectId].isHost=true;
-                                        }
+                                        iteration.booked = iteration.host.id==Parse.User.current().id ? true : false
+                                        iteration.isHost = iteration.host.id==Parse.User.current().id ? true : false
 
 
-                                        push_it=true
-                                        if (cache.data.Iteration[objectId].event.cohorts.length && JSON.stringify(cache.data.Iteration[objectId].event.cohorts).indexOf(Parse.User.current().get("cohort").id)==-1) {
-                                                push_it=false
-                                        }
 
-                                        if (push_it==true || Parse.User.current().get('securityLevel')<2 || cache.data.Iteration[objectId].host.id==Parse.User.current().id ) {
-                                                iterations.push(cache.data.Iteration[objectId])
+                                        iteration.inCohort = JSON.stringify(iteration.event.cohorts).indexOf(Parse.User.current().get("cohort").id)
+                                        iteration.inCohort = iteration.inCohort==-1 ? false : true
+                                        iteration.inCohort = iteration.event.cohorts.length==0 ? true : iteration.inCohort                                                                                                                   
+                                })
 
-                                                if (moment(cache.data.Iteration[objectId].time).format("dddd, Do MMMM")!=dates[dates.length-1]) {
-                                                        dates.push(moment(cache.data.Iteration[objectId].time).format("dddd, Do MMMM"))
-                                                }
+                                lastDate=null
+                                cache.data.IterationDate = []
 
-                                        }
-                                }
+                                cache.data.Iteration.forEach(function(iteration) {                                              
 
-                                for(var objectId in cache.data.Checkin) {
-                                        cache.data.Checkin[objectId].booking = cache.data.Booking[cache.data.Checkin[objectId].booking]
-                                }
+                                        newDate = moment(iteration.time).format("dddd, Do MMMM")                           
 
-                                locations = []
-                                locationCategories=[]
-                                for(var objectId in cache.data.Location) {
-                                        locations.push(cache.data.Location[objectId])
-                                        if(cache.data.Location[objectId].categories) {
-                                                angular.forEach(cache.data.Location[objectId].categories.split(";"), function (category) {
-                                                        add=true
-                                                        angular.forEach(locationCategories, function(e) { 
-                                                                if(e==category) { add=false }
-                                                        })
-                                                        if (add) { locationCategories.push(category) }
-                                                })
-                                        }              
-                                }
+                                        if (cache.data.IterationDate.indexOf(newDate)) { cache.data.IterationDate.push(newDate) }
 
-                                cache.data.locations=locations
-                                cache.data.locationCategories=locationCategories
+                                })                               
 
-                                cache.data.iterations=iterations;
-                                cache.data.dates=dates
+
+                                cache.data.iterations=cache.data.Iteration 	//NEEDS REMOVING
+                                cache.data.dates=cache.data.IterationDate	//NEEDS REMOVING
+
+
+                                //UPDATE BOOKINGS
+
+                                cache.data.Booking.forEach(function(booking) {                                    
+                                        booking.iteration=findIt(cache.data.Iteration, booking.iteration)
+                                        booking.iteration.booked=true                                                                
+                                })                                                
+                                cache.data.bookings=cache.data.Booking
+
+                                //UPDATE LOCATIONS
+
+
+                                cache.data.locationCategories = []	//NEEDS CHANGING TO CAMELCASE
+
+                                cache.data.Location.forEach(function(location) {
+                                        location.categories = location.categories || "" 
+                                        location.categories.split(";").forEach(function(category){
+                                                if(cache.data.locationCategories.indexOf(category)==-1 && category!="") {cache.data.locationCategories.push(category)}
+                                        })
+                                })
+
+                                cache.data.locations = cache.data.Location	//NEEDS REMOVING
 
                                 cache.data.lastUpdated.Iteration=moment()._d;      
                                 console.log(cache.data)
