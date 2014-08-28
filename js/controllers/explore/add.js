@@ -3,7 +3,7 @@ bbb.controller('AddLocation', function($scope, $state, $stateParams, $ionicLoadi
         $scope.saveLocation = function() {
                 if($stateParams.id) {
                         $ionicLoading.show({template:"Updating..."});
-                        angular.forEach(["label", "blurb", "popupLocation", "explorationLocation", "enigmaticTitle", "categories", "clue", "range", "geolocation"], function(field) {
+                        ["label", "blurb", "popupLocation", "explorationLocation", "enigmaticTitle", "categories", "clue", "range", "geolocation"].forEach(function(field) {
                                 $scope.location.parseObject.set(field, $scope.location[field])
                         })
                         $scope.location.parseObject.save().then(function() {
@@ -15,7 +15,7 @@ bbb.controller('AddLocation', function($scope, $state, $stateParams, $ionicLoadi
 
                         navigator.geolocation.clearWatch(geolocation.watch)
                         $ionicLoading.show({template:"Saving..."});
-
+                        
                         (new (Parse.Object.extend("Location")))
                         .save($scope.location).then(function() {
                                 $ionicLoading.hide();

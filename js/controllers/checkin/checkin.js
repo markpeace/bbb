@@ -1,5 +1,7 @@
 bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel, $ionicLoading) { 
 
+        if(Parse.User.current().get("securityLevel")==1) { $scope.isAdmin=true }
+        
         var locationBased = {
 
                 getDistance: function(lat1, lon1, lat2, lon2) {
@@ -26,14 +28,12 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel, $io
                         })
                 },
                 getPlaces: function(e) {
-                        $scope.geolocated=true                        
-                        $scope.nearby=[]
-                        angular.forEach(EventModel.data().locations, function(location) {                                
-                                if(location.explorationLocation) {
-                                        if(locationBased.getDistance(e.coords.latitude, e.coords.longitude, location.geolocation.latitude, location.geolocation.longitude)<location.range) {
-                                                $scope.nearby.push(location)
-                                        }
+                        $scope.geolocated=e.coords            
 
+                        $scope.nearby=EventModel.data().Location.filter(function(location) {
+                                if (location.explorationLocation && 
+                                    locationBased.getDistance(e.coords.latitude, e.coords.longitude, location.geolocation.latitude, location.geolocation.longitude)<location.range) {                                
+                                        return true
                                 }
                         })
                         $scope.$apply()
@@ -97,7 +97,7 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel, $io
         }
 
         $scope.doCheckin = function(locationID) {
-               
+
                 $ionicLoading.show({ template: "Checking In..." })
 
                 //MANUALLY SET THE FIRST ITERATION TO TAKE PLACE NOW, AND HERE
@@ -122,7 +122,7 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel, $io
 
                 //CHECK TO SEE IF THE USER HAS ALREADY CHECKED IN TO THIS COMBINATION                                
                 console.log("need to write something which checks whether this checkin exists")                                      
-                
+
                 EventModel.data().Checkin.push({ iteration: currentIteration, location: locationID })
                 EventModel.save()
                 console.log(EventModel.data().Checkin)
@@ -137,9 +137,7 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel, $io
                 $ionicLoading.hide()
 */
 
-                }
-        
-        console.log(EventModel.data())
+        }
 
 
 });

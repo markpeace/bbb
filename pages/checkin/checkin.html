@@ -26,6 +26,13 @@
                                 {{ location.enigmaticTitle }}
                         </a>
                 </div>
+                <div class="card" style="text-align:center" ng-show="isAdmin && geolocated">
+                        
+                        <div class="item item-text-wrap">
+                                {{ geolocated }}
+                        </div>     
+                       
+                </div>
         </ion-content>
 
 </ion-view>
