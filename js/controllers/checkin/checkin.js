@@ -1,7 +1,8 @@
 bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel, $ionicLoading) { 
 
         if(Parse.User.current().get("securityLevel")==1) { $scope.isAdmin=true }
-
+        $scope.geolocated=false
+        
         var locationBased = {
 
                 getDistance: function(lat1, lon1, lat2, lon2) {
