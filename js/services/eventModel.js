@@ -189,16 +189,14 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                 //UPDATE LOCATIONS
 
 
-                                cache.data.locationCategories = []	//NEEDS CHANGING TO CAMELCASE
+                                cache.data.LocationCategory = []
 
                                 cache.data.Location.forEach(function(location) {
                                         location.categories = location.categories || "" 
                                         location.categories.split(";").forEach(function(category){
-                                                if(cache.data.locationCategories.indexOf(category)==-1 && category!="") {cache.data.locationCategories.push(category)}
+                                                if(cache.data.LocationCategory.indexOf(category)==-1 && category!="") {cache.data.LocationCategory.push(category)}
                                         })
                                 })
-
-                                cache.data.locations = cache.data.Location	//NEEDS REMOVING
 
                                 cache.data.lastUpdated.Iteration=moment()._d;      
                                 console.log(cache.data)

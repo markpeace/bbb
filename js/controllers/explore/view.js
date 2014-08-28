@@ -2,7 +2,7 @@ bbb.controller('ViewLocation', function($scope, $stateParams, ParseService, Even
    
         $scope.location = {}
         
-        angular.forEach(EventModel.data().locations, function (location) {
+        angular.forEach(EventModel.data().Location, function (location) {
                 if (location.id==$stateParams.id) { $scope.location=location }
         })
 
