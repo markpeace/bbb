@@ -24,7 +24,9 @@
                                 <p>Click Here to Add Another Event</p>
                         </ion-item>
 
-                        <ion-item ng-class="iteration.isHost ? 'item-icon-right' : ''" ng-repeat="iteration in filter(data.Iteration)" ui-sref="viewEvent({id:iteration.id})" href="#">
+                        <ion-item ng-class="iteration.isHost ? 'item-icon-right' : ''" 
+                                  ng-repeat="iteration in filter(data.Iteration)"                                   
+                                  ui-sref="viewEvent({id:iteration.id})" href="#">
                                 <i class="icon ion-ios7-person" ng-show="iteration.isHost"></i>
                                 <p>{{ iteration.event.series.label }} with {{ iteration.host.forename }} {{ iteration.host.surname }} </p>
                                 <h2>{{ moment(iteration.time).format("HH:mm") }} : {{ iteration.event.title }}</h2>    

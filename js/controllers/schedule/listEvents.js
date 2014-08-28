@@ -27,6 +27,9 @@ bbb.controller('ListEvents', function($state, $scope, ParseService, $rootScope, 
                 if (!$scope.data.IterationDate) { return; }
 
                 return items.filter(function(item, index) {   
+                        
+                        if (!item.inCohort && $scope.securityLevel!=1 ) { return false }
+                        
                         if(moment(item.time).format("dddd, Do MMMM")==$scope.data.IterationDate[$scope.selectedDate]) { 
                                 if($scope.selectedTab=="BOOKED") {
                                         if(item.booked) { return true }

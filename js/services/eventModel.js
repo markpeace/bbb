@@ -162,7 +162,6 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                         iteration.isHost = iteration.host.id==Parse.User.current().id ? true : false
 
 
-
                                         iteration.inCohort = JSON.stringify(iteration.event.cohorts).indexOf(Parse.User.current().get("cohort").id)
                                         iteration.inCohort = iteration.inCohort==-1 ? false : true
                                         iteration.inCohort = iteration.event.cohorts.length==0 ? true : iteration.inCohort                                                                                                                   
