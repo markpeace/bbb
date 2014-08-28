@@ -30,6 +30,8 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel, $io
 
                 },
                 getPlaces: function(e) {
+                        
+                        $scope.geolocated=false
 
                         if(moment(e.timestamp).isAfter(moment().subtract("seconds", 5))) {
 
