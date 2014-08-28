@@ -1,5 +1,5 @@
 bbb.controller('ViewEvent', function($scope, ParseService, EventModel, $ionicModal, $ionicLoading, $stateParams, $state) {                    
-        
+
         $scope.moment=moment;
 
         $scope.currentUser=Parse.User.current()
@@ -7,8 +7,8 @@ bbb.controller('ViewEvent', function($scope, ParseService, EventModel, $ionicMod
         $scope.emailVerified=Parse.User.current().get('emailVerified')
 
         $scope.allowBookings=EventModel.data().settings.allowBookings
-        
-        angular.forEach(EventModel.data().iterations, function(iteration) {
+
+        EventModel.data().Iteration.forEach(function(iteration) {
                 if (iteration.id==$stateParams.id) { $scope.iteration=iteration }
         })
 
@@ -19,29 +19,29 @@ bbb.controller('ViewEvent', function($scope, ParseService, EventModel, $ionicMod
                 .equalTo("iteration", dummyIteration)
                 .count().then(function(r) {
                         $scope.iteration.bookings=r
-                        
+
                         if ($scope.iteration.capacity-r == 0 ) { findAlternativeIterations()}
-                        
+
                         $scope.$apply()
                 })
         }
         getCountOfBookings ();
-        
+
         var findAlternativeIterations = function() {
                 $scope.alternativeIterations = []
-                
+
                 angular.forEach(EventModel.data().iterations, function (i) {
                         if (i.event.id == $scope.iteration.event.id && i.id!=$scope.iteration.id) { $scope.alternativeIterations.push(i) }
                 })
-                
+
                 $scope.$apply();
         }
-        
-        
+
+
 
 
         $scope.$watch("iteration.booked", function(n,o) {
-		if (n!=o) { EventModel.toggleBooking($scope.iteration); }
+                if (n!=o) { EventModel.toggleBooking($scope.iteration); }
         })
 
         $ionicModal.fromTemplateUrl('pages/schedule/viewEvent_locationinfo.html', function($ionicModal) {

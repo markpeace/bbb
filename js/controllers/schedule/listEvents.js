@@ -1,7 +1,7 @@
 bbb.controller('ListEvents', function($state, $scope, ParseService, $rootScope, EventModel, NotificationService) { 
 
         EventModel.refresh();
-                
+
         $scope.moment=moment
         $scope.securityLevel=$rootScope.currentUser.get('securityLevel')
 
@@ -18,26 +18,23 @@ bbb.controller('ListEvents', function($state, $scope, ParseService, $rootScope, 
                         $scope.bookedTabColour='rgba(247, 200, 0, 0.5)'
                         $scope.scheduleTabColour='rgba(255, 255, 255, 0.5)'
                 }
-               
+
         }
         $scope.selectTab("ALL")
 
         $scope.filter = function(items) {
 
-                r=[]
+                if (!$scope.data.IterationDate) { return; }
 
-
-                angular.forEach(items, function(item) {
-                        if(moment(item.time).format("dddd, Do MMMM")==$scope.data.dates[$scope.selectedDate]) { 
+                return items.filter(function(item, index) {   
+                        if(moment(item.time).format("dddd, Do MMMM")==$scope.data.IterationDate[$scope.selectedDate]) { 
                                 if($scope.selectedTab=="BOOKED") {
-                                        if(item.booked) { r.push(item)}
+                                        if(item.booked) { return true }
                                 } else {
-                                        r.push(item)
+                                        return true
                                 }
                         }
                 })
-
-                return r;
         }
 
         $scope.changeDate=function(increment) {

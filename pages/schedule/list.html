@@ -2,8 +2,8 @@
 
         <div class="bar  bar-subheader">
                 <button class="button button-icon icon ion-arrow-left-c" ng-click="changeDate(-1)" ng-show="selectedDate>0"></button>
-                <h2 class="title">{{ data.dates[selectedDate] }}</h2>
-                <button class="button button-icon icon ion-arrow-right-c" ng-click="changeDate(1)" ng-show="selectedDate+1<data.dates.length"></button>
+                <h2 class="title">{{ data.IterationDate[selectedDate] }}</h2>
+                <button class="button button-icon icon ion-arrow-right-c" ng-click="changeDate(1)" ng-show="selectedDate+1<data.IterationDate.length"></button>
         </div>
 
         <ion-content class="has-header has-subheader">    
@@ -15,7 +15,7 @@
 
                 <ion-list>
 
-                        <ion-item ng-hide="data.iterations.length>0">  
+                        <ion-item ng-hide="data.Iteration.length>0">  
                                 <h2>Loading Events</h2>
                         </ion-item>
 
@@ -24,7 +24,7 @@
                                 <p>Click Here to Add Another Event</p>
                         </ion-item>
 
-                        <ion-item ng-class="iteration.isHost ? 'item-icon-right' : ''" ng-repeat="iteration in filter(data.iterations)" ui-sref="viewEvent({id:iteration.id})" href="#">
+                        <ion-item ng-class="iteration.isHost ? 'item-icon-right' : ''" ng-repeat="iteration in filter(data.Iteration)" ui-sref="viewEvent({id:iteration.id})" href="#">
                                 <i class="icon ion-ios7-person" ng-show="iteration.isHost"></i>
                                 <p>{{ iteration.event.series.label }} with {{ iteration.host.forename }} {{ iteration.host.surname }} </p>
                                 <h2>{{ moment(iteration.time).format("HH:mm") }} : {{ iteration.event.title }}</h2>    

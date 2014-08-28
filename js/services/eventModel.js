@@ -4,15 +4,15 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
 
                 console.log("refresh")
 
-                //if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
-                localStorage.setItem(Parse.User.current().id, JSON.stringify({
-                        lastUpdated: {Iteration: moment().subtract('years',1)._d},
-                        iterations: [],
-                        dates:[]
-                })) 
-                NotificationService.reminders.destroyAll();
-                console.log("Created localStorage Item")
-                //}
+                if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
+                        localStorage.setItem(Parse.User.current().id, JSON.stringify({
+                                lastUpdated: {Iteration: moment().subtract('years',1)._d},
+                                iterations: [],
+                                dates:[]
+                        })) 
+                        NotificationService.reminders.destroyAll();
+                        console.log("Created localStorage Item")
+                }
 
                 cache = {
                         dc: this,
@@ -79,8 +79,6 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                         }
 
                                 })
-
-
 
                         }
 
@@ -181,18 +179,12 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
 
                                 })                               
 
-
-                                cache.data.iterations=cache.data.Iteration 	//NEEDS REMOVING
-                                cache.data.dates=cache.data.IterationDate	//NEEDS REMOVING
-
-
                                 //UPDATE BOOKINGS
 
-                                cache.data.Booking.forEach(function(booking) {                                    
-                                        booking.iteration=findIt(cache.data.Iteration, booking.iteration)
-                                        booking.iteration.booked=true                                                                
+                                cache.data.Booking.forEach(function(booking) {                
+                                        booking.iteration=findIt(cache.data.Iteration, booking.iteration.id || booking.iteration )
+                                        booking.iteration.booked=true             
                                 })                                                
-                                cache.data.bookings=cache.data.Booking
 
                                 //UPDATE LOCATIONS
 
@@ -234,44 +226,36 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                 },
                 toggleBooking: function (iteration) {
 
-                        angular.forEach(cache.data.iterations, function(i, index) {
+                        angular.forEach(cache.data.Iteration, function(i, index) {
                                 if (iteration.id==i.id) { iterationIndex=index }
                         })
 
                         if (iteration.host.id == Parse.User.current().id) {
-                                if(iteration.booked!=true) {
+                                if(iteration.isHost) {
                                         alert("You cannot unbook yourself from this event, because you are the host")
                                         iteration.booked=true
                                 }
                                 return;
-                        }
-
-                        dummyIteration = (new (Parse.Object.extend("Booking")))
-                        dummyIteration.id = iteration.id                        
+                        }                                       
 
                         if (iteration.booked) {
 
                                 clash = false;
 
-                                angular.forEach(cache.data.iterations, function(i){
+                                cache.data.Booking.forEach(function(booking) {
+                                        //console.log(booking)
 
-                                        if(i.id!=iteration.id && i.booked) {
-
-                                                //DOES THE PREVIOUS START BEFORE THIS, AND FINISH AFTER IT?
-
-                                                if ((moment(i.time)<moment(iteration.time)) && (moment(i.time).add("minutes", i.event.length) > moment(iteration.time))) {
-                                                        clash=true
-                                                }
-
-
-                                                //DOES THIS ONE START BEFORE THE NEXT, AND FINISH AFTER IT?                                                
-                                                if ((moment(iteration.time)<moment(i.time)) && (moment(iteration.time).add("minutes", iteration.event.length) > moment(i.time))) {
-                                                        clash=true
-                                                }
-
+                                        if ((moment(booking.iteration.time)<=moment(iteration.time)) && (moment(booking.iteration.time).add("minutes", booking.iteration.event.duration) > moment(iteration.time))) {
+                                                clash=true
                                         }
 
-                                })                                
+
+                                        //DOES THIS ONE START BEFORE THE NEXT, AND FINISH AFTER IT?                                                
+                                        if ((moment(iteration.time)<moment(booking.iteration.time)) && (moment(iteration.time).add("minutes", iteration.event.duration) > moment(booking.iteration.time))) {
+                                                clash=true
+                                        }
+
+                                })
 
                                 if (clash) {
                                         alert("You are already booked onto an event at this time.")
@@ -283,21 +267,30 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                         template: 'Completing Booking...'
                                 });
 
-                                cache.data.iterations[iterationIndex].booked=true;
+                                cache.data.Booking.push({iteration:iteration});
+
+                                dummyIteration = (new (Parse.Object.extend("Booking")))
+                                dummyIteration.id = iteration.id;        
+
                                 (new (Parse.Object.extend("Booking")))	
                                 .save({user:Parse.User.current(), iteration:dummyIteration}).then(function() {
                                         $ionicLoading.hide();
                                 }) 
                                 iteration.bookings++;
                                 cache.save();        
+
                                 NotificationService.reminders.set(iteration)
 
                         } else if(!iteration.booked) {                       
                                 $ionicLoading.show({
                                         template: 'Removing Booking...'
                                 });
-                                NotificationService.reminders.destroy(iteration)
-                                cache.data.iterations[iterationIndex].booked=false;                                
+
+                                cache.data.Booking = cache.data.Booking.filter(function(booking){
+                                        return booking.iteration.id!=iteration.id
+                                })
+
+                                NotificationService.reminders.destroy(iteration);                              
                                 (new Parse.Query("Booking"))
                                 .equalTo("user", Parse.User.current())
                                 .equalTo("iteration", dummyIteration)
