@@ -33,7 +33,8 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel, $io
 
                         if(moment(e.timestamp).isAfter(moment().subtract("seconds", 5))) {
 
-                                $scope.geolocated=e.coords                                                
+                                $scope.geolocated=e
+                                $scope.geolocated.actTime=moment(e.timestamp)
 
                                 $scope.nearby=EventModel.data().Location.filter(function(location) {
                                         if (location.explorationLocation && 
