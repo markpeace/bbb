@@ -1,7 +1,7 @@
 bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel, $ionicLoading) { 
 
         if(Parse.User.current().get("securityLevel")==1) { $scope.isAdmin=true }
-        
+
         var locationBased = {
 
                 getDistance: function(lat1, lon1, lat2, lon2) {
@@ -21,22 +21,29 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel, $io
                         return d*1000;
                 },                
 
-                locate: function () {
+                locate: function () {                        
+
                         locationBased.watch = navigator.geolocation.watchPosition(locationBased.getPlaces, function() {}, { maximumAge: 0, maxWait: 10000, enableHighAccuracy: true });
                         $scope.$on('$stateChangeStart', function() {
                                 navigator.geolocation.clearWatch(locationBased.watch)
-                        })
+                        })   
+
                 },
                 getPlaces: function(e) {
-                        $scope.geolocated=e.coords            
 
-                        $scope.nearby=EventModel.data().Location.filter(function(location) {
-                                if (location.explorationLocation && 
-                                    locationBased.getDistance(e.coords.latitude, e.coords.longitude, location.geolocation.latitude, location.geolocation.longitude)<location.range) {                                
-                                        return true
-                                }
-                        })
-                        $scope.$apply()
+                        if(moment(e.timestamp).isAfter(moment().subtract("seconds", 5))) {
+
+                                $scope.geolocated=e.coords                                                
+
+                                $scope.nearby=EventModel.data().Location.filter(function(location) {
+                                        if (location.explorationLocation && 
+                                            locationBased.getDistance(e.coords.latitude, e.coords.longitude, location.geolocation.latitude, location.geolocation.longitude)<location.range) {                                
+                                                return true
+                                        }
+                                })
+                                $scope.$apply()
+
+                        }
                 }               
 
 
