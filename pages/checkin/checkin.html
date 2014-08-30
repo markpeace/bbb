@@ -22,7 +22,7 @@
                         <div class="item item-text-wrap" ng-show="geolocated && nearby.length==0">
                                 No Exploration Location Nearby
                         </div>
-                        <a class="item item-text-wrap" ng-repeat="location in nearby" ng-click="doCheckin(location.id)">
+                        <a class="item item-text-wrap" ng-repeat="location in nearby" ng-click="doCheckin(location)">
                                 {{ location.enigmaticTitle }}
                         </a>
                 </div>

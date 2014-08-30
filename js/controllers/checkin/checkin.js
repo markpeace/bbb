@@ -2,7 +2,7 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel, $io
 
         if(Parse.User.current().get("securityLevel")==1) { $scope.isAdmin=true }
         $scope.geolocated=false
-        
+
         var locationBased = {
 
                 getDistance: function(lat1, lon1, lat2, lon2) {
@@ -31,7 +31,7 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel, $io
 
                 },
                 getPlaces: function(e) {
-                        
+
                         $scope.geolocated=false
 
                         if(moment(e.timestamp).isAfter(moment().subtract("seconds", 5))) {
@@ -107,47 +107,54 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel, $io
                 }
         }
 
-        $scope.doCheckin = function(locationID) {
+        $scope.doCheckin = function(location) {
 
                 $ionicLoading.show({ template: "Checking In..." })
 
                 //MANUALLY SET THE FIRST ITERATION TO TAKE PLACE NOW, AND HERE
-                EventModel.data().iterations[0].time=moment().subtract("minutes",10)._d
-                EventModel.data().iterations[0].location.id=locationID               
+                //EventModel.data().Booking[0].iteration.time=moment().subtract("minutes",10)._d
+                //EventModel.data().Booking[0].iteration.location.id=location.id               
+                EventModel.data().Checkin=[]
 
-
-                //SEE IF THERE IS AN EVENT CURRENTLY HAPPENING IN THIS PLACE
-                currentIteration=null
-                angular.forEach(EventModel.data().iterations, function(iteration) {                        
+                //SEE IF THERE IS AN EVENT CURRENTLY HAPPENING IN THIS PLACE                
+                currentIteration = EventModel.data().Booking.filter(function(booking){
                         if(
-                                iteration.location.id==locationID 
-                                && moment().isAfter(moment(iteration.time))
-                                && moment().isBefore(moment(iteration.time).add("minutes", iteration.event.duration))
-                                && iteration.booked
+                                booking.iteration.location.id==location.id
+                                && moment().isAfter(moment(booking.iteration.time))
+                                && moment().isBefore(moment(booking.iteration.time).add("minutes", booking.iteration.event.duration))
                         ) {          
-                                console.log(iteration)
-                                currentIteration = iteration.id
-                        }                                                
-                })                
+                                return true
+                        }      
+                })[0] || null
 
+                //CHECK THIS ISN'T A DUPLICATE
+                
+                //SAVE IT                
+                EventModel.data().Checkin.push({ iteration: (currentIteration ? currentIteration.iteration : null), location: location })
+                EventModel.save() 
 
-                //CHECK TO SEE IF THE USER HAS ALREADY CHECKED IN TO THIS COMBINATION                                
-                console.log("need to write something which checks whether this checkin exists")                                      
+                checkin = new (Parse.Object.extend("Checkin"))
+                
+                dummyIteration=null
+                if (currentIteration) {
+                        dummyIteration = new (Parse.Object.extend("Iteration"))
+                        dummyIteration.id = currentIteration.iteration.id                         
+                } 
 
-                EventModel.data().Checkin.push({ iteration: currentIteration, location: locationID })
-                EventModel.save()
-                console.log(EventModel.data().Checkin)
+                dummyLocation = new (Parse.Object.extend("Location"))
+                dummyLocation.id = location.id;
 
-
-                /*                (new (Parse.Object.extend("Location")))
-                .save($scope.location).then(function() {
+                
+                checkin.set("iteration", dummyIteration)
+                checkin.set("location", dummyLocation)
+                checkin.save().then(function() {
                         $ionicLoading.hide();
                         $state.go("tabs.explore")                                         
-                })    
+                });
+
+
 
                 $ionicLoading.hide()
-*/
-
         }
 
 
