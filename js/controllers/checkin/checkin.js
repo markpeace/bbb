@@ -63,9 +63,9 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel, $io
                         var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 
                         scanner.scan( function (result) { 
-                                $scope.doCheckin EventModel.data().Location.filter(function(location) {
+                                $scope.doCheckin(EventModel.data().Location.filter(function(location) {
                                         return location.id==result
-                                })
+                                }))
                         })
 
                 } catch (ex) {
