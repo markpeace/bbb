@@ -66,7 +66,7 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel, $io
                                 if (result) {
                                         $scope.doCheckin( EventModel.data().Location.filter(function(location) {
                                                 return location.id==result
-                                        }))
+                                        })[0])
                                 }
                         })
 
