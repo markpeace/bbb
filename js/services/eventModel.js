@@ -4,7 +4,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
 
                 console.log("refresh")
 
-                if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
+                //if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
                         localStorage.setItem(Parse.User.current().id, JSON.stringify({
                                 lastUpdated: {Iteration: moment().subtract('years',1)._d},
                                 iterations: [],
@@ -12,7 +12,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                         })) 
                         NotificationService.reminders.destroyAll();
                         console.log("Created localStorage Item")
-                }
+                //}
 
                 cache = {
                         dc: this,
@@ -50,7 +50,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                 { table: "Series", constraints: [], fields: ["label"] },
                                 { table: "Iteration", constraints: [".ascending('time')"], fields: ["capacity", "event", "location", "host", "time"] },
                                 { table: "Booking", constraints: [".equalTo('user', Parse.User.current())"], fields: ["iteration"] },
-                                { table: "Checkin", constraints: [".equalTo('user', Parse.User.current())"], fields: ["booking", "location"] }
+                                { table: "Checkin", constraints: [".equalTo('user', Parse.User.current())"], fields: ["iteration", "location"] }
                         ]
                         lookupIndex=-1
 
@@ -197,6 +197,13 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                         })
                                 })
 
+                                //UPDATE CHECKINS
+                                cache.data.Checkin.forEach(function(checkin) {
+                                        checkin.iteration=checkin.iteration ? findIt(cache.data.Iteration, checkin.iteration.id || checkin.iteration ) : null
+                                        checkin.location=findIt(cache.data.Location, checkin.location.id || checkin.location )
+                                })
+                                
+                                
                                 cache.data.lastUpdated.Iteration=moment()._d;      
                                 console.log(cache.data)
                                 cache.save();
