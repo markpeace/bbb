@@ -109,12 +109,7 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel, $io
 
         $scope.doCheckin = function(location) {
 
-                $ionicLoading.show({ template: "Checking In..." })
-
-                //MANUALLY SET THE FIRST ITERATION TO TAKE PLACE NOW, AND HERE
-                //EventModel.data().Booking[0].iteration.time=moment().subtract("minutes",10)._d
-                //EventModel.data().Booking[0].iteration.location.id=location.id               
-                EventModel.data().Checkin=[]
+                $ionicLoading.show({ template: "Checking In..." })             
 
                 //SEE IF THERE IS AN EVENT CURRENTLY HAPPENING IN THIS PLACE                
                 currentIteration = EventModel.data().Booking.filter(function(booking){
@@ -128,13 +123,26 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel, $io
                 })[0] || null
 
                 //CHECK THIS ISN'T A DUPLICATE
-                
+                if(EventModel.data().Checkin.some(function(checkin) {                          
+                        return 	checkin.iteration==(currentIteration ? currentIteration.iteration : null) && 
+                                checkin.location.id==location.id
+                })) {
+                        console.log("Checkin already exists, failing gracefully")
+                        $ionicLoading.hide()
+                        if(location.explorationLocation) {
+                                $state.go("viewLocation", { id:location.id })
+                        } else {
+                                $state.go("tabs.schedule")
+                        }
+                        return;
+                } 
+
                 //SAVE IT                
                 EventModel.data().Checkin.push({ iteration: (currentIteration ? currentIteration.iteration : null), location: location })
                 EventModel.save() 
 
                 checkin = new (Parse.Object.extend("Checkin"))
-                
+
                 dummyIteration=null
                 if (currentIteration) {
                         dummyIteration = new (Parse.Object.extend("Iteration"))
@@ -144,17 +152,19 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel, $io
                 dummyLocation = new (Parse.Object.extend("Location"))
                 dummyLocation.id = location.id;
 
-                
+                checkin.set("user", Parse.User.current())
                 checkin.set("iteration", dummyIteration)
                 checkin.set("location", dummyLocation)
                 checkin.save().then(function() {
                         $ionicLoading.hide();
-                        $state.go("tabs.explore")                                         
+                        if(location.explorationLocation) {
+                                $state.go("viewLocation", { id:location.id })
+                        } else {
+                                $state.go("tabs.schedule")
+                        }
+                        return;
                 });
 
-
-
-                $ionicLoading.hide()
         }
 
 
