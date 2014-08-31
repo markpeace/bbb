@@ -273,7 +273,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
 
                                 cache.data.Booking.push({iteration:iteration});
 
-                                dummyIteration = (new (Parse.Object.extend("Booking")))
+                                dummyIteration = (new (Parse.Object.extend("Iteration")))
                                 dummyIteration.id = iteration.id;        
 
                                 (new (Parse.Object.extend("Booking")))	
@@ -293,6 +293,9 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                 cache.data.Booking = cache.data.Booking.filter(function(booking){
                                         return booking.iteration.id!=iteration.id
                                 })
+
+                                dummyIteration = (new (Parse.Object.extend("Iteration")))
+                                dummyIteration.id = iteration.id;      
 
                                 NotificationService.reminders.destroy(iteration);                              
                                 (new Parse.Query("Booking"))

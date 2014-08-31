@@ -5,43 +5,43 @@ bbb.controller('AttendenceRegister', function($scope, ParseService, $stateParams
 
         $scope.iterations =[]
 
-
-        dummyIteration = (new (Parse.Object.extend("Booking")))
+        dummyIteration = (new (Parse.Object.extend("Iteration")))
         dummyIteration.id = $scope.id                        
 
 
         new Parse.Query("Booking")
         .equalTo("iteration", dummyIteration)
         .include("user")
-        .include("checkin")
+        .include("iteration").include("iteration.location")
         .find().then(function(result) {
 
-                $scope.bookings = result
+                result.forEach(function(booking) {
+                        booking.attended=false
+                })
+                
+                $scope.bookings = result                
+                
                 $scope.$apply()
         })
 
 
         $scope.toggleAttendence = function(booking) {
-
-                if(booking.get("checkin")) {
-                        booking.get("checkin").destroy().then(function() {
-                                booking.set("checkin", null).save().then(function() {
-                                        $scope.$apply()
-                                })
-                        })
+                
+                console.log(booking.get("iteration"))
+                
+		if (booking.attended) {
+                        console.log("delete attendence record")
                 } else {
-                        checkin = new Parse.Object("Checkin")
-                        checkin.save({
-                                booking:booking,
-                                user: booking.get("user")
-                        }).then(function (result) {
-                                booking.set("checkin", result).save().then(function() {
-                                        $scope.$apply()
-                                })
-
-                        })                        
-
-                }
+                        
+                        (new (Parse.Object.extend("Checkin")))
+                        .save({
+                                iteration: dummyIteration,
+                                location: booking.get("iteration").get("location")
+                        })
+                        
+                        
+                        console.log("add attendence record")
+                }       
         }
 
 
