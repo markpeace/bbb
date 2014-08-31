@@ -12,12 +12,14 @@
                                 </ion-item>
                                 <ion-item href="#" ng-repeat="location in locations | filter: category | filter: location.explorationLocation=true "  
                                           ui-sref="viewLocation({id:location.id})"
-                                          class="item-text-wrap item-icon-left">
-                                        <i class="icon ion-ios7-circle-outline" ng-show="1==1"></i>
-                                        <i class="icon ion-ios7-checkmark-outline" ng-hide="1==1"></i>
+                                          class="item-icon-left item-icon-right">
+                                        <i class="icon ion-ios7-circle-outline" ng-hide="location.visited"></i>
+                                        <i class="icon ion-ios7-checkmark-outline" ng-show="location.visited"></i>
 
-                                        <h2>{{ location.enigmaticTitle }}</h2>
-                                        <p>{{ location.clue }} </p>
+                                        <h2>{{ location.visited ? location.label : location.enigmaticTitle }}</h2>
+                                        <p>{{ location.visited ? location.blurb : location.clue }} </p>
+
+                                        <i class="icon ion-ios7-arrow-right"></i>
 
                                 </ion-item>                                
                         </div>                                              

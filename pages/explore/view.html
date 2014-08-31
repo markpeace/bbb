@@ -4,11 +4,42 @@
 </div>
 
 <ion-content class="has-header">
-        <div class="list card">
 
-                <div class="item item-divider">     
-                        <h2>{{ location.enigmaticTitle }}</h2>
+        <div class="list card" ng-show="location.visited">
+
+                <div class="item item-divider item-text-wrap">     
+                        {{ location.label }}
+                </div>
+
+                <div class="item item-divider item-text-wrap">     
+                        <p> {{ location.blurb }}</p>
+                </div>
+
+                <div class="item-icon-left item " ng-show="location.visited">
+                        <i class="icon ion-ios7-checkmark-outline" ></i>
+                        Location Found
+                </div>
+
+                <div class="item item-text-wrap">     
+                        <p style=" font-style: italic;">{{ location.enigmaticTitle }}: {{ location.clue }}</p>
+                </div>
+
+
+        </div>
+
+        <div class="list card" ng-hide="location.visited">
+
+                <div class="item item-divider item-text-wrap">     
+                        {{ location.enigmaticTitle }}
+                </div>
+
+                <div class="item item-divider item-text-wrap">        
                         <p> {{ location.clue }}</p>
+                </div>
+
+                <div class="item-icon-left item " ng-show="location.visited">
+                        <i class="icon ion-ios7-checkmark-outline" ></i>
+                        Not Yet Found
                 </div>
 
         </div>

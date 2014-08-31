@@ -201,6 +201,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                 cache.data.Checkin.forEach(function(checkin) {
                                         checkin.iteration=checkin.iteration ? findIt(cache.data.Iteration, checkin.iteration.id || checkin.iteration ) : null
                                         checkin.location=findIt(cache.data.Location, checkin.location.id || checkin.location )
+                                        checkin.location.visited=true;
                                 })
 
 

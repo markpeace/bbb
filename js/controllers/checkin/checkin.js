@@ -110,6 +110,7 @@ bbb.controller('CheckIn', function($scope, $state, ParseService, EventModel, $io
 
                 //SAVE IT                
                 EventModel.data().Checkin.push({ iteration: (currentIteration ? currentIteration.iteration : null), location: location })
+                location.visited=true;
                 EventModel.save() 
 
                 checkin = new (Parse.Object.extend("Checkin"))
