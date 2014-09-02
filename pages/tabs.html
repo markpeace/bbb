@@ -15,7 +15,7 @@
                 <ion-nav-view name="schedule-tab"></ion-nav-view>
         </ion-tab>  
         
-        <ion-tab ng-if="isAdmin" title="Explore" icon-on="ion-ios7-navigate" icon-off="ion-ios7-navigate-outline" href="#/tab/explore">  
+        <ion-tab ng-if="setting.allowExploration || isAdmin" title="Explore" icon-on="ion-ios7-navigate" icon-off="ion-ios7-navigate-outline" href="#/tab/explore">  
                 <ion-nav-view name="explore-tab"></ion-nav-view>
         </ion-tab>  
 

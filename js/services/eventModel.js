@@ -133,17 +133,15 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
 
                                 //UPDATE SETTINGS
 
-                                cache.data.settings = {} 
+                                settings=cache.data.Setting;
+                                cache.data.Setting={}
 
-                                angular.forEach(cache.data.Setting, function (s) {
-                                        for (key in JSON.parse(s.settings)) {
-                                                cache.data.settings[key] = JSON.parse(s.settings)[key]
-                                        }
+                                settings.forEach(function(settingRow){
+                                        settingRow=JSON.parse(settingRow.settings)
+                                        Object.keys(settingRow).forEach(function(key) {
+                                                cache.data.Setting[key]= settingRow[key]
+                                        })
                                 })
-
-                                for(var objectId in cache.data.Setting) {
-                                        cache.data.settings = JSON.parse(cache.data.Setting[objectId].settings)
-                                }
 
 
                                 //UPDATE EVENTS

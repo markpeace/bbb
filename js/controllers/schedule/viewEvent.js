@@ -6,7 +6,7 @@ bbb.controller('ViewEvent', function($scope, ParseService, EventModel, $ionicMod
         $scope.securityLevel=Parse.User.current().get('securityLevel')
         $scope.emailVerified=Parse.User.current().get('emailVerified')
 
-        $scope.allowBookings=EventModel.data().settings.allowBookings
+        $scope.allowBookings=EventModel.data().Setting.allowBookings
 
         EventModel.data().Iteration.forEach(function(iteration) {
                 if (iteration.id==$stateParams.id) { $scope.iteration=iteration }
