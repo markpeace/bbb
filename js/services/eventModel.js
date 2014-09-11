@@ -276,14 +276,14 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                         dummyIteration.id = iteration.id;        
 
                                         (new (Parse.Object.extend("Booking")))	
-                                        .save({user:Parse.User.current(), iteration:dummyIteration}).then(function() {
+                                        .save().then(function() {
                                                 $ionicLoading.hide();
                                         }) 
-                                        /*
+                                        
                                         iteration.bookings++;
                                         cache.save();        
 
-                                        NotificationService.reminders.set(iteration)*/
+                                        NotificationService.reminders.set(iteration)
                                 } catch(ex) {
                                         alert(ex)
                                 }
