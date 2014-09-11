@@ -1,5 +1,7 @@
 bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading","$rootScope","$state", function(NotificationService, ParseService, $ionicLoading, $rootScope, $state) {                      
 
+        var _parse = Parse
+        
         var _refresh = function () {
 
                 console.log("refresh")
@@ -275,6 +277,8 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                         dummyIteration = (new (Parse.Object.extend("Iteration")))
                                         dummyIteration.id = iteration.id;        
 
+                                        alert(Parse.User.current().id)
+                                        
                                         (new (Parse.Object.extend("Booking")))	
                                         .save({user:Parse.User.current(), iteration:dummyIteration}).then(function() {
                                                 $ionicLoading.hide();
