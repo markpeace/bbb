@@ -286,9 +286,10 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                         } else if(!iteration.booked) {                       
 
                                 try {
-                                        $ionicLoading.show({
+                                        /*$ionicLoading.show({
                                                 template: 'Removing Booking...'
-                                        });
+                                        });*/
+                                        alert("start")
 
                                         cache.data.Booking = cache.data.Booking.filter(function(booking){
                                                 return booking.iteration.id!=iteration.id
