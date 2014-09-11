@@ -4,7 +4,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
 
                 console.log("refresh")
 
-                if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
+                //if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
                         localStorage.setItem(Parse.User.current().id, JSON.stringify({
                                 lastUpdated: {Iteration: moment().subtract('years',1)._d},
                                 iterations: [],
@@ -12,7 +12,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                         })) 
                         NotificationService.reminders.destroyAll();
                         console.log("Created localStorage Item")
-                }
+                //}
 
                 cache = {
                         dc: this,
