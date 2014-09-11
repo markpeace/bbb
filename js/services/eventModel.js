@@ -1,20 +1,20 @@
 bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading","$rootScope","$state", function(NotificationService, ParseService, $ionicLoading, $rootScope, $state) {                      
 
         var _parse = Parse
-        
+
         var _refresh = function () {
 
                 console.log("refresh")
 
-                //if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
-                localStorage.setItem(Parse.User.current().id, JSON.stringify({
-                        lastUpdated: {Iteration: moment().subtract('years',1)._d},
-                        iterations: [],
-                        dates:[]
-                })) 
-                NotificationService.reminders.destroyAll();
-                console.log("Created localStorage Item")
-                //}
+                if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
+                        localStorage.setItem(Parse.User.current().id, JSON.stringify({
+                                lastUpdated: {Iteration: moment().subtract('years',1)._d},
+                                iterations: [],
+                                dates:[]
+                        })) 
+                        NotificationService.reminders.destroyAll();
+                        console.log("Created localStorage Item")
+                }
 
                 cache = {
                         dc: this,
@@ -276,15 +276,15 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
 
                                         dummyIteration = (new (Parse.Object.extend("Iteration")))
                                         dummyIteration.id = iteration.id; 
-                                        
+
                                         dummyUser = (new (Parse.Object.extend("User")))
                                         dummyUser.id = Parse.User.current().id; 
-                                        
+
                                         (new (Parse.Object.extend("Booking")))	
                                         .save({user:dummyUser, iteration:dummyIteration}).then(function() {
                                                 $ionicLoading.hide();
                                         }) 
-                                        
+
                                         iteration.bookings++;
                                         cache.save();        
 
