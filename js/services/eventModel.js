@@ -269,7 +269,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                         $ionicLoading.show({
                                                 template: 'Completing Booking...'
                                         });
-
+/*
                                         cache.data.Booking.push({iteration:iteration});
 
                                         dummyIteration = (new (Parse.Object.extend("Iteration")))
@@ -280,10 +280,10 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                                 $ionicLoading.hide();
                                         }) 
                                         
-                                        //iteration.bookings++;
-                                        //cache.save();        
+                                        iteration.bookings++;
+                                        cache.save();        
 
-                                        //NotificationService.reminders.set(iteration)
+                                        NotificationService.reminders.set(iteration)*/
                                 } catch(ex) {
                                         alert(ex)
                                 }
