@@ -242,81 +242,80 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
 
                         if (iteration.booked) {
 
-                                clash = false;
+                                try {
+                                        clash = false;
 
-                                cache.data.Booking.forEach(function(booking) {
-                                        //console.log(booking)
+                                        cache.data.Booking.forEach(function(booking) {
+                                                //console.log(booking)
 
-                                        if ((moment(booking.iteration.time)<=moment(iteration.time)) && (moment(booking.iteration.time).add("minutes", booking.iteration.event.duration) > moment(iteration.time))) {
-                                                clash=true
-                                        }
+                                                if ((moment(booking.iteration.time)<=moment(iteration.time)) && (moment(booking.iteration.time).add("minutes", booking.iteration.event.duration) > moment(iteration.time))) {
+                                                        clash=true
+                                                }
 
 
-                                        //DOES THIS ONE START BEFORE THE NEXT, AND FINISH AFTER IT?                                                
-                                        if ((moment(iteration.time)<moment(booking.iteration.time)) && (moment(iteration.time).add("minutes", iteration.event.duration) > moment(booking.iteration.time))) {
-                                                clash=true
-                                        }
+                                                //DOES THIS ONE START BEFORE THE NEXT, AND FINISH AFTER IT?                                                
+                                                if ((moment(iteration.time)<moment(booking.iteration.time)) && (moment(iteration.time).add("minutes", iteration.event.duration) > moment(booking.iteration.time))) {
+                                                        clash=true
+                                                }
 
-                                })
+                                        })
 
-                                if (clash) {
-                                        alert("You are already booked onto an event at this time.")
-                                        iteration.booked=false;
-                                        return;
-                                }                                
+                                        if (clash) {
+                                                alert("You are already booked onto an event at this time.")
+                                                iteration.booked=false;
+                                                return;
+                                        }                                
 
-                                $ionicLoading.show({
-                                        template: 'Completing Booking...'
-                                });
+                                        $ionicLoading.show({
+                                                template: 'Completing Booking...'
+                                        });
 
-                                cache.data.Booking.push({iteration:iteration});
+                                        cache.data.Booking.push({iteration:iteration});
 
-                                dummyIteration = (new (Parse.Object.extend("Iteration")))
-                                dummyIteration.id = iteration.id;        
+                                        dummyIteration = (new (Parse.Object.extend("Iteration")))
+                                        dummyIteration.id = iteration.id;        
 
-                                (new (Parse.Object.extend("Booking")))	
-                                .save({user:Parse.User.current(), iteration:dummyIteration}).then(function() {
-                                        $ionicLoading.hide();
-                                }) 
-                                iteration.bookings++;
-                                cache.save();        
+                                        alert("about to submit")
 
-                                NotificationService.reminders.set(iteration)
+                                        (new (Parse.Object.extend("Booking")))	
+                                        .save({user:Parse.User.current(), iteration:dummyIteration}).then(function() {
+                                                $ionicLoading.hide();
+                                        }) 
+                                        iteration.bookings++;
+                                        cache.save();        
+
+                                        NotificationService.reminders.set(iteration)
+                                } catch(ex) {
+                                        alert(ex)
+                                }
 
                         } else if(!iteration.booked) {                       
 
-                                try {
-                                        /*$ionicLoading.show({
-                                                template: 'Removing Booking...'
-                                        });*/
-                                        alert("start")
+                                $ionicLoading.show({
+                                        template: 'Removing Booking...'
+                                });
 
-                                        cache.data.Booking = cache.data.Booking.filter(function(booking){
-                                                return booking.iteration.id!=iteration.id
+                                cache.data.Booking = cache.data.Booking.filter(function(booking){
+                                        return booking.iteration.id!=iteration.id
+                                })
+
+                                dummyIteration = (new (Parse.Object.extend("Iteration")))
+                                dummyIteration.id = iteration.id;      
+
+                                NotificationService.reminders.destroy(iteration);                              
+                                (new Parse.Query("Booking"))
+                                .equalTo("user", Parse.User.current())
+                                .equalTo("iteration", dummyIteration)
+                                .find().then(function(r){
+                                        angular.forEach(r,function(r) {
+                                                r.destroy(); 
+                                                iteration.bookings--;
+                                                $rootScope.$apply();
                                         })
+                                        $ionicLoading.hide()
+                                })
 
-                                        dummyIteration = (new (Parse.Object.extend("Iteration")))
-                                        dummyIteration.id = iteration.id;     
-
-                                        alert("half way")
-
-                                        NotificationService.reminders.destroy(iteration);                              
-                                        (new Parse.Query("Booking"))
-                                        .equalTo("user", Parse.User.current())
-                                        .equalTo("iteration", dummyIteration)
-                                        .find().then(function(r){
-                                                angular.forEach(r,function(r) {
-                                                        r.destroy(); 
-                                                        iteration.bookings--;
-                                                        $rootScope.$apply();
-                                                })
-                                                $ionicLoading.hide()
-                                        })
-
-                                        cache.save();        
-                                } catch (ex) {
-                                        alert(ex)
-                                }
+                                cache.save();        
                         }                        
 
                 }
