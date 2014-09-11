@@ -23,6 +23,9 @@
         permission on your app, which PhoneGap requires.
     -->
         <!--<preference name="permissions"                value="none"/>-->
+        <gap:config-file platform="ios" parent="CFBundleShortVersionString"> 
+                <string>12</string> 
+        </gap:config-file>
 
         <gap:config-file platform="android" parent="/manifest">
                 <supports-screens android:anyDensity="true" android:resizeable="true" 
@@ -71,9 +74,9 @@
         <!--<gap:plugin name="org.apache.cordova.globalization" /> -->
         <!--<gap:plugin name="org.apache.cordova.inappbrowser" /> -->
         <!--<gap:plugin name="org.apache.cordova.media" /> -->
-        
+
         <gap:plugin name="org.apache.cordova.network-information" />
-        
+
         <!--<gap:plugin name="org.apache.cordova.splashscreen" /> -->
         <!--<gap:plugin name="org.apache.cordova.vibration" /> -->
 
@@ -97,7 +100,7 @@
         <icon src="res/icon/appicon-72@2x.png"         gap:platform="ios"        width="144" height="144" />
         <icon src="res/icon/appicon-120.png"            gap:platform="ios"        width="120" height="120" />
         <icon src="res/icon/appicon-76.png"            gap:platform="ios"        width="76" height="76" />
-        
+
         <!-- Define app splash screen for each platform. -->
         <gap:splash src="res/splash/screen-ldpi-portrait.png"       gap:platform="android" gap:qualifier="port-ldpi" />
         <gap:splash src="res/splash/screen-mdpi-portrait.png"       gap:platform="android" gap:qualifier="port-mdpi" />
