@@ -296,7 +296,8 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
 
                                         dummyIteration = (new (Parse.Object.extend("Iteration")))
                                         dummyIteration.id = iteration.id;     
-                                        console.log("half way")
+
+                                        alert("half way")
 
                                         NotificationService.reminders.destroy(iteration);                              
                                         (new Parse.Query("Booking"))
