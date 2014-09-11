@@ -5,13 +5,13 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                 console.log("refresh")
 
                 //if(!localStorage.getItem(Parse.User.current().id)) { 						// <- Needs removing when we go live...
-                        localStorage.setItem(Parse.User.current().id, JSON.stringify({
-                                lastUpdated: {Iteration: moment().subtract('years',1)._d},
-                                iterations: [],
-                                dates:[]
-                        })) 
-                        NotificationService.reminders.destroyAll();
-                        console.log("Created localStorage Item")
+                localStorage.setItem(Parse.User.current().id, JSON.stringify({
+                        lastUpdated: {Iteration: moment().subtract('years',1)._d},
+                        iterations: [],
+                        dates:[]
+                })) 
+                NotificationService.reminders.destroyAll();
+                console.log("Created localStorage Item")
                 //}
 
                 cache = {
@@ -284,31 +284,37 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                 NotificationService.reminders.set(iteration)
 
                         } else if(!iteration.booked) {                       
-                                $ionicLoading.show({
-                                        template: 'Removing Booking...'
-                                });
 
-                                cache.data.Booking = cache.data.Booking.filter(function(booking){
-                                        return booking.iteration.id!=iteration.id
-                                })
+                                try {
+                                        $ionicLoading.show({
+                                                template: 'Removing Booking...'
+                                        });
 
-                                dummyIteration = (new (Parse.Object.extend("Iteration")))
-                                dummyIteration.id = iteration.id;      
-
-                                NotificationService.reminders.destroy(iteration);                              
-                                (new Parse.Query("Booking"))
-                                .equalTo("user", Parse.User.current())
-                                .equalTo("iteration", dummyIteration)
-                                .find().then(function(r){
-                                        angular.forEach(r,function(r) {
-                                                r.destroy(); 
-                                                iteration.bookings--;
-                                                $rootScope.$apply();
+                                        cache.data.Booking = cache.data.Booking.filter(function(booking){
+                                                return booking.iteration.id!=iteration.id
                                         })
-                                        $ionicLoading.hide()
-                                })
 
-                                cache.save();                
+                                        dummyIteration = (new (Parse.Object.extend("Iteration")))
+                                        dummyIteration.id = iteration.id;     
+                                        console.log("half way")
+
+                                        NotificationService.reminders.destroy(iteration);                              
+                                        (new Parse.Query("Booking"))
+                                        .equalTo("user", Parse.User.current())
+                                        .equalTo("iteration", dummyIteration)
+                                        .find().then(function(r){
+                                                angular.forEach(r,function(r) {
+                                                        r.destroy(); 
+                                                        iteration.bookings--;
+                                                        $rootScope.$apply();
+                                                })
+                                                $ionicLoading.hide()
+                                        })
+
+                                        cache.save();        
+                                } catch (ex) {
+                                        alert(ex)
+                                }
                         }                        
 
                 }
