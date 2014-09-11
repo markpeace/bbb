@@ -275,18 +275,15 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                         dummyIteration = (new (Parse.Object.extend("Iteration")))
                                         dummyIteration.id = iteration.id;        
 
-                                        alert("about to submit");
-
                                         (new (Parse.Object.extend("Booking")))	
                                         .save({user:Parse.User.current(), iteration:dummyIteration}).then(function() {
                                                 $ionicLoading.hide();
                                         }) 
                                         
-                                        alert("submitted");
-                                        iteration.bookings++;
-                                        cache.save();        
+                                        //iteration.bookings++;
+                                        //cache.save();        
 
-                                        NotificationService.reminders.set(iteration)
+                                        //NotificationService.reminders.set(iteration)
                                 } catch(ex) {
                                         alert(ex)
                                 }
