@@ -285,7 +285,8 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
 
                                         NotificationService.reminders.set(iteration)
                                 } catch(ex) {
-                                        alert(ex)
+                                        $ionicLoading.hide();
+                                        alert("booking failed, try logging in and out again")
                                 }
 
                         } else if(!iteration.booked) {                       
