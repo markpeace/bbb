@@ -161,6 +161,11 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                         iteration.booked = iteration.host.id==Parse.User.current().id ? true : false
                                         iteration.isHost = iteration.host.id==Parse.User.current().id ? true : false
 
+                                        if(!Parse.User.current().get("cohort")) {
+                                                dummyCohort = (new (Parse.Object.extend("Programme")));
+                                                dummyCohort.id="MV1N8Bux0r"; 
+                                                Parse.User.current().set("cohort", dummyCohort).save();
+                                        }
 
                                         iteration.inCohort = JSON.stringify(iteration.event.cohorts).indexOf(Parse.User.current().get("cohort").id)
                                         iteration.inCohort = iteration.inCohort==-1 ? false : true
