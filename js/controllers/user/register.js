@@ -2,7 +2,7 @@ bbb.controller('Register', function($scope, $ionicModal,  $ionicLoading, ParseSe
 
         $scope.programmes=[];
 
-	var requireMMUEmail = true;
+        var requireMMUEmail = true;
 
         $scope.programmeLabel="Programme";
 
@@ -49,7 +49,7 @@ bbb.controller('Register', function($scope, $ionicModal,  $ionicLoading, ParseSe
                         if ($scope.newUser.confirm_password.length>0 && $scope.newUser.password==$scope.newUser.confirm_password) { return true; } else { return false; }      
                 }
         }
-        
+
         $scope.deactivateEmailRequirement = function () {
                 requireMMUEmail=false;
                 console.log("Can now register without MMU email");
@@ -69,8 +69,8 @@ bbb.controller('Register', function($scope, $ionicModal,  $ionicLoading, ParseSe
                         return false;
                 }
 
-                $scope.loading = $ionicLoading.show({
-                        content: 'Loading',
+                $ionicLoading.show({
+                        template: 'Registering...'
                 });
 
                 var user = new Parse.User();
@@ -84,11 +84,11 @@ bbb.controller('Register', function($scope, $ionicModal,  $ionicLoading, ParseSe
                                 $rootScope.currentUser = user;
                                 $scope.$apply(); // Notify AngularJS to sync currentUser
                                 alert('You can now access the Birley Big Bang app, but you will also need to verify your email to use it fully')
-                                $scope.loading.hide();
+                                $ionicLoading.hide();
                                 $state.go('tabs.schedule')
                         },
                         error: function(user, error) {
-                                $scope.loading.hide();
+                                $ionicLoading.hide();
                                 alert("Unable to sign up:  " + error.code + " " + error.message);
                         }
                 });    

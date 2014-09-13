@@ -13,8 +13,8 @@ bbb.controller('Login', function($scope, $ionicLoading, ParseService, $rootScope
 
         $scope.signIn = function () {
 
-                $scope.loading = $ionicLoading.show({
-                        content: 'Loading',
+                $ionicLoading.show({
+                        template: 'Logging In...'
                 });
 
                 Parse.User.logIn($scope.loginUser.username, $scope.loginUser.password, {
@@ -22,13 +22,13 @@ bbb.controller('Login', function($scope, $ionicLoading, ParseService, $rootScope
 
                                 $rootScope.currentUser = user;
 
-                                $scope.loading.hide();
+                                $ionicLoading.hide();
 
                                 $state.go("tabs.schedule");
 
                         },
                         error: function(user, error) {
-                                $scope.loading.hide();
+                                $ionicLoading.hide();
                                 alert("Unable to sign in:  "  + error.message + "\n\nPlease note that you have to register to use the app using the button on this page, if you haven't already - it won't link automatically to your MMU account" );      }
                 });
 
@@ -42,7 +42,7 @@ bbb.controller('Login', function($scope, $ionicLoading, ParseService, $rootScope
 
                 Parse.User.requestPasswordReset($scope.loginUser.username, {
                         success: function() {
-				alert("A link has been sent to your email address to reset your pasword")
+                                alert("A link has been sent to your email address to reset your pasword")
                         },
                         error: function(error) {
                                 // Show the error message somewhere
