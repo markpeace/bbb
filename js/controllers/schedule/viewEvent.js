@@ -12,14 +12,17 @@ bbb.controller('ViewEvent', function($scope, ParseService, EventModel, $ionicMod
                 if (iteration.id==$stateParams.id) { $scope.iteration=iteration }
         })
 
-        dummyIteration = (new (Parse.Object.extend("Booking"))).set("objectId", $scope.iteration.id)
+        dummyIteration = (new (Parse.Object.extend("Iteration"))).set("objectId", $scope.iteration.id)
 
         var getCountOfBookings = function() {
                 (new Parse.Query("Booking"))
                 .equalTo("iteration", dummyIteration)
                 .count().then(function(r) {
+                        
                         $scope.iteration.bookings=r
 
+                        console.log(r)
+                        
                         if ($scope.iteration.capacity-r == 0 ) { findAlternativeIterations()}
 
                         $scope.$apply()
