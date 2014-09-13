@@ -7,6 +7,8 @@ bbb.controller('ViewEvent', function($scope, ParseService, EventModel, $ionicMod
         $scope.emailVerified=Parse.User.current().get('emailVerified')
 
         $scope.allowBookings=EventModel.data().Setting.allowBookings
+        $scope.allowMessaging=EventModel.data().Setting.allowMessaging
+
 
         EventModel.data().Iteration.forEach(function(iteration) {
                 if (iteration.id==$stateParams.id) { $scope.iteration=iteration }
