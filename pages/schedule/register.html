@@ -13,6 +13,9 @@
                                 <i class="icon ion-ios7-circle-outline" ng-hide="booking.checkin"></i>
                                 <i class="icon ion-ios7-checkmark-outline" ng-show="booking.checkin"></i>
                         </ion-item>
+                        <ion-item ng-show="bookings.length==0">
+                                Nobody has signed up for this event yet.
+                        </ion-item>
                 </ion-list> 
         </ion-content>
 </ion-view>

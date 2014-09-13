@@ -1,4 +1,4 @@
-bbb.controller('AttendenceRegister', function($scope, ParseService, $stateParams, $q) { 
+bbb.controller('AttendenceRegister', function($scope, $ionicLoading, ParseService, $stateParams, $q) { 
 
         $scope.bookings = []
         $scope.id=$stateParams.id
@@ -7,6 +7,10 @@ bbb.controller('AttendenceRegister', function($scope, ParseService, $stateParams
 
         dummyIteration = (new (Parse.Object.extend("Iteration")))
         dummyIteration.id = $scope.id                        
+
+        $ionicLoading.show({
+                template: 'Checking...'
+        });
 
 
         new Parse.Query("Booking")
@@ -26,6 +30,8 @@ bbb.controller('AttendenceRegister', function($scope, ParseService, $stateParams
                                 $scope.$apply();
                         })
                 })
+
+                $ionicLoading.hide();
 
         })
 

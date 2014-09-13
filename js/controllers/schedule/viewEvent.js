@@ -20,8 +20,6 @@ bbb.controller('ViewEvent', function($scope, ParseService, EventModel, $ionicMod
                 .count().then(function(r) {
                         
                         $scope.iteration.bookings=r
-
-                        console.log(r)
                         
                         if ($scope.iteration.capacity-r == 0 ) { findAlternativeIterations()}
 
@@ -33,10 +31,10 @@ bbb.controller('ViewEvent', function($scope, ParseService, EventModel, $ionicMod
         var findAlternativeIterations = function() {
                 $scope.alternativeIterations = []
 
-                angular.forEach(EventModel.data().iterations, function (i) {
+                angular.forEach(EventModel.data().Iteration, function (i) {
                         if (i.event.id == $scope.iteration.event.id && i.id!=$scope.iteration.id) { $scope.alternativeIterations.push(i) }
                 })
-
+                
                 $scope.$apply();
         }
 
