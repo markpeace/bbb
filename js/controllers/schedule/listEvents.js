@@ -1,4 +1,4 @@
-bbb.controller('ListEvents', function($state, $scope, ParseService, $rootScope, EventModel, NotificationService) { 
+bbb.controller('ListEvents', function($state, $scope, ParseService, $rootScope,$ionicScrollDelegate, EventModel, NotificationService) { 
 
         $scope.moment=moment
         $scope.securityLevel=$rootScope.currentUser.get('securityLevel')
@@ -40,6 +40,7 @@ bbb.controller('ListEvents', function($state, $scope, ParseService, $rootScope, 
 
         $scope.changeDate=function(increment) {
                 $scope.selectedDate=$scope.selectedDate+increment;
+                $ionicScrollDelegate.scrollTop();
         }
 
 

@@ -49,7 +49,7 @@
                                         <div class="item item-footer">
                                                 This Event is Fully Booked <span ng-show="alternativeIterations.length>0">, Here Are Some Alternative Times and Days:  </span>                                              
                                         </div>
-                                        <div class="item item-icon-right item-text-wrap" ng-repeat="i in alternativeIterations" ui-sref="viewEvent({id:i.id})">
+                                        <div class="item item-body item-icon-right item-text-wrap" ng-repeat="i in alternativeIterations" ui-sref="viewEvent({id:i.id})">
                                                 {{ moment(i.time).format("dddd, MMMM Do @ h:mm a"); }}
                                                 <i class="icon ion-ios7-arrow-right"></i>
 
