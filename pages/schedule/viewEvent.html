@@ -17,8 +17,8 @@
                         <h2>{{ iteration.event.title }}</h2>
                         <p>{{ moment(iteration.time).format("dddd, MMMM Do @ h:mm a"); }}</p>
                 </div>
-
-                <div class="item item-icon-right" ng-show="booking.attending">     
+                
+                <div class="item item-icon-right" ng-show="iteration.booked">     
                         <p ng-click="locationinfoModal.show()">
                                 {{ iteration.location.label }}  
                                 <i class="icon ion-ios7-information-outline"></i>
