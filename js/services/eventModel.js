@@ -88,6 +88,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                 cache.data[lookupItem.table] = []
 
                                 query = new Parse.Query(lookupItem.table)
+                                query.limit(9999)
                                 angular.forEach(lookupItem.constraints, function (constraint) { eval("query" + constraint) })
                                 query.find().then(function(results) {
                                         angular.forEach(results, function(result) {
@@ -174,10 +175,10 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
 
                                 lastDate=null
                                 cache.data.IterationDate = []
-
+				console.log(cache.data.Iteration.length)
                                 cache.data.Iteration.forEach(function(iteration) {                                              
 
-                                        newDate = moment(iteration.time).format("dddd, Do MMMM")                           
+                                        newDate = moment(iteration.time).format("dddd, Do MMMM")             
                                         if (cache.data.IterationDate.indexOf(newDate)==-1) { cache.data.IterationDate.push(newDate) }
 
                                 })                               
