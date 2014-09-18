@@ -1,10 +1,15 @@
-bbb.controller('ListEvents', function($state, $scope, ParseService, $rootScope,$ionicScrollDelegate, EventModel, NotificationService) { 
+bbb.controller('ListEvents', function($state, $scope, ParseService, $rootScope,$ionicScrollDelegate, $stateParams, EventModel, NotificationService) { 
 
         $scope.moment=moment
         $scope.securityLevel=$rootScope.currentUser.get('securityLevel')
 
         $scope.data=EventModel.data();       
         $scope.selectedDate=0;
+        
+        $scope.data.IterationDate.forEach(function(d,i){
+                if(d==$stateParams.selectedDate) { $scope.selectedDate=i }
+        })
+        
 
         $scope.selectTab= function(tab) {
                 $scope.selectedTab=tab	

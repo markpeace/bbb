@@ -45,6 +45,15 @@ bbb.config(function($stateProvider, $urlRouterProvider) {
                         }
                 }
         })
+        .state('tabs.schedulewithdate', {
+                url: "/schedule/{selectedDate}",
+                views: {
+                        'schedule-tab': {
+                                templateUrl: "pages/schedule/list.html",
+                                controller: 'ListEvents'          
+                        }
+                }
+        })
         .state('tabs.schedule_booked', {
                 url: "/schedule/booked",
                 views: {
