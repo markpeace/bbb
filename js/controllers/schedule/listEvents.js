@@ -5,11 +5,13 @@ bbb.controller('ListEvents', function($state, $scope, ParseService, $rootScope,$
 
         $scope.data=EventModel.data();       
         $scope.selectedDate=0;
-        
-        $scope.data.IterationDate.forEach(function(d,i){
-                if(d==$stateParams.selectedDate) { $scope.selectedDate=i }
-        })
-        
+
+        if($stateParams.selectedDate) {
+                $scope.data.IterationDate.forEach(function(d,i){
+                        if(d==$stateParams.selectedDate) { $scope.selectedDate=i }
+                })
+        }
+
 
         $scope.selectTab= function(tab) {
                 $scope.selectedTab=tab	
@@ -30,9 +32,9 @@ bbb.controller('ListEvents', function($state, $scope, ParseService, $rootScope,$
                 if (!$scope.data.IterationDate) { return; }
 
                 return items.filter(function(item, index) {   
-                        
+
                         if (!item.inCohort && $scope.securityLevel!=1 ) { return false }
-                        
+
                         if(moment(item.time).format("dddd, Do MMMM")==$scope.data.IterationDate[$scope.selectedDate]) { 
                                 if($scope.selectedTab=="BOOKED") {
                                         if(item.booked) { return true }
