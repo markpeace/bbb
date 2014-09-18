@@ -14,7 +14,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                         })) 
                         NotificationService.reminders.destroyAll();
                         console.log("Created localStorage Item")
-                }
+               }
 
                 cache = {
                         dc: this,
@@ -139,12 +139,12 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                 settings=cache.data.Setting;
                                 cache.data.Setting={}
 
-                                settings.forEach(function(settingRow){
+                                if (settings.length) settings.forEach(function(settingRow){
                                         settingRow=JSON.parse(settingRow.settings)
                                         Object.keys(settingRow).forEach(function(key) {
                                                 cache.data.Setting[key]= settingRow[key]
                                         })
-                                })
+                                }) 
 
 
                                 //UPDATE EVENTS
@@ -219,7 +219,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                 $rootScope.$apply()
                         } catch(ex) {
                                 alert(ex)
-                                alert("An unknown error has occurred, please try again later. \n\nIf the problem persists, please contact m.peace@mmu.ac.uk")
+                                alert("An unknown error has occurred, please try logging out, closing down the app and opening it again. \n\nIf the problem persists, please contact m.peace@mmu.ac.uk")
                                 localStorage.removeItem(Parse.User.current().id)
                         }
 

@@ -4,7 +4,7 @@ bbb.service('ParseService', [function() {
         if(typeof cordova === 'object' && typeof window.WeinreServerId === "undefined") { Parse.usingTestServer = false; }        
         if(window.location.host.indexOf("mmu.ac.uk")>-1) { Parse.usingTestServer=false}
         
-        Parse.usingTestServer=false
+        //Parse.usingTestServer=false
         
         if(Parse.usingTestServer == false) {
                 var app_id = "iBkDfDqzMHb2gW1ClfLTwziKkmWrAZ5MyzKmwJwl";
