@@ -14,7 +14,7 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                         })) 
                         NotificationService.reminders.destroyAll();
                         console.log("Created localStorage Item")
-               }
+                }
 
                 cache = {
                         dc: this,
@@ -171,12 +171,12 @@ bbb.factory('EventModel', ["NotificationService","ParseService", "$ionicLoading"
                                         iteration.inCohort = JSON.stringify(iteration.event.cohorts).indexOf(Parse.User.current().get("cohort").id)
                                         iteration.inCohort = iteration.inCohort==-1 ? false : true
                                         iteration.inCohort = iteration.isHost ? true : iteration.inCohort 
-                                        iteration.inCohort = iteration.event.cohorts.length==0 ? true : iteration.inCohort  
+                                        iteration.inCohort = iteration.event.cohorts.length==0 ? true : iteration.inCohort
                                 })
 
                                 lastDate=null
                                 cache.data.IterationDate = []
-				console.log(cache.data.Iteration.length)
+                                console.log(cache.data.Iteration.length)
                                 cache.data.Iteration.forEach(function(iteration) {                                              
 
                                         newDate = moment(iteration.time).format("dddd, Do MMMM")             
