@@ -37,7 +37,7 @@
 
 
         <!-- Customize your app and platform with the preference element. -->
-        <preference name="phonegap-version"           value="3.6.3" />          <!-- all: current version of PhoneGap -->
+        <preference name="phonegap-version"           value="3.5.0" />          <!-- all: current version of PhoneGap -->
         <preference name="orientation"                value="default" />        <!-- all: default means both landscape and portrait are enabled -->
         <preference name="target-device"              value="universal" />      <!-- all: possible values handset, tablet, or universal -->
         <preference name="fullscreen"                 value="true" />           <!-- all: hides the status bar at the top of the screen -->
@@ -59,8 +59,8 @@
         <!--<gap:plugin name="org.apache.cordova.battery-status" /> -->
         <!--<gap:plugin name="org.apache.cordova.camera" /> -->
 
-        <!--<gap:plugin name="org.apache.cordova.core.camera" /> -->
-        <!--<gap:plugin name="org.apache.cordova.geolocation" />  -->
+        <gap:plugin name="org.apache.cordova.core.camera" />
+        <gap:plugin name="org.apache.cordova.geolocation" /> 
 
         <!--<gap:plugin name="org.apache.cordova.media-capture" /> -->
         <!--<gap:plugin name="org.apache.cordova.console" /> -->
@@ -75,7 +75,7 @@
         <!--<gap:plugin name="org.apache.cordova.inappbrowser" /> -->
         <!--<gap:plugin name="org.apache.cordova.media" /> -->
 
-        <!--<gap:plugin name="org.apache.cordova.network-information" /> -->
+        <gap:plugin name="org.apache.cordova.network-information" />
 
         <!--<gap:plugin name="org.apache.cordova.splashscreen" /> -->
         <!--<gap:plugin name="org.apache.cordova.vibration" /> -->
@@ -83,10 +83,38 @@
         <!-- Third party plugins -->
         <!-- A list of available plugins are available at https://build.phonegap.com/plugins -->
         <!--    -->
-        <!-- <gap:plugin name="com.phonegap.plugins.barcodescanner" /> -->
-        <!-- <gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.7.4" /> -->
-        <!-- <gap:plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" /> -->
-        
+        <gap:plugin name="com.phonegap.plugins.barcodescanner" />
+        <gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.7.4" />
+        <gap:plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" />
+
+        <!-- Define app icon for each platform. -->
+        <icon src="icon.png" />
+        <icon src="res/icon/icon-36-ldpi.png"   gap:platform="android"    gap:qualifier="ldpi" />
+        <icon src="res/icon/icon-48-mdpi.png"   gap:platform="android"    gap:qualifier="mdpi" />
+        <icon src="res/icon/icon-72-hdpi.png"   gap:platform="android"    gap:qualifier="hdpi" />
+        <icon src="res/icon/icon-96-xhdpi.png"  gap:platform="android"    gap:qualifier="xhdpi" />
+
+        <icon src="res/icon/appicon.png"            gap:platform="ios"        width="57" height="57" />
+        <icon src="res/icon/appicon-72.png"            gap:platform="ios"        width="72" height="72" />
+        <icon src="res/icon/appicon@2x.png"         gap:platform="ios"        width="114" height="114" />
+        <icon src="res/icon/appicon-72@2x.png"         gap:platform="ios"        width="144" height="144" />
+        <icon src="res/icon/appicon-120.png"            gap:platform="ios"        width="120" height="120" />
+        <icon src="res/icon/appicon-76.png"            gap:platform="ios"        width="76" height="76" />
+
+        <!-- Define app splash screen for each platform. -->
+        <gap:splash src="res/splash/screen-ldpi-portrait.png"       gap:platform="android" gap:qualifier="port-ldpi" />
+        <gap:splash src="res/splash/screen-mdpi-portrait.png"       gap:platform="android" gap:qualifier="port-mdpi" />
+        <gap:splash src="res/splash/screen-hdpi-portrait.png"       gap:platform="android" gap:qualifier="port-hdpi" />
+        <gap:splash src="res/splash/screen-xhdpi-portrait.png"      gap:platform="android" gap:qualifier="port-xhdpi" />
+
+        <gap:splash src="res/splash/Default.png"             gap:platform="ios"     width="320" height="480" />
+        <gap:splash src="res/splash/Default@2x"          gap:platform="ios"     width="640" height="960" />
+        <gap:splash src="res/splash/Default-568h@2x.png"     gap:platform="ios"     width="640" height="1136" />
+        <gap:splash src="res/splash/Default-Landscape.png"              gap:platform="ios"     width="1024" height="768" />
+        <gap:splash src="res/splash/Default-Portrait.png"               gap:platform="ios"     width="768" height="1024" />
+        <gap:splash src="res/splash/Default-Landscape@2x.png"        gap:platform="ios" width="2048" height="1536"/> 
+        <gap:splash src="res/splash/Default-Portrait@2x.png"         gap:platform="ios" width="1536" height="2008"/>
+
         <!--
         Define access to external domains.
 
